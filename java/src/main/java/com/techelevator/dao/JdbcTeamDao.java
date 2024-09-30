@@ -9,6 +9,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+
+import java.util.ArrayList;
+
 import java.util.List;
 
 @Component
@@ -51,6 +54,7 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
         return team;
     }
 
+
     @Override
     public void createTeam(Team newTeam) {
 
@@ -69,6 +73,37 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
     @Override
     public boolean deleteTeamById(int teamId) {
         return false;
+
+    public List<Team> getTeamNames(){
+    List<Team> teams = new ArrayList<>();
+    String sql = "SELECT team_id, captain_id, game_id, isAccepting, max_players FROM teams ORDER BY team_name";
+    try{
+        SqlRowSet results = jdbcTemplate.queryForRowSet((sql);
+        while(results.next()){
+            Team team = mapToRowSet(results);
+            teams.add(team);
+        }
+    }
+        catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return teams;
+    }
+
+    public void createTeam(Team newTeam) {
+    String sql = "INSERT INTO team(team_name, captain_id, game_id, isAccepting, max_palyers) VALUES (?,?,?,?,?) Returning team_id;";
+    try{
+        int results = jdbcTemplate.queryForObject(sql,int.class);
+        if (results > 0) {
+            newTeam = getTeamById(results);
+            newTeam.setTeamId(results);
+        }
+    }catch (CannotGetJdbcConnectionException e) {
+        throw new DaoException("Unable to connect to server or database", e);
+    } catch (DataIntegrityViolationException e) {
+        throw new DaoException("Data integrity violation", e);
+    }
+
     }
 
     public Team mapToRowSet(SqlRowSet rowSet){

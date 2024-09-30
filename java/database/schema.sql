@@ -46,6 +46,7 @@ CREATE TABLE teams (
 CREATE TABLE team_users (
     user_id int NOT NULL,
     team_id int NOT NULL,
+    accepted boolean NOT NULL,
     CONSTRAINT PK_team_users PRIMARY KEY (user_id, team_id),
     CONSTRAINT FK_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
     CONSTRAINT FK_team_id FOREIGN KEY (team_id) REFERENCES teams(team_id)

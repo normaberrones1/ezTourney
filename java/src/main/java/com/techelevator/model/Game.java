@@ -1,32 +1,32 @@
 package com.techelevator.model;
 
 public class Game {
-    private int game_id;
-    private String game_name;
+    private int gameId;
+    private String gameName;
 
-    private int category_id;
+    private int categoryId;
 
-    public int getGame_id() {
-        return game_id;
+    public int getGameId() {
+        return gameId;
     }
 
-    public void setGame_id(int game_id) {
-        this.game_id = game_id;
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
     }
 
-    public String getGame_name() {
-        return game_name;
+    public String getGameName() {
+        return gameName;
     }
 
-    public void setGame_name(String game_name) {
-        this.game_name = game_name;
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }
