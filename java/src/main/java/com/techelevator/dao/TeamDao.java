@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface TeamDao {
 
+    List<Team> getTeamNames();
 
-    public List<Team> getTeamNames();
     Team getTeamById(int teamId);
 
     Team getTeamByTeamName(String teamName);

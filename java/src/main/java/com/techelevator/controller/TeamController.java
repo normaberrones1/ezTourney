@@ -46,7 +46,7 @@ public class TeamController {
     public Team getTeam(@PathVariable int teamId) {
         Team team = teamDao.getTeamById(teamId);
         if(team == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found.")
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found.");
         } else {
             return team;
         }
@@ -76,18 +76,18 @@ public class TeamController {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found.");
             }
             }catch(DaoException e){
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Team deletion error.")
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Team deletion error.");
             }
         }
-
-    //GET teams by game ID
-    @RequestMapping(path = "/teams/game/{gameId}", method = RequestMethod.GET)
-
-
-    //GET teams by captain ID
-    @RequestMapping(path = "/teams/captain/{captainId}", method = RequestMethod.GET)
-
-
-    //PATCH accept/reject team members
-    @RequestMapping(path = "/teams/{id}/accepting", method = RequestMethod.PATCH)
+//
+//    //GET teams by game ID
+//    @RequestMapping(path = "/teams/game/{gameId}", method = RequestMethod.GET)
+//
+//
+//    //GET teams by captain ID
+//    @RequestMapping(path = "/teams/captain/{captainId}", method = RequestMethod.GET)
+//
+//
+//    //PATCH accept/reject team members
+//    @RequestMapping(path = "/teams/{id}/accepting", method = RequestMethod.PATCH)
 }

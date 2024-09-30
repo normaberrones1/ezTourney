@@ -16,6 +16,10 @@ public class MemberController {
 
     private MemberDao dao;
 
+    MemberController(MemberDao dao){
+        this.dao = dao;
+    }
+
     //get Team Captain name and id;
     @RequestMapping(path="/teamCaptain/{id}", method= RequestMethod.GET)
     public UserDto getCaptain(@PathVariable int id){
