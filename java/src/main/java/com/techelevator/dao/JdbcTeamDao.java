@@ -101,6 +101,11 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
     }
     }
 
+    @Override
+    public Team getTeamByGameId(int gameId) {
+        return null;
+    }
+
     public Team mapToRowSet(SqlRowSet rowSet){
     Team team = new Team();
     team.setTeamId(rowSet.getInt("team_id"));
