@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JdbcTeamDao  implements TeamDao{
+public class JdbcTeamDao implements TeamDao{
 private  JdbcTemplate jdbcTemplate;
 
 public JdbcTeamDao(JdbcTemplate jdbcTemplate){
@@ -54,12 +54,6 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
         return team;
     }
 
-
-    @Override
-    public void createTeam(Team newTeam) {
-
-    }
-
     @Override
     public List<TeamDto> getAllTeams() {
         return null;
@@ -73,25 +67,25 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
     @Override
     public boolean deleteTeamById(int teamId) {
         return false;
-
-    public List<Team> getTeamNames(){
-    List<Team> teams = new ArrayList<>();
-    String sql = "SELECT team_id, captain_id, game_id, isAccepting, max_players FROM teams ORDER BY team_name";
-    try{
-        SqlRowSet results = jdbcTemplate.queryForRowSet((sql);
-        while(results.next()){
-            Team team = mapToRowSet(results);
-            teams.add(team);
-        }
     }
-        catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
+        public List<Team> getTeamNames() {
+            List<Team> teams = new ArrayList<>();
+            String sql = "SELECT team_id, captain_id, game_id, isAccepting, max_players FROM teams ORDER BY team_name";
+            try {
+                SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+                while (results.next()) {
+                    Team team = mapToRowSet(results);
+                    teams.add(team);
+                }
+            } catch (CannotGetJdbcConnectionException e) {
+                throw new DaoException("Unable to connect to server or database", e);
+            }
+            return teams;
         }
-        return teams;
     }
 
     public void createTeam(Team newTeam) {
-    String sql = "INSERT INTO team(team_name, captain_id, game_id, isAccepting, max_palyers) VALUES (?,?,?,?,?) Returning team_id;";
+    String sql = "INSERT INTO team(team_name, captain_id, game_id, isAccepting, max_players) VALUES (?,?,?,?,?) Returning team_id;";
     try{
         int results = jdbcTemplate.queryForObject(sql,int.class);
         if (results > 0) {
