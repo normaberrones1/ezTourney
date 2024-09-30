@@ -4,8 +4,9 @@ public class Team {
     private int teamId;
     private String teamName;
     private int captainId;
-    private String sport;
-    private boolean isAccepting;
+    private int gameId;
+    private boolean  isAccepting;
+    private int maxPlayers;
 
 
 
@@ -33,12 +34,12 @@ public class Team {
         this.captainId = captainId;
     }
 
-    public String getSport() {
-        return sport;
+    public int getGameId() {
+        return gameId;
     }
 
-    public void setSport(String sport) {
-        this.sport = sport;
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
     }
 
     public boolean isAccepting() {
@@ -47,5 +48,13 @@ public class Team {
 
     public void setAccepting(boolean accepting) {
         isAccepting = accepting;
+    }
+
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
     }
 }
