@@ -52,9 +52,9 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
     Team team = new Team();
     team.setTeamId(rowSet.getInt("team_id"));
     team.setTeamName(rowSet.getString("team_name"));
-    team.setCaptain_id(rowSet.getInt("captain_id"));
+    team.setCaptainId(rowSet.getInt("captain_id"));
     team.setGameId(rowSet.getInt("game_id"));
-    team.setIsAccepting(rowSet.getBoolean("is_Accepting"));
+    team.setAccepting(rowSet.getBoolean("is_Accepting"));
     team.setMaxPlayers(rowSet.getInt("max_players"));
     return team;
     }
