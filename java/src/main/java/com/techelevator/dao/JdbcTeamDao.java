@@ -8,6 +8,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class JdbcTeamDao  implements TeamDao{
 private  JdbcTemplate jdbcTemplate;
@@ -47,7 +50,21 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
         }
         return team;
     }
-
+    public List<Team> getTeamNames(){
+    List<Team> teams = new ArrayList<>();
+    String sql = "SELECT team_id, captain_id, game_id, isAccepting, max_players FROM teams ORDER BY team_name";
+    try{
+        SqlRowSet results = jdbcTemplate.queryForRowSet((sql);
+        while(results.next()){
+            Team team = mapToRowSet(results);
+            teams.add(team);
+        }
+    }
+        catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return teams;
+    }
 
     public Team mapToRowSet(SqlRowSet rowSet){
     Team team = new Team();
