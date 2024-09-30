@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS team_users;
 DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS game_category;
+DROP TABLE IF EXISTS tournament;
+DROP TABLE IF EXISTS team_tourney;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -48,7 +50,33 @@ CREATE TABLE team_users (
     CONSTRAINT FK_team_id FOREIGN KEY (team_id) REFERENCES teams(team_id)
 );
 
+CREATE TABLE tournament (
+    tourney_id SERIAL,
+    tourney_name varchar(50) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    location varchar(50) NOT NULL,
+    entry_fee int NOT NULL,
+    prize_desc varchar(100) NOT NULL,
+    tourney_desc varchar(500) NOT NULL,
+    game_id int NOT NULL,
+    director_id int NOT NULL,
+    is_complete boolean NOT NULL,
+    round int NOT NULL,
+    CONSTRAINT PK_tourney PRIMARY KEY (tourney_id),
+    CONSTRAINT FK_game FOREIGN KEY (game_id) REFERENCES games(game_id),
+    CONSTRAINT FK_director FOREIGN KEY (director_id) REFERENCES users(user_id)
+);
 
-
+CREATE TABLE team_tourney (
+    team_id int NOT NULL,
+    tourney_id int NOT NULL,
+    isAccepted boolean NOT NULL,
+    eliminated boolean NOT NULL,
+    round_eliminated int,
+    CONSTRAINT PK_team_tourney PRIMARY KEY (team_id, tourney_id),
+    CONSTRAINT FK_team FOREIGN KEY (team_id) REFERENCES teams(team_id),
+    CONSTRAINT FK_tourney FOREIGN KEY (tourney_id) REFERENCES tournament(tourney_id)
+);
 
 COMMIT TRANSACTION;
