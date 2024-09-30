@@ -47,7 +47,7 @@ public class TeamController {
     @RequestMapping(path = "/teams/{teamId}", method = RequestMethod.GET)
     public Team getTeam(@PathVariable int teamId) {
         Team team = teamDao.getTeamById(teamId);
-        if (team == null) {
+        if(team == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found.");
         } else {
             return team;
@@ -82,7 +82,7 @@ public class TeamController {
     }
 
     //GET teams by game ID
-    @RequestMapping(path = "/teams/{gameId}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/game/{gameId}", method = RequestMethod.GET)
     public Team getTeamByGameId(@PathVariable int gameId) {
         Team team = teamDao.getTeamByGameId(gameId);
         if (team == null) {
@@ -106,3 +106,4 @@ public class TeamController {
     //PATCH accept/reject team members
 
 }
+

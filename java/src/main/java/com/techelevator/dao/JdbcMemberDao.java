@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JdbcMemberDao {
+public class JdbcMemberDao implements MemberDao{
 
     private final JdbcTemplate template;
 
@@ -55,8 +55,8 @@ public class JdbcMemberDao {
         List<TeamDto> teams = new ArrayList<>();
 
         String sql = "SELECT team_name, captain_id FROM teams " +
-                "JOIN team_user ON team.team_id, team_user.team_id " +
-                "JOIN user ON user.user_id team_user.user_id " +
+                "JOIN team_users ON team.team_id, team_users.team_id " +
+                "JOIN user ON user.user_id team_users.user_id " +
                 "WHERE user.username = ?";
 
         SqlRowSet rowSet = template.queryForRowSet(sql, principal.getName());

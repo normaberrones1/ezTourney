@@ -67,6 +67,7 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
     @Override
     public boolean deleteTeamById(int teamId) {
         return false;
+
     }
         public List<Team> getTeamNames() {
             List<Team> teams = new ArrayList<>();
@@ -82,7 +83,6 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
             }
             return teams;
         }
-    }
 
     public void createTeam(Team newTeam) {
     String sql = "INSERT INTO team(team_name, captain_id, game_id, isAccepting, max_players) VALUES (?,?,?,?,?) Returning team_id;";
@@ -97,7 +97,11 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
     } catch (DataIntegrityViolationException e) {
         throw new DaoException("Data integrity violation", e);
     }
+    }
 
+    @Override
+    public Team getTeamByGameId(int gameId) {
+        return null;
     }
 
     public Team mapToRowSet(SqlRowSet rowSet){
@@ -112,3 +116,4 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
     }
 
 }
+
