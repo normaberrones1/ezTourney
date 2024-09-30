@@ -9,7 +9,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+
 import java.util.ArrayList;
+
 import java.util.List;
 
 @Component
@@ -53,6 +55,16 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
     }
 
 
+    @Override
+    public Team updateTeam(Team team) {
+        return null;
+    }
+
+    @Override
+    public boolean deleteTeamById(int teamId) {
+        return false;
+    }
+
     public List<Team> getTeamNames(){
     List<Team> teams = new ArrayList<>();
     String sql = "SELECT team_id, captain_id, game_id, isAccepting, max_players FROM teams ORDER BY team_name";
@@ -84,6 +96,10 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
     }
     }
 
+    @Override
+    public Team getTeamByGameId(int gameId) {
+        return null;
+    }
 
     public Team mapToRowSet(SqlRowSet rowSet){
     Team team = new Team();
@@ -97,3 +113,4 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
     }
 
 }
+
