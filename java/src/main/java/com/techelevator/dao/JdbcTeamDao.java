@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class JdbcTeamDao  implements TeamDao{
 private  JdbcTemplate jdbcTemplate;
@@ -50,8 +52,23 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
     }
 
     @Override
-    public void createTeam(TeamDto newTeam) {
+    public void createTeam(Team newTeam) {
 
+    }
+
+    @Override
+    public List<TeamDto> getAllTeams() {
+        return null;
+    }
+
+    @Override
+    public Team updateTeam(Team team) {
+        return null;
+    }
+
+    @Override
+    public boolean deleteTeamById(int teamId) {
+        return false;
     }
 
     public Team mapToRowSet(SqlRowSet rowSet){
