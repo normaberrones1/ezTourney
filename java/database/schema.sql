@@ -17,7 +17,7 @@ CREATE TABLE teams (
     team_name varchar(50) NOT NULL,
     captain_id int NOT NULL,
     sport varchar(50) NOT NULL,
-    isAccepting bit NOT NULL,
+    isAccepting boolean NOT NULL,
     CONSTRAINT pk_team PRIMARY KEY (team_id),
     CONSTRAINT fk_captain FOREIGN KEY (captain_id) REFERENCES users(user_id)
 );
@@ -29,6 +29,7 @@ CREATE TABLE team_users (
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
     CONSTRAINT fk_team_id FOREIGN KEY (team_id) REFERENCES teams(team_id)
 );
+
 
 
 
