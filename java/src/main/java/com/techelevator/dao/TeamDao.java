@@ -1,8 +1,10 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Team;
+import com.techelevator.model.TeamDto;
 
 public interface TeamDao {
-    public Team getTeamById(int teamId);
-    public Team getTeamByTeamName(String teamName);
+    Team getTeamById(int teamId);
+    Team getTeamByTeamName(String teamName);
+    void createTeam(TeamDto newTeam);
 }

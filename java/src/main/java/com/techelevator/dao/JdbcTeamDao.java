@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Team;
+import com.techelevator.model.TeamDto;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -46,6 +47,11 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
             throw new DaoException("Data integrity violation", e);
         }
         return team;
+    }
+
+    @Override
+    public void createTeam(TeamDto newTeam) {
+
     }
 
     public Team mapToRowSet(SqlRowSet rowSet){
