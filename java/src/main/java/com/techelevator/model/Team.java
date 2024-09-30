@@ -7,6 +7,8 @@ public class Team {
     private String sport;
     private boolean isAccepting;
 
+
+
     public int getTeamId() {
         return teamId;
     }
