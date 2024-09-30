@@ -34,7 +34,7 @@ public class JdbcGameDao implements GameDao {
     }
      public Game getGameByName( String gameName){
          Game game = null;
-         String sql = "SELECT game_id , category_id FROM games  WHERE game_id=?;";
+         String sql = "SELECT game_id, category_id FROM games  WHERE game_id=?;";
          try {
              SqlRowSet results = jdbcTemplate.queryForRowSet(sql, gameName);
              if (results.next()) {

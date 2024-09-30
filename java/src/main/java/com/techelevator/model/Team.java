@@ -8,6 +8,8 @@ public class Team {
     private boolean  isAccepting;
     private int maxPlayers;
 
+
+
     public int getTeamId() {
         return teamId;
     }
