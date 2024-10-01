@@ -18,6 +18,28 @@
 
 
 export default {
+  name: 'Home',
+  data() {
+    return {
+      carousel: [
+        {
+          id: 1,
+          src: 'carousel1.jpg',
+          alt: 'carousel image 1'
+        },
+        {
+          id: 2,
+          src: 'carousel2.jpg',
+          alt: 'carousel image 2'
+        },
+        {
+          id: 3,
+          src: 'carousel3.jpg',
+          alt: 'carousel image 3'
+        }
+      ]
+    }
+  }
   
 };
 </script>
