@@ -45,20 +45,20 @@ export default {
 .teamName {
     font-style: italic;
     margin: 1%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .teamCaptain {
     margin: 1%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .teamCardContainer {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     border: 1px solid rgb(124, 124, 124);
+    grid-area: teams;
+    color: #58deff;
 }
 </style>

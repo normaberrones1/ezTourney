@@ -1,17 +1,18 @@
 <template>
     <h1>Current Teams</h1>
     <div id="teamContainer">
-        <section class="teamCardHeader"><span>Team</span><span>Captain</span></section>
-        <div class="teamsDiv" v-for="team in teams" :key="team.teamId">
-            <router-link v-bind:to="{name: 'teamDetails', params: {teamId:team.teamId}}">
-            <TeamCard class="teamCards" v-bind:team="team" />
+        <div class="teamsDiv" >
+            <router-link 
+            class="teamCardLink" v-for="team in teams" :key="team.teamId"
+            v-bind:to="{ name: 'teamDetails', params: { teamId: team.teamId } }">
+                <TeamCard v-bind:team="team" />
             </router-link>
         </div>
         <div id="teamForm">
             <TeamForm></TeamForm>
         </div>
     </div>
-    
+
 
 </template>
 
@@ -46,7 +47,6 @@ body {
     background-image: url('/public/teams-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    
 }
 
 h1 {
@@ -58,35 +58,18 @@ h1 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas:
-        "header header header teamForm"
         "teams teams teams teamForm"
         "teams teams teams teamForm";
+
 }
 
-#teamForm{
+#teamForm {
     grid-area: teamForm;
     display: flex;
     justify-content: center;
 }
 
-.teamCards {
+.teamsDiv{
     grid-area: teams;
-    color: #58deff;
-    display: flex;
-    flex-direction: column;
 }
-
-.teamCardHeader {
-    grid-area: header;
-    display: flex;
-    justify-content: space-between;
-    color: #58deff;
-}
-
-.teamsDiv {
-    display: flex;
-    flex-direction: column;
-}
-
-
 </style>
