@@ -1,5 +1,5 @@
 <template>
-    <h1>Current Teams</h1>
+    <h1 id="teams-title">CURRENT TEAMS</h1>
     <div id="teamContainer">
         <div class="teamsDiv" >
             <router-link 
@@ -51,7 +51,7 @@ body {
 
 h1 {
     text-align: center;
-    color: #58deff;
+    color: #b130fc;
 }
 
 #teamContainer {
@@ -60,6 +60,7 @@ h1 {
     grid-template-areas:
         "teams teams teams teamForm"
         "teams teams teams teamForm";
+        
 
 }
 
@@ -67,9 +68,24 @@ h1 {
     grid-area: teamForm;
     display: flex;
     justify-content: center;
+    
 }
 
 .teamsDiv{
     grid-area: teams;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 25px;
+    border: 1px solid rgb(124, 124, 124);
+    border-radius: 10px;
+}
+
+#teams-title {
+    position: relative;
+    right: 12.3%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-size: 2em;
+    color: #b130fc;
+    
 }
 </style>
