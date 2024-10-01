@@ -64,7 +64,6 @@ public class JdbcMemberDao implements MemberDao{
         while(rowSet.next()){
             teams.add(mapRowToTeamDto(rowSet));
         }
-
         return teams;
     }
 

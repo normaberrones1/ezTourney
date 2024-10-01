@@ -17,6 +17,8 @@ public interface TeamDao {
 
     Team updateTeam(Team team);
 
+    List<TeamDto> getAllTeams();
+
     boolean deleteTeamById(int teamId);
 
     Team getTeamByGameId(int gameId);
