@@ -2,8 +2,8 @@
     <div class="team"></div>
     <h1>this page will display a list of teams</h1>
     <p>clicking oon the team will show current tournaments and the captain</p>
-    <div >
-        <TeamCard v-bind:team="team" v-for="team in teams" :key="team.teamId"/>
+    <div v-for="team in teams" :key="team.teamId">
+        <TeamCard v-bind:team="team" />
     </div>
 
 </template>
@@ -21,7 +21,7 @@ export default {
         }
     },
 
-    components: [TeamCard],
+    components: {TeamCard},
 
     created(){
         TeamService.getAllTeams().then((response) => {

@@ -3,7 +3,7 @@ import axios from 'axios';
 export default {
     //all teams, anyone can view this info
     getAllTeams(){
-        return axios.get(`localhost:9000/teams/`);
+        return axios.get(`/teams/`);
     },
 
     //anyone can view teams and filter id
