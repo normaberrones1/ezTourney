@@ -78,4 +78,6 @@ INSERT INTO games(game_name, category_id) VALUES ('Bowling', 9);
 INSERT INTO games(game_name, category_id) VALUES ('Cycling', 9);
 
 
+
+
 COMMIT TRANSACTION;

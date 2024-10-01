@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import com.techelevator.dao.GameDao;
 import com.techelevator.dao.TeamDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Team;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.security.Principal;
 import java.util.List;
 
@@ -18,13 +18,15 @@ public class TeamController {
 
     @Autowired
     private TeamDao teamDao;
+    @Autowired
+    private GameDao gameDao;
 
     //CREATE new teams
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/teams", method = RequestMethod.POST)
     public void teams(@RequestBody Team newTeam) {
         try {
-            if(teamDao.getTeamByTeamName(newTeam.getTeamName()) != null) {
+            if (teamDao.getTeamByTeamName(newTeam.getTeamName()) != null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Team already exists.");
             } else {
                 teamDao.createTeam(newTeam);
@@ -46,7 +48,7 @@ public class TeamController {
     public Team getTeam(@PathVariable int teamId) {
         Team team = teamDao.getTeamById(teamId);
         if(team == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found.")
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found.");
         } else {
             return team;
         }
@@ -54,7 +56,7 @@ public class TeamController {
 
     //PUT teams by ID
     @RequestMapping(path = "/teams/{teamId}", method = RequestMethod.PUT)
-    public Team updateTeam(@RequestBody Team team, @PathVariable int teamId){
+    public Team updateTeam(@RequestBody Team team, @PathVariable int teamId) {
         team.setTeamId(teamId);
         try {
             Team updatedTeam = teamDao.updateTeam(team);
@@ -63,7 +65,6 @@ public class TeamController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found.");
         }
     }
-
 
 
     //DELETE teams by ID
@@ -75,19 +76,34 @@ public class TeamController {
             if (!deleted) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found.");
             }
-            }catch(DaoException e){
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Team deletion error.")
-            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Team deletion error.");
         }
+    }
 
     //GET teams by game ID
     @RequestMapping(path = "/teams/game/{gameId}", method = RequestMethod.GET)
-
+    public Team getTeamByGameId(@PathVariable int gameId) {
+        Team team = teamDao.getTeamByGameId(gameId);
+        if (team == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found.");
+        } else {
+            return team;
+        }
+    }
 
     //GET teams by captain ID
-    @RequestMapping(path = "/teams/captain/{captainId}", method = RequestMethod.GET)
-
+    @RequestMapping(path = "/teams/{captainId}", method = RequestMethod.GET)
+    public Team getTeamByCaptainId(@PathVariable int captainId) {
+        Team team = teamDao.getTeamById(captainId);
+        if (team == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found.");
+        } else {
+            return team;
+        }
+    }
 
     //PATCH accept/reject team members
-    @RequestMapping(path = "/teams/{id}/accepting", method = RequestMethod.PATCH)
+
 }
+
