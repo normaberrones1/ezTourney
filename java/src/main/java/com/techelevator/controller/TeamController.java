@@ -93,7 +93,7 @@ public class TeamController {
     }
 
     //GET teams by captain ID
-    @RequestMapping(path = "/teams/{captainId}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/captain/{captainId}", method = RequestMethod.GET)
     public Team getTeamByCaptainId(@PathVariable int captainId) {
         Team team = teamDao.getTeamById(captainId);
         if (team == null) {
