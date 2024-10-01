@@ -6,6 +6,7 @@
         <teamCard v-bind:team="team"/>
     </div>
 
+
 </template>
 
 <script>
@@ -28,3 +29,15 @@ export default {
 }
 
 </script>
+
+<style>
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+</style>
