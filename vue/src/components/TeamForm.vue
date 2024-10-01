@@ -1,7 +1,7 @@
 <template>
     <div class="team-form">
-        <h1>Team Form</h1>
-        <p> Fill out the form to create a new team!</p>
+        <h1>Team Enrollment Form</h1>
+        <p> Register your team to compete!</p>
         <form>
             <label for="team-name">Team Name</label>
             <input type="text" id="team-name" name="team-name" required>
@@ -19,9 +19,11 @@
             
                 <label for="is-accepting-no">No</label>   
                 <input type="checkbox" id="is-accepting-no" name="is-accepting" value="no">
+            
+                
             </div>
 
-            <button type="submit">Submit</button>
+            <button type="submit" id="form-submit">SUBMIT TEAM!</button>
         </form>
     </div>
 </template>
@@ -69,4 +71,9 @@ label, input {
     width: 70%;
     margin-bottom: 10px;
 }
+
+#form-submit {
+    font-size: 17px;
+}
+
 </style>
