@@ -13,7 +13,7 @@ public class Tournament {
     private String tourneyDesc;
     private int gameId;
     private int directorId;
-    private boolean isComplete;
+    private String winner;
      private int round;
 
     public int getTourneyId() {
@@ -96,12 +96,12 @@ public class Tournament {
         this.directorId = directorId;
     }
 
-    public boolean isComplete() {
-        return isComplete;
+    public String getWinner() {
+        return winner;
     }
 
-    public void setComplete(boolean complete) {
-        isComplete = complete;
+    public void setWinner(String winner) {
+        this.winner = winner;
     }
 
     public int getRound() {

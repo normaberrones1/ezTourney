@@ -1,6 +1,5 @@
 <template>
-    <div class="team"></div>
-    <team-list />>
+    <team-list id="teamsList"/>
 </template>
 
 <script>
@@ -14,3 +13,14 @@ export default {
 }
 
 </script>
+
+<style>
+
+body {
+    background-image: url('/public/teams-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+</style>

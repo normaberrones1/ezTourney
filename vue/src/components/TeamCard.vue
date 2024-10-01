@@ -7,17 +7,20 @@ if we even choose to do that.
 -->
 
 <template>
-    <h2>{{ team.teamName }}</h2>
-    <h4>{{ teamCaptain.username }}</h4>
+    <div class="teamCardContainer">
+        <h2 class="teamName">{{ team.teamName }}</h2>
+        <h4 class="teamCaptain">{{ teamCaptain.username }}</h4>
+    </div>
+
 </template>
 
 <script>
 import MemberService from '../services/MemberService.js';
 
 export default {
-    
 
-    data(){
+
+    data() {
         return {
             teamCaptain: {
                 username: '',
@@ -30,7 +33,7 @@ export default {
 
     props: ["team"],
 
-    created(){
+    created() {
         MemberService.getMemberById(this.team.captainId).then((response) => {
             this.teamCaptain = response.data;
         });
@@ -39,5 +42,23 @@ export default {
 </script>
 
 <style>
+.teamName {
+    font-style: italic;
+    margin: 1%;
+}
 
+.teamCaptain {
+    margin: 1%;
+}
+
+.teamCardContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 1px solid rgb(124, 124, 124);
+    grid-area: teams;
+    color: #58deff;
+}
 </style>

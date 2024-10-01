@@ -40,7 +40,7 @@ public class JdbcMemberDao implements MemberDao{
         List<UserDto> users = new ArrayList<>();
 
         String sql = "SELECT users.user_id AS user_id, users.username FROM users " +
-                "JOIN team_users ON users.user_id = team_users " +
+                "JOIN team_users ON users.user_id = team_users.user_id " +
                 "WHERE team_users.team_id = ? ";
         SqlRowSet rowSet = template.queryForRowSet(sql, teamId);
 

@@ -26,7 +26,9 @@ public class JdbcTeamDao implements TeamDao {
 
     public Team getTeamById(int teamId) {
         Team team = null;
+
         String sql = "SELECT team_id, team_name, captain_id, game_id, isaccepting, max_players FROM teams WHERE team_id=?;";
+
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, teamId);
             if (results.next()) {
