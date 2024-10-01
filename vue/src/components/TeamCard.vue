@@ -31,7 +31,7 @@ export default {
     props: ["team"],
 
     created(){
-        MemberService.getCaptainById(this.team.captainId).then((response) => {
+        MemberService.getMemberById(this.team.captainId).then((response) => {
             this.teamCaptain = response.data;
         });
     },

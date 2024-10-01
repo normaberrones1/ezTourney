@@ -3,7 +3,7 @@
     <h1>this page will display a list of teams</h1>
     <p>clicking oon the team will show current tournaments and the captain</p>
     <div v-for="team in teams" :key="team.teamId">
-        <teamCard v-bind:team="team"/>
+        <TeamCard v-bind:team="team"/>
     </div>
 
 
@@ -15,29 +15,25 @@ import TeamService from '../services/TeamService.js';
 
 
 export default {
+
     data() {
         return {
             teams: [],
         }
     },
 
-    components: [TeamCard],
+    components: {TeamCard},
 
     created(){
-
+        TeamService.getAllTeams().then((response) => {
+            this.teams = response.data;
+        })
     }
 }
 
 </script>
 
 <style>
-.team {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-}
 
 
 </style>

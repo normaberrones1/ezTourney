@@ -8,6 +8,7 @@ import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@CrossOrigin
 public class JdbcTeamDao implements TeamDao {
     private JdbcTemplate jdbcTemplate;
 
@@ -24,7 +26,7 @@ public class JdbcTeamDao implements TeamDao {
 
     public Team getTeamById(int teamId) {
         Team team = null;
-        String sql = "SELECT team_name, captain_id, game_id, isAccepting, maxPlayers from teams WHERE team_id=?;";
+        String sql = "SELECT * FROM teams WHERE team_id=?;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, teamId);
             if (results.next()) {
@@ -41,7 +43,7 @@ public class JdbcTeamDao implements TeamDao {
 
     public Team getTeamByTeamName(String teamName) {
         Team team = null;
-        String sql = "SELECT team_id, captain_id, game_id, isAccepting, maxPlayers from teams WHERE team_name=?;";
+        String sql = "SELECT team_id, captain_id, game_id, isAccepting, max_Players from teams WHERE team_name=?;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, teamName);
             if (results.next()) {
@@ -58,7 +60,7 @@ public class JdbcTeamDao implements TeamDao {
     @Override
     public Team updateTeam(Team team) {
         String sql = "UPDATE team SET game_id = ?, " + "team_name = ? , captain_id = ? , " +
-                "isAccepting = ?, max-players =? WHERE team_id=?;";
+                "isAccepting = ?, max_players =? WHERE team_id=?;";
         try {
             int numOfRows = jdbcTemplate.update(sql, team.getGameId(), team.getTeamName(),
                     team.getCaptainId(), team.isAccepting(), team.getTeamId());
@@ -132,7 +134,7 @@ public class JdbcTeamDao implements TeamDao {
 
     public List<TeamDto> getAllTeams() {
         List<TeamDto> allteams = new ArrayList<>();
-        String sql = "SELECT teamName FROM teams;";
+        String sql = "SELECT team_name, captain_id, team_id FROM teams;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -150,8 +152,9 @@ public class JdbcTeamDao implements TeamDao {
     private TeamDto mapRowSetToTeamDto(SqlRowSet rowSet) {
         TeamDto teamDto = new TeamDto();
         //Todo: Add logic to fill teamDto
-        teamDto.setCaptainId(rowSet.getInt("captainId"));
-        teamDto.setTeamName(rowSet.getString("teamName"));
+        teamDto.setCaptainId(rowSet.getInt("captain_Id"));
+        teamDto.setTeamName(rowSet.getString("team_Name"));
+        teamDto.setTeamId(rowSet.getInt("team_id"));
         return teamDto;
     }
 
@@ -161,7 +164,7 @@ public class JdbcTeamDao implements TeamDao {
         team.setTeamName(rowSet.getString("team_name"));
         team.setCaptainId(rowSet.getInt("captain_id"));
         team.setGameId(rowSet.getInt("game_id"));
-        team.setAccepting(rowSet.getBoolean("is_Accepting"));
+        team.setAccepting(rowSet.getBoolean("isAccepting"));
         team.setMaxPlayers(rowSet.getInt("max_players"));
         return team;
     }
