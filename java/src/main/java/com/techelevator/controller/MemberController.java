@@ -20,8 +20,8 @@ public class MemberController {
         this.dao = dao;
     }
 
-    //get Team Captain name and id;
-    @RequestMapping(path="/teamCaptain/{id}", method= RequestMethod.GET)
+    //get member name and id by id
+    @RequestMapping(path="/member/{id}", method= RequestMethod.GET)
     public UserDto getCaptain(@PathVariable int id){
         return dao.getMemberById(id);
     }
