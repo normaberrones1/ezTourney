@@ -24,9 +24,10 @@ public class JdbcTournamentDao implements TournamentDao{
         this.template = template;
     }
 
-    public List<TournamentDto> getAllTournaments(){
+    //PAST AND PRESENT
+    public List<TournamentDto> getAllTournamentHistory(){
         List<TournamentDto> tournaments = new ArrayList<>();
-        String sql = dtoSelect + " FROM TOURNAMENT JOIN users ON director_id = user_id";
+        String sql = dtoSelect + " FROM TOURNAMENT JOIN users ON director_id = user_id;";
 
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql);
@@ -34,14 +35,27 @@ public class JdbcTournamentDao implements TournamentDao{
                 tournaments.add(mapRowToTournamentDto(rowSet));
             }
         }catch(CannotGetJdbcConnectionException e){
-
         }
+        return tournaments;
+    }
 
+    public List<TournamentDto> getAllActiveTournaments(){
+        List<TournamentDto> tournaments = new ArrayList<>();
+        String sql = dtoSelect + " FROM TOURNAMENT JOIN users ON director_id = user_id " +
+                "WHERE current_timestamp < start_date;";
+
+        try {
+            SqlRowSet rowSet = template.queryForRowSet(sql);
+            while(rowSet.next()){
+                tournaments.add(mapRowToTournamentDto(rowSet));
+            }
+        }catch(CannotGetJdbcConnectionException e){
+        }
         return tournaments;
     }
 
     public Tournament getTournamentById(int id){
-        String sql = "SELECT * FROM tournament WHERE tourney_id = ?";
+        String sql = "SELECT * FROM tournament WHERE tourney_id = ?;";
 
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql, id);
@@ -49,7 +63,7 @@ public class JdbcTournamentDao implements TournamentDao{
                 return mapRowToTournament(rowSet);
             }
         }catch(CannotGetJdbcConnectionException e){
-            
+
         }
 
         return null;

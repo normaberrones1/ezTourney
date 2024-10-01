@@ -1,12 +1,16 @@
 import axios from 'axios';
 
 export default {
-    getAllTournaments(){
-        return axios.get(``);
+    getCurrentTournaments(){
+        return axios.get(`/tournaments`);
+    },
+
+    getTournamentsHistory(){
+        return axios.get(`/tournaments/history`)
     },
 
     getTournamentById(id){
-        return axios.get(``);
+        return axios.get(`/tournaments/${id}`);
     },
 
     getTournamentByTeamId(id){

@@ -16,9 +16,14 @@ public class TournamentController {
         this.dao = dao;
     }
 
-    @RequestMapping(path="/tournaments/", method= RequestMethod.GET)
-    public List<TournamentDto> getTournaments(){
-        return dao.getAllTournaments();
+    @RequestMapping(path="/tournaments/history", method= RequestMethod.GET)
+    public List<TournamentDto> getTournamentHistory(){
+        return dao.getAllTournamentHistory();
+    }
+
+    @RequestMapping(path="/tournaments", method= RequestMethod.GET)
+    public List<TournamentDto> getActiveTournaments(){
+        return dao.getAllActiveTournaments();
     }
 
     @RequestMapping(path="/tournaments/{id}", method=RequestMethod.GET)
