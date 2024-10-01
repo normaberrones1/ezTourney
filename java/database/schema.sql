@@ -63,8 +63,8 @@ CREATE TABLE tournament (
     tourney_desc varchar(500) NOT NULL,
     game_id int NOT NULL,
     director_id int NOT NULL,
-    is_complete boolean NOT NULL,
     round int NOT NULL,
+    winner_id int,
     CONSTRAINT PK_tourney PRIMARY KEY (tourney_id),
     CONSTRAINT FK_game FOREIGN KEY (game_id) REFERENCES games(game_id),
     CONSTRAINT FK_director FOREIGN KEY (director_id) REFERENCES users(user_id)
