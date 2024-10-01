@@ -1,10 +1,12 @@
 <template>
     <div class="team"></div>
-    <h1>this page will display a list of teams</h1>
-    <p>clicking oon the team will show current tournaments and the captain</p>
+    <h1>Current Teams</h1>
     <div v-for="team in teams" :key="team.teamId">
         <TeamCard v-bind:team="team"/>
     </div>
+    <TeamForm></TeamForm>
+
+    
 
 
 </template>
@@ -12,6 +14,7 @@
 <script>
 import TeamCard from './TeamCard.vue';
 import TeamService from '../services/TeamService.js';
+import TeamForm from './TeamForm.vue';
 
 
 export default {
@@ -22,7 +25,8 @@ export default {
         }
     },
 
-    components: {TeamCard},
+    components: {TeamCard, TeamForm},
+    
 
     created(){
         TeamService.getAllTeams().then((response) => {
@@ -34,6 +38,19 @@ export default {
 </script>
 
 <style>
+body {
+    background-image: url('teams-background.jpg');
+}
+
+h1 {
+    text-align: center;
+    color:  #58deff
+}
+
+.team-form {
+    display: fixed;
+}
+
 
 
 </style>
