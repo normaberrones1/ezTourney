@@ -84,7 +84,7 @@ INSERT INTO teams(team_name, captain_id, game_id, isaccepting, max_players)
 VALUES ('League of Cornholers', 4, 43, true, 16);
 
 INSERT INTO teams(team_name, captain_id, game_id, isaccepting, max_players)
-VALUES ('Champs of the Undergroudn', 5, 22, true, 8);
+VALUES ('Champs of the Underground', 5, 22, true, 8);
 
 INSERT INTO teams(team_name, captain_id, game_id, isaccepting, max_players)
 VALUES ('Freaked Out', 3, 13, true, 12);

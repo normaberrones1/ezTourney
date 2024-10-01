@@ -7,6 +7,19 @@ public class Team {
     private int gameId;
     private boolean  isAccepting;
     private int maxPlayers;
+    public Team(){
+
+    }
+
+    public Team(int teamId,String teamName, int captainId, int gameId, boolean isAccepting,int maxPlayers){
+        this.teamId = teamId;
+        this.teamName = teamName;
+        this.captainId = captainId;
+        this.gameId = gameId;
+        this.isAccepting = isAccepting;
+        this.maxPlayers = maxPlayers;
+
+    }
 
 
 

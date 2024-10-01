@@ -1,13 +1,15 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS teams;
-DROP TABLE IF EXISTS team_users;
-DROP TABLE IF EXISTS games;
-DROP TABLE IF EXISTS game_category;
-DROP TABLE IF EXISTS tournament;
+
 DROP TABLE IF EXISTS team_tourney;
 DROP TABLE IF EXISTS tourney_matches;
+DROP TABLE IF EXISTS tournament;
+DROP TABLE IF EXISTS team_users;
+DROP TABLE IF EXISTS teams;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS games;
+DROP TABLE IF EXISTS game_category;
+
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -94,8 +96,21 @@ CREATE TABLE tourney_matches (
     CONSTRAINT FK_tourney FOREIGN KEY (tourney_id) REFERENCES tournament(tourney_id)
 );
 
-INSERT INTO users (username,password_hash,role) VALUES ('user1','user1','ROLE_USER');
-INSERT INTO users (username,password_hash,role) VALUES ('user2','user2','ROLE_USER');
-INSERT INTO users (username,password_hash,role) VALUES ('user3','user3','ROLE_USER');
+INSERT INTO users (username, password_hash, role) VALUES ('user1','user1','ROLE_USER'); --UserId=1
+INSERT INTO users (username, password_hash, role) VALUES ('user2','user2','ROLE_USER'); --UserId=2
+INSERT INTO users (username, password_hash, role) VALUES ('user3','user3','ROLE_USER'); --UserId=3
+
+INSERT INTO game_category(category_name) VALUES ('Traditional Sports'); --category_id=1
+INSERT INTO game_category(category_name) VALUES ('Combat Sports'); --category_id=2
+INSERT INTO game_category(category_name) VALUES ('Board Games');  --category_id=3
+
+INSERT INTO games(game_name,category_id) VALUES ('American FootBall', 1); --game_id=1
+INSERT INTO games(game_name,category_id) VALUES ('Boxing', 2);  --game_id=2
+INSERT INTO games(game_name,category_id) VALUES ('Chess', 3); --game_id=3
+
+
+INSERT INTO teams (team_name, captain_id, game_id, isaccepting, max_players) VALUES ('League of Cornholers', 1,  1,true,10);  --teamId = 1
+INSERT INTO teams (team_name, captain_id, game_id, isaccepting, max_players) VALUES ('Champs of the Underground', 2 , 2,true, 10); --teamId=2
+INSERT INTO teams (team_name, captain_id, game_id, isaccepting, max_players) VALUES ('Freaked Out',3,  3,true, 10); --teamId = 3
 
 COMMIT TRANSACTION;

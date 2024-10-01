@@ -26,7 +26,7 @@ public class JdbcTeamDao implements TeamDao {
 
     public Team getTeamById(int teamId) {
         Team team = null;
-        String sql = "SELECT team_name, captain_id, game_id, isAccepting, max_Players FROM teams WHERE team_id=?;";
+        String sql = "SELECT team_id, team_name, captain_id, game_id, isaccepting, max_players FROM teams WHERE team_id=?;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, teamId);
             if (results.next()) {
@@ -43,7 +43,7 @@ public class JdbcTeamDao implements TeamDao {
 
     public Team getTeamByTeamName(String teamName) {
         Team team = null;
-        String sql = "SELECT team_id, captain_id, game_id, isAccepting, max_Players from teams WHERE team_name=?;";
+        String sql = "SELECT team_id, team_name, captain_id, game_id, isaccepting, max_players from teams WHERE team_name=?;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, teamName);
             if (results.next()) {
@@ -59,11 +59,15 @@ public class JdbcTeamDao implements TeamDao {
 
     @Override
     public Team updateTeam(Team team) {
-        String sql = "UPDATE team SET game_id = ?, " + "team_name = ? , captain_id = ? , " +
-                "isAccepting = ?, max_players =? WHERE team_id=?;";
+        String sql = "UPDATE teams SET game_id = ?, " +
+                "team_name = ? , captain_id = ? , " +
+                "isaccepting = ?, max_players =? " +
+                " WHERE team_id=?;";
         try {
-            int numOfRows = jdbcTemplate.update(sql, team.getGameId(), team.getTeamName(),
-                    team.getCaptainId(), team.isAccepting(), team.getTeamId());
+            int numOfRows = jdbcTemplate.update(sql,
+                    team.getGameId(), team.getTeamName(),
+                    team.getCaptainId(), team.isAccepting(),
+                    team.getMaxPlayers(), team.getTeamId());
             if (numOfRows == 0) {
                 throw new DataIntegrityViolationException("No team exist with teamId =" + team.getTeamId());
             }
@@ -73,10 +77,7 @@ public class JdbcTeamDao implements TeamDao {
             throw new DaoException("Data Integrity Violation", e);
         }
         return team;
-
     }
-
-
 
     @Override
     public boolean deleteTeamById(int teamId) {
@@ -87,7 +88,7 @@ public class JdbcTeamDao implements TeamDao {
 
     public List<Team> getTeamNames() {
         List<Team> teams = new ArrayList<>();
-        String sql = "SELECT team_id, captain_id, game_id, isAccepting, max_players FROM teams ORDER BY team_name";
+        String sql = "SELECT team_id, team_name, captain_id, game_id, isaccepting, max_players FROM teams";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -100,25 +101,26 @@ public class JdbcTeamDao implements TeamDao {
         return teams;
     }
 
-    public void createTeam(Team newTeam) {
-        String sql = "INSERT INTO team(team_name, captain_id, game_id, isAccepting, max_players) VALUES (?,?,?,?,?) Returning team_id;";
+    public Team createTeam(Team newTeam) {
+        String sql = "INSERT INTO teams (team_name, captain_id, game_id, isaccepting, max_players) VALUES (?,?,?,?,?) RETURNING team_id";
         try {
-            int results = jdbcTemplate.queryForObject(sql, int.class);
-            if (results > 0) {
-                newTeam = getTeamById(results);
-                newTeam.setTeamId(results);
+            int newTeamId = jdbcTemplate.queryForObject(sql, int.class,
+                    newTeam.getTeamName(), newTeam.getCaptainId(), newTeam.getGameId(), newTeam.isAccepting(), newTeam.getMaxPlayers());
+            if (newTeamId > 0) {
+                newTeam.setTeamId(newTeamId);
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
+        return newTeam;
     }
 
     @Override
     public Team getTeamByGameId(int gameId) {
         Team team = null;
-        String sql = "SELECT team_id, team_name, captain_id, isAccepting, max_players WHERE game_id=?;";
+        String sql = "SELECT team_id, team_name, captain_id, isaccepting, max_players WHERE game_id=?;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, gameId);
             if (results.next()) {
@@ -134,7 +136,7 @@ public class JdbcTeamDao implements TeamDao {
 
     public List<TeamDto> getAllTeams() {
         List<TeamDto> allteams = new ArrayList<>();
-        String sql = "SELECT team_name, captain_id, team_id FROM teams;";
+        String sql = "SELECT * FROM teams;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -152,7 +154,7 @@ public class JdbcTeamDao implements TeamDao {
     private TeamDto mapRowSetToTeamDto(SqlRowSet rowSet) {
         TeamDto teamDto = new TeamDto();
         //Todo: Add logic to fill teamDto
-        teamDto.setCaptainId(rowSet.getInt("captain_Id"));
+        teamDto.setCaptainId(rowSet.getInt("captain_id"));
         teamDto.setTeamName(rowSet.getString("team_Name"));
         teamDto.setTeamId(rowSet.getInt("team_id"));
         return teamDto;
@@ -164,7 +166,7 @@ public class JdbcTeamDao implements TeamDao {
         team.setTeamName(rowSet.getString("team_name"));
         team.setCaptainId(rowSet.getInt("captain_id"));
         team.setGameId(rowSet.getInt("game_id"));
-        team.setAccepting(rowSet.getBoolean("is_Accepting"));
+        team.setAccepting(rowSet.getBoolean("isaccepting"));
         team.setMaxPlayers(rowSet.getInt("max_players"));
         return team;
     }
