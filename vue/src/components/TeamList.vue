@@ -1,13 +1,13 @@
 <template>
-    <div class="team"></div>
     <h1>Current Teams</h1>
-    <div v-for="team in teams" :key="team.teamId">
-        <TeamCard v-bind:team="team"/>
+    <div id="teamContainer">
+        <div id="teamCards">
+            <TeamCard v-for="team in teams" :key="team.teamId" v-bind:team="team" />
+        </div>
+        <div id="teamForm">
+            <TeamForm></TeamForm>
+        </div>
     </div>
-    <TeamForm></TeamForm>
-
-    
-
 
 </template>
 
@@ -25,10 +25,10 @@ export default {
         }
     },
 
-    components: {TeamCard, TeamForm},
-    
+    components: { TeamCard, TeamForm },
 
-    created(){
+
+    created() {
         TeamService.getAllTeams().then((response) => {
             this.teams = response.data;
         })
@@ -38,19 +38,27 @@ export default {
 </script>
 
 <style>
-body {
-    background-image: url('teams-background.jpg');
-}
+
+
 
 h1 {
     text-align: center;
-    color:  #58deff
+    color: #58deff
 }
 
-.team-form {
-    display: fixed;
+#teamContainer {
+    display: grid;
+    grid-template-columns: 1fr, 1fr, 1fr;
+    grid-template-areas:
+        "teams teams teamForm"
+        "teams teams teamForm";
 }
 
+#teamForm {
+    grid-area: teamForm;
+}
 
-
+#teamCards {
+    grid-area: teams;
+}
 </style>
