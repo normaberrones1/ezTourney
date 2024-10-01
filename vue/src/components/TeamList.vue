@@ -2,9 +2,9 @@
     <h1>Current Teams</h1>
     <div id="teamContainer">
         <section class="teamCardHeader"><span>Team</span><span>Captain</span></section>
-        <div class="teamCards" v-for="team in teams" :key="team.teamId">
+        <div class="teamsDiv" v-for="team in teams" :key="team.teamId">
             <router-link v-bind:to="{name: 'teamDetails', params: {teamId:team.teamId}}">
-            <TeamCard v-bind:team="team" />
+            <TeamCard class="teamCards" v-bind:team="team" />
             </router-link>
         </div>
         <div id="teamForm">
@@ -69,9 +69,11 @@ h1 {
     justify-content: center;
 }
 
-#teamCards {
+.teamCards {
     grid-area: teams;
     color: #58deff;
+    display: flex;
+    flex-direction: column;
 }
 
 .teamCardHeader {
@@ -79,6 +81,11 @@ h1 {
     display: flex;
     justify-content: space-between;
     color: #58deff;
+}
+
+.teamsDiv {
+    display: flex;
+    flex-direction: column;
 }
 
 
