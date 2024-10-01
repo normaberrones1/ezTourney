@@ -7,10 +7,11 @@ if we even choose to do that.
 -->
 
 <template>
-    <div>
-        <h2>{{ team.teamName }}</h2>
-        <h4>{{ teamCaptain.username }}</h4>
+    <div class="teamCardContainer">
+        <h2 class="teamName">{{ team.teamName }}</h2>
+        <h4 class="teamCaptain">{{ teamCaptain.username }}</h4>
     </div>
+
 </template>
 
 <script>
@@ -41,12 +42,23 @@ export default {
 </script>
 
 <style>
-template {
+.teamName {
+    font-style: italic;
+    margin: 1%;
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-h4 {
-    display: inline-block;
+.teamCaptain {
+    margin: 1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.teamCardContainer {
+    display: block;
+    border: 1px solid rgb(124, 124, 124);
 }
 </style>

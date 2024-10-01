@@ -48,7 +48,6 @@ export default {
 <style>
 .team-form {
     position: relative;
-    left: 30%;
     margin: 0 auto;
     width: 25%;
     text-align: center;
