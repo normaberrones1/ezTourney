@@ -13,7 +13,7 @@ public class Tournament {
     private String tourneyDesc;
     private int gameId;
     private int directorId;
-    private String winner;
+    private int winner;
      private int round;
 
     public int getTourneyId() {
@@ -96,11 +96,11 @@ public class Tournament {
         this.directorId = directorId;
     }
 
-    public String getWinner() {
+    public int getWinner() {
         return winner;
     }
 
-    public void setWinner(String winner) {
+    public void setWinner(int winner) {
         this.winner = winner;
     }
 
