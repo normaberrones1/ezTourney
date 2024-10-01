@@ -39,7 +39,7 @@ export default {
 
 <style>
 body {
-    background-image: url('teams-background.jpg');
+    background-image: url('/public/teams-background.jpg');
 }
 
 h1 {
