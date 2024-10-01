@@ -20,8 +20,8 @@ export default {
     data(){
         return {
             teamCaptain: {
-                username: "",
-                userId: ""
+                username: '',
+                userId: ''
             },
 
             users: []
@@ -31,8 +31,8 @@ export default {
     props: ["team"],
 
     created(){
-        MemberService.getCaptainById(team.captainId).then((response) => {
-            teamCaptain = response.data;
+        MemberService.getCaptainById(this.team.captainId).then((response) => {
+            this.teamCaptain = response.data;
         });
     },
 }

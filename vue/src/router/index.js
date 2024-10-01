@@ -6,6 +6,9 @@ import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
+import TeamView from '../views/TeamView.vue';
+import TournamentView from '../views/TournamentView.vue';
+
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -23,6 +26,16 @@ const routes = [
     meta: {
       requiresAuth: false
     }
+  },
+  {
+    path: "/teams",
+    name: "teams",
+    component: TeamView,
+  },
+  {
+    path: "/tournamens",
+    name: "tournament",
+    component: TournamentView,
   },
   {
     path: "/login",
