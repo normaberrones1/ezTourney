@@ -5,6 +5,14 @@ INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpUL
 INSERT INTO users (username,password_hash,role) VALUES ('James Howard','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('Rodger Remes','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('Romulus','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Frank Ocean','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Charli XcX','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Dorian Electra','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Saul Goodman','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Ryan Gosling','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Howls Castle','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+
+
 
 INSERT INTO game_category(category_name) VALUES ('Traditional Sports');
 INSERT INTO games(game_name, category_id) VALUES ('American Football', 1);
@@ -88,5 +96,12 @@ VALUES ('Champs of the Underground', 5, 22, true, 8);
 
 INSERT INTO teams(team_name, captain_id, game_id, isaccepting, max_players)
 VALUES ('Freaked Out', 3, 13, true, 12);
+
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (6,3,true);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (7,3,false);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (8,2,true);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (9,2,true);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (10,1,true);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (11,1,true);
 
 COMMIT TRANSACTION;

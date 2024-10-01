@@ -1,16 +1,17 @@
 <template>
-    <div>
+    <div class="Leader">
         <h1>{{ team.teamName }}</h1>
         <h3>{{ captain.username }}</h3>
     </div>
-    <div>
-
+    <div class="Members" v-for="user in members" :key="user.userId">
+        <MemberCard v-bind:user="user"/>
     </div>
 </template>
 
 <script>
-import TeamService from '../services/TeamService.js'
+import TeamService from '../services/TeamService.js';
 import MemberService from '../services/MemberService.js';
+import MemberCard from './MemberCard.vue';
 
 export default {
     data() {
@@ -22,6 +23,7 @@ export default {
         }
     },
 
+    components: {MemberCard},
 
     created() {
         this.teamId = this.$route.params.teamId;
@@ -32,8 +34,8 @@ export default {
             });
         });
         MemberService.getMembersByTeam(this.teamId).then((response) => {
-            
-        })
+            this.members = response.data;
+        });
     }
 }
 </script>

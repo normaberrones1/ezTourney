@@ -8,7 +8,7 @@ export default {
     },
 
     getMembersByTeam(teamId){
-        return axios.get(`/team/${teamId}/members`)
-    }
+        return axios.get(`/team/${teamId}/members`);
+    },
 
 }
