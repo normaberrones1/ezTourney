@@ -1,6 +1,6 @@
 <template>
     <div class="team"></div>
-    <team-list />>
+    <team-list />
 </template>
 
 <script>

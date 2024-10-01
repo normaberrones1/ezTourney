@@ -26,7 +26,7 @@ public class JdbcTeamDao implements TeamDao {
 
     public Team getTeamById(int teamId) {
         Team team = null;
-        String sql = "SELECT team_name, captain_id, game_id, isAccepting, max_Players FROM teams WHERE team_id=?;";
+        String sql = "SELECT * FROM teams WHERE team_id=?;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, teamId);
             if (results.next()) {
@@ -164,7 +164,7 @@ public class JdbcTeamDao implements TeamDao {
         team.setTeamName(rowSet.getString("team_name"));
         team.setCaptainId(rowSet.getInt("captain_id"));
         team.setGameId(rowSet.getInt("game_id"));
-        team.setAccepting(rowSet.getBoolean("is_Accepting"));
+        team.setAccepting(rowSet.getBoolean("isAccepting"));
         team.setMaxPlayers(rowSet.getInt("max_players"));
         return team;
     }
