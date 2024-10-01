@@ -2,6 +2,9 @@ BEGIN TRANSACTION;
 
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+INSERT INTO users (username,password_hash,role) VALUES ('footballer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Basketballer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('soccerer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 
 INSERT INTO game_category(category_name) VALUES ('Traditional Sports');
 INSERT INTO games(game_name, category_id) VALUES ('American Football', 1);
@@ -77,7 +80,7 @@ INSERT INTO games(game_name, category_id) VALUES ('Billiards',9);
 INSERT INTO games(game_name, category_id) VALUES ('Bowling', 9);
 INSERT INTO games(game_name, category_id) VALUES ('Cycling', 9);
 
-
+INSERT INTO teams(team_name, captain_id, game_id, isaccepting, max_players)
 
 
 COMMIT TRANSACTION;
