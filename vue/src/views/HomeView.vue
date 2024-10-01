@@ -7,39 +7,29 @@
     <div>
       <p>displayed here will be current tourneys with links to their info</p>
     </div>
+    <StandingsCarousel></StandingsCarousel>
 
-  
-    
-    
   </div>
 </template>
 
 <script>
 
+import StandingsCarousel from '../components/StandingsCarousel.vue';
 
 export default {
-  name: 'Home',
-  data() {
-    return {
-      carousel: [
-        {
-          id: 1,
-          src: 'carousel1.jpg',
-          alt: 'carousel image 1'
-        },
-        {
-          id: 2,
-          src: 'carousel2.jpg',
-          alt: 'carousel image 2'
-        },
-        {
-          id: 3,
-          src: 'carousel3.jpg',
-          alt: 'carousel image 3'
-        }
-      ]
-    }
-  }
+  components: {
+    StandingsCarousel
+  },
   
 };
 </script>
+
+<style>
+  h1 {
+    text-align: center;
+    color: #58deff
+  }
+
+
+</style>
+

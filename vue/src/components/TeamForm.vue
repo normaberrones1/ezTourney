@@ -5,8 +5,22 @@
         <form>
             <label for="team-name">Team Name</label>
             <input type="text" id="team-name" name="team-name" required>
+
             <label for="team-captain">Team Captain</label>
             <input type="text" id="team-captain" name="team-captain" required>
+
+            <label for="tournament-category">Tournament Category</label>
+            <input type="list" id="tourney-name" name="tourney-name" required>
+
+            <label for="accepting-teammates">Is your team accepting new teammates?</label>
+            <div>
+                <label for="is-accepting-yes">Yes</label>
+                <input type="checkbox" id="is-accepting-yes" name="is-accepting" value="yes">
+            
+                <label for="is-accepting-no">No</label>   
+                <input type="checkbox" id="is-accepting-no" name="is-accepting" value="no">
+            </div>
+
             <button type="submit">Submit</button>
         </form>
     </div>
