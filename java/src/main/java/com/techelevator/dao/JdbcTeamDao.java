@@ -59,6 +59,10 @@ public JdbcTeamDao(JdbcTemplate jdbcTemplate){
         return null;
     }
 
+    public List<TeamDto> getAllTeams(){
+    return null;
+    }
+
     @Override
     public boolean deleteTeamById(int teamId) {
         return false;

@@ -21,5 +21,6 @@ public interface TeamDao {
 
     Team getTeamByGameId(int gameId);
 
+    List<TeamDto> getAllTeams();
 }
 
