@@ -35,9 +35,10 @@
     </div>
 
     <div class="button-container">
-        <button type="button" id="team-request" @click="RequestToJoin">Request to Join Team!</button>
+        <button type="button" id="team-request" @click="showModal">Request to Join Team!</button>
     </div>
 
+    <TeamRequestForm v-if="showModal" @close="showModal = false"/>
 
 
     <div class="players">
@@ -59,10 +60,12 @@
 import TeamService from '../services/TeamService.js';
 import MemberService from '../services/MemberService.js';
 import MemberCard from './MemberCard.vue';
+import TeamRequestForm from './TeamRequestForm.vue';
 
 export default {
     data() {
         return {
+            showModal: false,
             teamId: -1,
             team: {
                 wins: 0,
@@ -73,7 +76,7 @@ export default {
         }
     },
 
-    components: {MemberCard},
+    components: {MemberCard, TeamRequestForm},
 
     created() {
         this.teamId = this.$route.params.teamId;
