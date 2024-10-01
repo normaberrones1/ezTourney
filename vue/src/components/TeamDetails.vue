@@ -1,4 +1,5 @@
 <template>
+    <div>
     <div class="Leader">
         <h1>{{ team.teamName }}</h1>
         <h3>{{ captain.username }}</h3>
@@ -6,6 +7,7 @@
     <div class="Members" v-for="user in members" :key="user.userId">
         <MemberCard v-bind:user="user"/>
     </div>
+</div>
 </template>
 
 <script>

@@ -1,4 +1,5 @@
 <template>
+    <div>
     <h1 id="teams-title">CURRENT TEAMS</h1>
     <div id="teamContainer">
         <div class="teamsDiv" >
@@ -12,7 +13,7 @@
             <TeamForm></TeamForm>
         </div>
     </div>
-
+</div>
 
 </template>
 

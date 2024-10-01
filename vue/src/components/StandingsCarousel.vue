@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="standings-carousel">
     <div class="standings">
       <h1>Standings</h1>
@@ -14,7 +15,7 @@
     <button @click="next"> &gt; </button>
 
   </div>
-    
+</div>
 
 </template>
 
