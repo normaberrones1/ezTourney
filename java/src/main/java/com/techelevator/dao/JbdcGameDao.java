@@ -55,5 +55,6 @@ public class JbdcGameDao implements GameDao{
         game.setGameId(rowSet.getInt("game_id"));
         game.setGameName(rowSet.getString("game_name"));
         game.setCategoryId(rowSet.getInt("category_id"));
+        return game;
     }
 }
