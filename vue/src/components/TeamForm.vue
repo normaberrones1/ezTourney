@@ -1,7 +1,7 @@
 <template>
     <div class="team-form">
 
-        <form>
+        <form v-on:submit="submitTeam()">
             <h1 id="team-form-title">Team Enrollment Form</h1>
 
             <p> Register your team to compete!</p>
@@ -49,6 +49,7 @@
 <script>
 import axios from 'axios';
 import GamesService from '../services/GamesService.js';
+import TeamService from '../services/TeamService.js';
 
 
 export default {
@@ -67,14 +68,11 @@ export default {
     },
     methods: {
         submitTeam() {
-            this.createTeam(this.team)
+            TeamService.createTeam(this.team)
                 .then((response) => {
                     console.log("Team created successfully", response);
                 })
     },
-        createTeam(team) {
-            return axios.post('http://localhost:9000/teams', team);
-    }
     },
 
     created() { 

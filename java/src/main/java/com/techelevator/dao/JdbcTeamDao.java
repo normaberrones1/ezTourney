@@ -108,20 +108,24 @@ public class JdbcTeamDao implements TeamDao {
 
     public Team createTeam(Team newTeam, Principal principal) {
 
-        String sql2 = "SELECT user_id FROM users WHERE username = ?;";
-
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql2, principal.getName());
-        if(rowSet.next()) {
-            newTeam.setCaptainId(rowSet.getInt("user_id"));
-        }
-
         String sql = "INSERT INTO teams (team_name, captain_id, game_id, isaccepting, max_players) VALUES (?,?,?,?,?) RETURNING team_id";
+        String sql2 = "SELECT user_id FROM users WHERE username = ?;";
+        String sql3 = "INSERT INTO team_users (team_id, user_id, accepted) VALUES (?,?, ?)";
+
         try {
+            SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql2, principal.getName());
+            if(rowSet.next()) {
+                newTeam.setCaptainId(rowSet.getInt("user_id"));
+            }
+
             int newTeamId = jdbcTemplate.queryForObject(sql, int.class,
                     newTeam.getTeamName(), newTeam.getCaptainId(), newTeam.getGameId(), newTeam.isAccepting(), newTeam.getMaxPlayers());
+
             if (newTeamId > 0) {
                 newTeam.setTeamId(newTeamId);
             }
+
+            jdbcTemplate.update(sql3, newTeam.getTeamId(), newTeam.getCaptainId(), true);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
