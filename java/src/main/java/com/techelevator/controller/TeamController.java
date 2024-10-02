@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.GameDao;
+import com.techelevator.dao.JdbcMemberDao;
 import com.techelevator.dao.TeamDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Team;
@@ -18,18 +19,17 @@ public class TeamController {
 
     @Autowired
     private TeamDao teamDao;
-    @Autowired
-    private GameDao gameDao;
+
 
     //CREATE new teams
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/teams", method = RequestMethod.POST)
-    public void teams(@RequestBody Team newTeam) {
+    public void makeTeams(@RequestBody Team newTeam, Principal principal) {
         try {
             if (teamDao.getTeamByTeamName(newTeam.getTeamName()) != null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Team already exists.");
             } else {
-                teamDao.createTeam(newTeam);
+                teamDao.createTeam(newTeam, principal);
             }
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Team registration error.");
