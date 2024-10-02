@@ -4,11 +4,13 @@ import com.techelevator.exception.DaoException;
 import com.techelevator.model.Team;
 import com.techelevator.model.TeamDto;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.security.Principal;
@@ -162,7 +164,25 @@ public class JdbcTeamDao implements TeamDao {
         return allteams;
     }
 
+    //Request to join team
+    public boolean requestTeamJoin(Principal principal, int teamId){
+        String sql1 = "SELECT user_id FROM users WHERE username =?;";
+        String sql2 = "INSERT INTO team_users (user_id, team_id, accepted) VALUES (?,?,false);";
+        int userId = 0;
 
+        try {
+            SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql1, principal.getName());
+            if (rowSet.next()) {
+                userId = rowSet.getInt("user_id");
+            }
+            jdbcTemplate.update(sql2, userId, teamId);
+            return true;
+        }catch(DataIntegrityViolationException e){
+            return false;
+        }catch(CannotGetJdbcConnectionException e){
+            return false;
+        }
+    }
 
 
     private TeamDto mapRowSetToTeamDto(SqlRowSet rowSet) {

@@ -49,10 +49,4 @@ export default {
         return axios.get(``);
     },
 
-    getAllGames(){
-        return axios.get(`/allGames`);
-    }
-
-    
-
 }

@@ -35,8 +35,8 @@
         </div>
     </div>
 
-    <div class="button-container">
-        <button type="button" id="team-request" @click="showModal">Request to Join Team!</button>
+    <div class="button-container" >
+        <button id="team-request" v-on:click="requestTeamJoin()">Request to Join Team!</button>
     </div>
 
     <TeamRequestForm v-if="showModal" @close="showModal = false"/>
@@ -87,6 +87,18 @@ export default {
         MemberService.getMembersByTeam(this.teamId).then((response) => {
             this.members = response.data;
         });
+    },
+
+    methods: {
+        requestTeamJoin() {
+            TeamService.requestJoinTeam(this.teamId).then((response) => {
+                if(response.data){
+                    alert("joined team")
+                }else{
+                    alert("failed to join team")
+                }
+            });
+        },
     }
 }
 </script>

@@ -103,6 +103,12 @@ public class TeamController {
         }
     }
 
+    //Request to Join
+    @RequestMapping(path="/teams/join/{teamId}", method=RequestMethod.POST)
+    public boolean requestTeamJoin(@PathVariable int teamId, Principal principal){
+            return teamDao.requestTeamJoin(principal, teamId);
+    }
+
     //PATCH accept/reject team members
 
 }
