@@ -44,7 +44,7 @@ export default {
         }
     },
 
-    
+
     components: { TournamentCard, TourneyForm },
 
     created() {
@@ -81,7 +81,7 @@ h1 {
     justify-content: center;
 }
 
-.tourneysDiv{
+.tourneysDiv {
     grid-area: teams;
     background-color: rgba(255, 255, 255, 0.2);
     padding: 25px;
