@@ -1,16 +1,18 @@
 <template>
 
-    <div class="tournament">
-        <h1>Upcoming Tournaments</h1>
+<div class="tournament">
+        <h1>this page will display the current tournaments in the system</h1>
+        <h2>clicking a tourney will give the actual brackets and the info</h2>
         <div>
             <router-link v-for="tourney in tournaments" :key="tourney.tourneyId"
                 v-bind:to="{ name: 'tournamentDetails', params: { id: tourney.tourneyId } }">
                 <TournamentCard v-bind:tourney="tourney" />
             </router-link>
+
+
         </div>
-            <div id="tourneyForm">
-                <TourneyForm></TourneyForm>
-            </div>
+
+        
     <!-- <div>
     <div>
 
@@ -76,7 +78,7 @@ h1 {
 }
 
 #tourneyForm {
-    grid-area: tourneyForm;
+    grid-area: teamForm;
     display: flex;
     justify-content: center;
 }
