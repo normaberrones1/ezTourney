@@ -1,7 +1,7 @@
 <template>
     <div class="tourneyCardContainer">
         <h2>{{ tourney.tourneyName }}</h2>
-        <h4>Hosted By: {{ tourney.directorName }}</h4>
+        <h4>Hosted By: {{ }}</h4>
         <section class="tourneyNotes">
             <span>Entry Cost: ${{ tourney.entryFee }}</span>
             <span>Start Date: {{ tourney.startDate }}</span>

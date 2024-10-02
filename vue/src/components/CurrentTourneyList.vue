@@ -1,19 +1,20 @@
 <template>
     <div>
+        {{ tournaments }}
         <h1 id="tourneys-title">CURRENT TOURNEYS</h1>
-        <div id="tourneyContainer">
-            <div class="tourneysDiv">
-                <router-link
-                class="tourneyCardLink" v-for="tourney in tournaments" :key="tourney.tourneyId"
-                    v-bind:to="{ name: 'tourneyDetails', params: { id: tourney.tourneyId } }">
-                    <TournamentCard v-bind:tourney="tourney" />
-                </router-link>
-            </div>
+
+        <div class="tourneysDiv" id="tourneyContainer">
+            <router-link class="tourneyCardLink" v-for="tourney in tournaments" :key="tourney.tourneyId"
+                v-bind:to="{ name: 'tourneyDetails', params: { id: tourney.tourneyId } }">
+                <TournamentCard v-bind:tourney="tourney" />
+            </router-link>
         </div>
+
+        <!-- 
             <div id="tourneyForm">
                 <TourneyForm></TourneyForm>
             </div>
-            
+             -->
     </div>
 </template>
 
@@ -29,7 +30,7 @@ export default {
         }
     },
 
-    
+
     components: { TournamentCard, TourneyForm },
 
     created() {
@@ -66,7 +67,7 @@ h1 {
     justify-content: center;
 }
 
-.tourneysDiv{
+.tourneysDiv {
     grid-area: teams;
     background-color: rgba(255, 255, 255, 0.2);
     padding: 25px;

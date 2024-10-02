@@ -1,6 +1,7 @@
 <template>
-    <div class="tournament"></div>
-    <current-tourney-list />
+    <div class="tournament">
+    <CurrentTourneyList/>
+    </div>
 </template>
 
 <script>
