@@ -61,7 +61,7 @@ export default {
                 teamName: '',
                 gameId: '',
                 maxPlayers: '',
-                isAccepting: false
+                isAccepting: ''
             },
             games: []
         }
