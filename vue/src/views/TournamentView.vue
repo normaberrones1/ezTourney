@@ -1,16 +1,16 @@
 <template>
     <div class="tournament">
-    <CurrentTourneyList/>
+        <current-tourney-list />
     </div>
 </template>
 
-<script>
+<script>    
+
 import CurrentTourneyList from '../components/CurrentTourneyList.vue';
 
 export default {
     components: {
         CurrentTourneyList
     }
-
 }
 </script>

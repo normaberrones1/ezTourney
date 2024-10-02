@@ -1,9 +1,14 @@
 <template>
-    <div>
-        TOURNAMENT DETAILS HERE THIS IS A PLACEHOLDER
-    </div>
+     <tournament-details />
 </template>
 
 <script>
+import TournamentDetails from '../components/TournamentDetails.vue';
+
+export default{
+    components: {
+        TournamentDetails
+    }
+}
 
 </script>
