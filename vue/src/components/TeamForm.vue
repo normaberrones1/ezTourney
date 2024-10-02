@@ -26,7 +26,7 @@
 
             <div>
             <label for="num-of-players">Max players on your team</label>
-            <input placeholder="Select # of players" type="number" min="1" name="num-of-players" required>
+            <input placeholder="Select # of players" type="number" min="1" name="num-of-players" v-model="team.maxPlayers" required>
             </div>
 
 
@@ -34,9 +34,9 @@
                 <label for="accepting-teammates">Is your team accepting new teammates?</label>
                 <div class="radio">
                     <label for="is-accepting-yes">True</label>
-                    <input type="radio" id="is-accepting-yes" name="is-accepting" value="yes">
+                    <input type="radio" id="is-accepting-yes" name="is-accepting" value="true" v-model="team.isAccepting">
                     <label for="is-accepting-no">False</label>
-                    <input type="radio" id="is-accepting-no" name="is-accepting" value="no">
+                    <input type="radio" id="is-accepting-no" name="is-accepting" value="false" v-model="team.isAccepting">
                 </div>
 
             </div>
@@ -60,19 +60,23 @@ export default {
                 teamName: '',
                 gameId: '',
                 maxPlayers: '',
-                isAccepting: ''
+                isAccepting: false
             },
             games: []
         }
     },
     methods: {
         submitTeam() {
-            axios.post('http://localhost:9000/teams', this.team).then((response) => {
-                console.log("Team created successfully", response.data);
-            });
-
-        }
+            this.createTeam(this.team)
+                .then((response) => {
+                    console.log("Team created successfully", response);
+                })
     },
+        createTeam(team) {
+            return axios.post('http://localhost:9000/teams', team);
+    }
+    },
+
     created() { 
         GamesService.getAllGames().then((response) => {
             this.games = response.data;
