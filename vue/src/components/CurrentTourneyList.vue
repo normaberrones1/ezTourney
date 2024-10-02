@@ -76,7 +76,7 @@ h1 {
 }
 
 #tourneyForm {
-    grid-area: teamForm;
+    grid-area: tourneyForm;
     display: flex;
     justify-content: center;
 }
