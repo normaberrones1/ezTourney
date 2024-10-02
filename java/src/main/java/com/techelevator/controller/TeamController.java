@@ -106,11 +106,7 @@ public class TeamController {
     //Request to Join
     @RequestMapping(path="/teams/join/{teamId}", method=RequestMethod.POST)
     public boolean requestTeamJoin(@PathVariable int teamId, Principal principal){
-        try {
             return teamDao.requestTeamJoin(principal, teamId);
-        }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     //PATCH accept/reject team members
