@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -103,7 +104,15 @@ public class JdbcTeamDao implements TeamDao {
         return teams;
     }
 
-    public Team createTeam(Team newTeam) {
+    public Team createTeam(Team newTeam, Principal principal) {
+
+        String sql2 = "SELECT user_id FROM users WHERE username = ?;";
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql2, principal.getName());
+        if(rowSet.next()) {
+            newTeam.setCaptainId(rowSet.getInt("user_id"));
+        }
+
         String sql = "INSERT INTO teams (team_name, captain_id, game_id, isaccepting, max_players) VALUES (?,?,?,?,?) RETURNING team_id";
         try {
             int newTeamId = jdbcTemplate.queryForObject(sql, int.class,
@@ -152,6 +161,9 @@ public class JdbcTeamDao implements TeamDao {
         }
         return allteams;
     }
+
+
+
 
     private TeamDto mapRowSetToTeamDto(SqlRowSet rowSet) {
         TeamDto teamDto = new TeamDto();

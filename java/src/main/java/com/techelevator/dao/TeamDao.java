@@ -3,6 +3,7 @@ package com.techelevator.dao;
 import com.techelevator.model.Team;
 import com.techelevator.model.TeamDto;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface TeamDao {
@@ -13,7 +14,7 @@ public interface TeamDao {
 
     Team getTeamByTeamName(String teamName);
 
-    Team createTeam(Team newTeam);
+    Team createTeam(Team newTeam, Principal principal);
 
     Team updateTeam(Team team);
 
@@ -22,6 +23,7 @@ public interface TeamDao {
     boolean deleteTeamById(int teamId);
 
     Team getTeamByGameId(int gameId);
+
 
 }
 

@@ -9,7 +9,11 @@ import RegisterView from '../views/RegisterView.vue';
 import TeamView from '../views/TeamView.vue';
 import TournamentView from '../views/TournamentView.vue';
 import TeamDetailView from '../views/TeamDetailView.vue';
+import TournamentDetailsView from '../views/TournamentDetailsView.vue';
 
+// I understand that this should probably be a View in views but its just 
+//easier for demo purposes to do this
+import EditTeam from '../components/EditTeam.vue';
 
 
 /**
@@ -37,6 +41,12 @@ const routes = [
       requiresAuth: false
     }
   },
+  //this should be changed so the component is a /views/... instead of /components/...
+  {
+    path: "/teams/:teamId/edit",
+    name: 'editTeam',
+    component: EditTeam
+  },
   {
     path: "/teams",
     name: "teams",
@@ -46,6 +56,11 @@ const routes = [
     path: "/tournamens",
     name: "tournament",
     component: TournamentView,
+  },
+  {
+    path: "/tournaments/:id",
+    name: "tournamentDetails",
+    component: TournamentDetailsView
   },
   {
     path: "/login",
