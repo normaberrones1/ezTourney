@@ -13,7 +13,7 @@ public interface TeamDao {
 
     Team getTeamByTeamName(String teamName);
 
-    void createTeam(Team newTeam);
+    Team createTeam(Team newTeam);
 
     Team updateTeam(Team team);
 
