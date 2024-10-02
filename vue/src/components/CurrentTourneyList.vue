@@ -20,7 +20,7 @@
 <script>
 import TournamentCard from './TournamentCard.vue';
 import TourneyService from '../services/TourneyService';
-// import TourneyForm from './TourneyForm.vue';
+import TourneyForm from './TourneyForm.vue';
 
 export default {
     data() {

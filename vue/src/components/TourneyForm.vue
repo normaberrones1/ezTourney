@@ -39,9 +39,20 @@
       </div>
   
       <div>
-          <label for="prize-desciption">Prize Description</label>
+          <label for="prize-description">Prize Description</label>
           <input type="text" id="prize-description" v-model="tourney.prizeDescription">
       </div>
+
+      <div>
+                    <label for="teams-individuals">Do you need teams or individual players?</label>
+                <div class="radio">
+                    <label for="need-teams">Teams</label>
+                    <input type="radio" id="need-team" name="need-team" value="true" v-model="tourney.teams">
+                    <label for="need-individuals">Players</label>
+                    <input type="radio" id="need-individuals" name="need-individuals" value="false" v-model="team.individuals">
+                </div>
+
+        </div>
   
       <button type="submit" id="form-submit">CREATE TOURNAMENT!</button>
   
@@ -65,7 +76,9 @@
                   endDate: '',
                   location: '',
                   entryFee: '',
-                  prizeDescription: ''
+                  prizeDescription: '',
+                    teams: true,
+                    individuals: false
               },
               games: []
           }
