@@ -40,6 +40,10 @@ export default {
     //Allows a team to be deleted from the database
     disbandTeam(teamId){
         return axios.delete(`/teams/${teamId}`);
+    },
+
+    requestJoinTeam(teamId){
+        return axios.post(`/teams/join/${teamId}`);
     }
  
 };

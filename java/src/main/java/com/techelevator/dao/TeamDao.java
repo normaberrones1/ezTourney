@@ -24,6 +24,7 @@ public interface TeamDao {
 
     Team getTeamByGameId(int gameId);
 
+    boolean requestTeamJoin(Principal principal, int teamId);
 
 }
 

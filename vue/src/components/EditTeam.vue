@@ -1,5 +1,5 @@
 <template>
-    <form>
+    <form v-on:submit.prevent="updateTeam()">
         <div class="nameInput">
             <label for="teamName">Team Name</label>
             <input v-model="team.teamName" type="text" id="teamName" name="teamName" required>
@@ -57,7 +57,13 @@ export default {
     },
 
     methods: {
-        
+        updateTeam(){
+            TeamService.updateTeam(this.team).then((response) => {
+                if(response.status === 200){
+                    this.$router.push(`/teams/${this.team.teamId}`)
+                }
+            });
+        }
     }
 }
 
