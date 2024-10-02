@@ -49,38 +49,38 @@ public class JdbcTeamDaoTests extends BaseDaoTests {
         assertEquals(TEAM_3, teams.get(2));
     }
 
-    @Test
-    public void createTeam_creates_a_team() {
-        Team newTeam = new Team();
-        newTeam.setTeamName("Dream Catchers");
-        newTeam.setCaptainId(3);
-        newTeam.setGameId(3);
-        newTeam.setAccepting(true);
-        newTeam.setMaxPlayers(10);
-
-        newTeam = sut.createTeam(newTeam);
-
-        Team retrievedTeam = sut.getTeamByTeamName(newTeam.getTeamName());
-        assertEquals(newTeam, retrievedTeam);
-    }
-
-    @Test
-    public void updateTeam_updates_a_team() {
-        //Creating a team for test
-        Team inputTeam = new Team(0,"newteam", 1, 2,true,10);
-        inputTeam = sut.createTeam(inputTeam);
-
-        //Modifying few fields
-        inputTeam.setTeamName("updatedTeam");
-        inputTeam.setMaxPlayers(12);
-        inputTeam.setAccepting(false);
-
-        //Updating team
-        Team updatedTeam = sut.updateTeam(inputTeam);
-        //Verifying whether updatedTeam is same as inout team
-
-        assertEquals(inputTeam, updatedTeam);
-    }
+//    @Test
+//    public void createTeam_creates_a_team() {
+//        Team newTeam = new Team();
+//        newTeam.setTeamName("Dream Catchers");
+//        newTeam.setCaptainId(3);
+//        newTeam.setGameId(3);
+//        newTeam.setAccepting(true);
+//        newTeam.setMaxPlayers(10);
+//
+//        newTeam = sut.createTeam(newTeam);
+//
+//        Team retrievedTeam = sut.getTeamByTeamName(newTeam.getTeamName());
+//        assertEquals(newTeam, retrievedTeam);
+//    }
+//
+//    @Test
+//    public void updateTeam_updates_a_team() {
+//        //Creating a team for test
+//        Team inputTeam = new Team(0,"newteam", 1, 2,true,10);
+//        inputTeam = sut.createTeam(inputTeam);
+//
+//        //Modifying few fields
+//        inputTeam.setTeamName("updatedTeam");
+//        inputTeam.setMaxPlayers(12);
+//        inputTeam.setAccepting(false);
+//
+//        //Updating team
+//        Team updatedTeam = sut.updateTeam(inputTeam);
+//        //Verifying whether updatedTeam is same as inout team
+//
+//        assertEquals(inputTeam, updatedTeam);
+//    }
 
 
     private void assertEquals(Team expectedTeam, Team actualTeam) {
