@@ -1,7 +1,7 @@
 <template>
     <div class="team-form">
 
-        <form v-on:submit="submitTeam()">
+        <form @:submit.prevent="submitTeam()">
             <h1 id="team-form-title">Team Enrollment Form</h1>
 
             <p> Register your team to compete!</p>

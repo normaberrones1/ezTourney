@@ -1,5 +1,5 @@
 <template>
-    <div class="tourneyCard">
+    <div class="tourneyCardContainer">
         <h2>{{ tourney.tourneyName }}</h2>
         <h4>Hosted By: {{ tourney.directorName }}</h4>
         <section class="tourneyNotes">
@@ -11,8 +11,23 @@
 </template>
 
 <script>
+import TourneyService from '../services/TourneyService';
 
 export default {
-    props: ["tourney"]
+
+    data() {
+        return {
+            localTourney: null,
+        };    
+           
+    },    
+
+    props: ["tourney"],
+
+    created() {
+        TourneyService.getCurrentTournaments().then((response) => {
+            this.localTourney = response.data;
+        });
+    },
 }
 </script>
