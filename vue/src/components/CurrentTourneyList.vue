@@ -11,7 +11,7 @@
             </div>
         </div>
             <div id="tourneyForm">
-                <TourneyForm />
+                <TourneyForm></TourneyForm>
             </div>
             
     </div>
@@ -29,11 +29,11 @@ export default {
         }
     },
 
-    components: { TournamentCard },
-    // components: { TournamentCard, TourneyForm },
+    
+    components: { TournamentCard, TourneyForm },
 
     created() {
-        TourneyService.getTournamentsHistory().then((response) => {
+        TourneyService.getCurrentTournaments().then((response) => {
             this.tournaments = response.data;
         })
     }
