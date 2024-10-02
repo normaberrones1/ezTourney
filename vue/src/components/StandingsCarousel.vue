@@ -51,7 +51,7 @@ export default {
     color: #58deff;
     border: none;
     padding: 10px;
-    margin: 10px;
+    margin: 30px;
     font-size: 50px;
   
   }
@@ -75,10 +75,20 @@ export default {
     animation-delay: 6s;
   }
 
+  .standings-carousel {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    
+  }
   
 
   @keyframes move {
-    0% {
+    10% {
       left: 100%;
       opacity: 0;
     }

@@ -1,5 +1,6 @@
 <template>
     <div class="tourney-form">
+        
       <form v-on:submit="submitTourney()">
       <h1 id="tourney-form-title">Create Tournament</h1>
   
@@ -43,16 +44,17 @@
           <input type="text" id="prize-description" v-model="tourney.prizeDescription">
       </div>
 
-      <div>
-                    <label for="teams-individuals">Do you need teams or individual players?</label>
+      <!-- <div>
+                    <label>Do you need teams or individual players?</label>
                 <div class="radio">
                     <label for="need-teams">Teams</label>
                     <input type="radio" id="need-team" name="need-team" value="true" v-model="tourney.teams">
-                    <label for="need-individuals">Players</label>
+                    
+                    <label for="need-individuals">Individuals</label>
                     <input type="radio" id="need-individuals" name="need-individuals" value="false" v-model="team.individuals">
                 </div>
 
-        </div>
+        </div> -->
   
       <button type="submit" id="form-submit">CREATE TOURNAMENT!</button>
   
@@ -77,8 +79,8 @@
                   location: '',
                   entryFee: '',
                   prizeDescription: '',
-                    teams: true,
-                    individuals: false
+                //   teams: true,
+                //   individuals: false    
               },
               games: []
           }
@@ -86,7 +88,7 @@
       
       methods: {
           submitTourney() {
-              TourneyService.createTourney(this.tourney)
+              TourneyService.createTournament(this.tournament)
               .then(response => {
                   console.log("Tournament created successfully", response);
               })
