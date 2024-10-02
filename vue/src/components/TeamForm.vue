@@ -2,23 +2,21 @@
     <div class="team-form">
 
         <form>
-
             <h1 id="team-form-title">Team Enrollment Form</h1>
 
             <p> Register your team to compete!</p>
 
             <div class="form-filling">
-                <label for="team-name">Team Name</label>
-                <input type="text" id="team-name" name="team-name" required>
+            <label for="team-name">Team name</label>
+            <input type="text" id="team-name" name="team-name" v-model="team.teamName" required>
             </div>
 
             <div>
-                <label for="gameInput">Game of choice</label>
-                <input type="list" name="gameInput" list="gameInput" required v-model="team.gameId">
-                <datalist id="gameInput">
-                    <option v-bind:value="game.gameId" v-for="game in games" :key="game.gameId">{{ game.gameName }}
-                    </option>
-                </datalist>
+            <label for="gameInput">Game of choice</label>
+            <input type="list" name="gameInput" list="gameInput" required v-model="team.gameId">
+            <datalist id="gameInput" >
+                <option v-bind:value="game.gameId" v-for="game in games" :key="game.gameId">{{ game.gameName }}</option>
+            </datalist>
             </div>
 
             <!-- <div>
@@ -27,8 +25,8 @@
             </div> -->
 
             <div>
-                <label for="num-of-players">Max Players on Your Team</label>
-                <input placeholder="Select # of players" type="number" min="1" name="num-of-players" required>
+            <label for="num-of-players">Max players on your team</label>
+            <input placeholder="Select # of players" type="number" min="1" name="num-of-players" required>
             </div>
 
 
@@ -49,22 +47,37 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
+import GamesService from '../services/GamesService.js';
+
 
 export default {
+
     name: 'TeamForm',
     data() {
         return {
             team: {
-                name: '',
-                captain: ''
-            }
+                teamName: '',
+                gameId: '',
+                maxPlayers: '',
+                isAccepting: ''
+            },
+            games: []
         }
     },
     methods: {
         submitTeam() {
-            console.log(this.team);
+            axios.post('http://localhost:9000/teams', this.team).then((response) => {
+                console.log("Team created successfully", response.data);
+            });
+
         }
-    }
+    },
+    created() { 
+        GamesService.getAllGames().then((response) => {
+            this.games = response.data;
+        });
+    },
 }
 </script>
 

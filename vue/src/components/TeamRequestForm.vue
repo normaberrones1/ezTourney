@@ -1,7 +1,9 @@
 <template>
+
   <div>
     <h1>Team Request Form</h1>
     <p>Request to join {{this.teamName}}!</p>
+
 
         <button @click="showModal = true" id="form-submit"> Request to Join Team!</button>
 
@@ -55,4 +57,3 @@ export default {
 </script>
 
 <style></style>
-
