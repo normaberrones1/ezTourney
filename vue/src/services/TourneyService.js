@@ -33,6 +33,26 @@ export default {
         return axios.put(``);
     },
 
+    deleteTournament(id){
+        return axios.delete(``);
+    },
+
+    getTournamentTeams(id){
+        return axios.get(``);
+    },
+
+    getTournamentMatches(id){
+        return axios.get(``);
+    },
+
+    getTournamentStandings(id){
+        return axios.get(``);
+    },
+
+    getAllGames(){
+        return axios.get(`/allGames`);
+    }
+
     
 
 }
