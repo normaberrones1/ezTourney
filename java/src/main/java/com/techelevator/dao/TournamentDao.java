@@ -14,6 +14,7 @@ public interface TournamentDao {
 
     List<TournamentDto> getAllActiveTournaments();
 
+
     /*
     INPUTS: Team id
 
