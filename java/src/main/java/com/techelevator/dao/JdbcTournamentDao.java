@@ -93,7 +93,7 @@ public class JdbcTournamentDao implements TournamentDao{
         return null;
     }
 
-    List<TournamentDto> getAllCurrentTournaments(int teamId) {
+    public List<TournamentDto> getAllCurrentTournaments(int teamId) {
         List<TournamentDto> currentTournaments = new ArrayList<>();
         String sql = "SELECT is_complete FROM " +
                 "team_tourney tt " +
