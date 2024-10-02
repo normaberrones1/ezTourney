@@ -7,7 +7,7 @@
     <div>
       <p>displayed here will be current tourneys with links to their info</p>
     </div>
-    <StandingsCarousel></StandingsCarousel>
+    <StandingsCarousel />
 
   </div>
 </template>
