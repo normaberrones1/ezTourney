@@ -137,4 +137,7 @@ VALUES (1,1, true, true);
 INSERT INTO team_tourney (team_id, tourney_id, isAccepted, eliminated)
 VALUES (1, 2, true, false);
 
+INSERT INTO tourney_matches (tourney_id, team_1_id, team_2_id, set_winner, team_1_points, team_2_points)
+VALUES (1,1,3,1,30,20);
+
 COMMIT TRANSACTION;
