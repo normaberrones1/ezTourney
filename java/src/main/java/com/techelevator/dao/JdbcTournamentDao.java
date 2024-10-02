@@ -3,6 +3,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Tournament;
 import com.techelevator.model.TournamentDto;
+import com.techelevator.model.WinLossDto;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -66,6 +67,15 @@ public class JdbcTournamentDao implements TournamentDao{
 
         }
 
+        return null;
+    }
+
+    public List<TournamentDto> getAllCurrentTournaments(int teamId) {
+
+        return null;
+    }
+
+    public WinLossDto getWinsAndLosses(int teamId) {
         return null;
     }
 
