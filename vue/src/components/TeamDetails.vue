@@ -92,10 +92,10 @@ export default {
     methods: {
         requestTeamJoin() {
             TeamService.requestJoinTeam(this.teamId).then((response) => {
-                if(response.status == 200){
-                    alert("Join request sent");
-                }else {
-                    alert("Request failed to send");
+                if(response.data){
+                    alert("joined team")
+                }else{
+                    alert("failed to join team")
                 }
             });
         },

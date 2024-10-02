@@ -178,9 +178,9 @@ public class JdbcTeamDao implements TeamDao {
             jdbcTemplate.update(sql2, userId, teamId);
             return true;
         }catch(DataIntegrityViolationException e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+            return false;
         }catch(CannotGetJdbcConnectionException e){
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
+            return false;
         }
     }
 
