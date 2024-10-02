@@ -114,10 +114,10 @@ VALUES ('Tournament TITLE WOOOO', '2024-10-4', '2024-10-6', 'Columbus OH', 200,
 18, 9, 1);
 
 INSERT INTO tournament (tourney_name, start_date, end_date, location, entry_fee,
-prize_desc, tourney_desc, game_id, director_id, round)
+prize_desc, tourney_desc, game_id, director_id, round, winner_id)
 VALUES ('Ultimate Face off', '2024-10-18', '2024-10-18', 'Columbus OH', 200,
 'My Catalytic Converter', 'I will rip my catalytic converter out of my car for whomever wins this tournament',
-13, 2, 1);
+13, 2, 1, 3);
 
 INSERT INTO tournament (tourney_name, start_date, end_date, location, entry_fee,
 prize_desc, tourney_desc, game_id, director_id, round)
@@ -129,9 +129,15 @@ INSERT INTO team_tourney (team_id, tourney_id, isAccepted, eliminated)
 VALUES (2,1, false, false);
 
 INSERT INTO team_tourney (team_id, tourney_id, isAccepted, eliminated)
-VALUES (3,1, true, true);
+VALUES (3,1, true, false);
+
+INSERT INTO team_tourney (team_id, tourney_id, isAccepted, eliminated)
+VALUES (1,1, true, true);
 
 INSERT INTO team_tourney (team_id, tourney_id, isAccepted, eliminated)
 VALUES (1, 2, true, false);
+
+INSERT INTO tourney_matches (tourney_id, team_1_id, team_2_id, set_winner, team_1_points, team_2_points)
+VALUES (1,1,3,1,30,20);
 
 COMMIT TRANSACTION;

@@ -49,4 +49,8 @@ export default {
         return axios.get(``);
     },
 
+    getTournamentWinsAndLosses(id){
+        return axios.get(`/tournaments/${id}/wl`);
+    }
+
 }

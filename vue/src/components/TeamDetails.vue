@@ -25,13 +25,13 @@
     <div class="tournaments-wins-losses">
         <div id="win">
             <p>WINS</p> 
-            <p id="wins">{{}}0</p>
+            <p id="wins">{{tourneyWinsLoss.wins}}</p>
         </div>
 
 
         <div id="loss">
             <P>LOSSES</P> 
-            <p id="losses">{{}}0</p>
+            <p id="losses">{{tourneyWinsLoss.losses}}</p>
         </div>
     </div>
 
@@ -59,6 +59,7 @@ import TeamService from '../services/TeamService.js';
 import MemberService from '../services/MemberService.js';
 import MemberCard from './MemberCard.vue';
 import TeamRequestForm from './TeamRequestForm.vue';
+import TourneyService from '../services/TourneyService.js';
 
 export default {
     data() {
@@ -71,6 +72,8 @@ export default {
             },
             captain: {},
             members: [],
+            tourneyWinsLoss: {},
+            matchWinLoss: {},
         }
     },
 
@@ -87,15 +90,18 @@ export default {
         MemberService.getMembersByTeam(this.teamId).then((response) => {
             this.members = response.data;
         });
+        TourneyService.getTournamentWinsAndLosses(this.teamId).then((response) => {
+            this.tourneyWinsLoss = response.data;
+        })
     },
 
     methods: {
         requestTeamJoin() {
             TeamService.requestJoinTeam(this.teamId).then((response) => {
                 if(response.data){
-                    alert("joined team")
+                    alert("Request to join sent")
                 }else{
-                    alert("failed to join team")
+                    alert("Request to join failed")
                 }
             });
         },

@@ -1,7 +1,7 @@
 <template>
     <div class="team-form">
 
-        <form>
+        <form @:submit.prevent="submitTeam()">
             <h1 id="team-form-title">Team Enrollment Form</h1>
 
             <p> Register your team to compete!</p>
@@ -26,7 +26,7 @@
 
             <div>
             <label for="num-of-players">Max players on your team</label>
-            <input placeholder="Select # of players" type="number" min="1" name="num-of-players" required>
+            <input placeholder="Select # of players" type="number" min="1" name="num-of-players" v-model="team.maxPlayers" required>
             </div>
 
 
@@ -34,9 +34,9 @@
                 <label for="accepting-teammates">Is your team accepting new teammates?</label>
                 <div class="radio">
                     <label for="is-accepting-yes">True</label>
-                    <input type="radio" id="is-accepting-yes" name="is-accepting" value="yes">
+                    <input type="radio" id="is-accepting-yes" name="is-accepting" value="true" v-model="team.isAccepting">
                     <label for="is-accepting-no">False</label>
-                    <input type="radio" id="is-accepting-no" name="is-accepting" value="no">
+                    <input type="radio" id="is-accepting-no" name="is-accepting" value="false" v-model="team.isAccepting">
                 </div>
 
             </div>
@@ -49,6 +49,7 @@
 <script>
 import axios from 'axios';
 import GamesService from '../services/GamesService.js';
+import TeamService from '../services/TeamService.js';
 
 
 export default {
@@ -67,12 +68,13 @@ export default {
     },
     methods: {
         submitTeam() {
-            axios.post('http://localhost:9000/teams', this.team).then((response) => {
-                console.log("Team created successfully", response.data);
-            });
-
-        }
+            TeamService.createTeam(this.team)
+                .then((response) => {
+                    console.log("Team created successfully", response);
+                })
     },
+    },
+
     created() { 
         GamesService.getAllGames().then((response) => {
             this.games = response.data;
