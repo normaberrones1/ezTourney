@@ -2,8 +2,9 @@
   <div>
   <div class="standings-carousel">
     <div class="standings">
-      <h1>Standings</h1>
-      <p>Here are the current standings for current tournaments</p>
+      <h1 class="moveInMoveOut">Standings</h1>
+      <h1 class="moveInMoveOut">Current Tourneys</h1>
+      <h1 class="moveInMoveOut">Teams</h1>
       <div>
       </div>
 
@@ -28,7 +29,8 @@ export default {
     },
     next() {
       console.log('next');
-    }
+    },
+
   },
   data() {
     return {
@@ -52,6 +54,54 @@ export default {
     margin: 10px;
     font-size: 50px;
   
+  }
+
+  .moveInMoveOut {
+    position: absolute;
+    left: 100%;
+    animation: move 9s ease-in-out infinite;
+    
+  }
+
+  .moveInMoveOut:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  .moveInMoveOut:nth-child(2) {
+    animation-delay: 3s;
+  }
+
+  .moveInMoveOut:nth-child(3) {
+    animation-delay: 6s;
+  }
+
+  
+
+  @keyframes move {
+    0% {
+      left: 100%;
+      opacity: 0;
+    }
+    10% {
+      left: 50%;
+      opacity: 1;
+    }
+    30% {
+      left: 50%;
+      opacity: 1;
+    }
+    40% {
+      left: 50%;
+      opacity: 1;
+    }
+    50% {
+      left: -100%;
+      opacity: 0;
+    }
+    100% {
+      left: -100%;
+      opacity: 0;
+    }
   }
 
 </style>

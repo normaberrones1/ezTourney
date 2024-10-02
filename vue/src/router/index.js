@@ -9,6 +9,7 @@ import RegisterView from '../views/RegisterView.vue';
 import TeamView from '../views/TeamView.vue';
 import TournamentView from '../views/TournamentView.vue';
 import TeamDetailView from '../views/TeamDetailView.vue';
+import TournamentDetailsView from '../views/TournamentDetailsView.vue';
 
 
 /**
@@ -45,6 +46,11 @@ const routes = [
     path: "/tournamens",
     name: "tournament",
     component: TournamentView,
+  },
+  {
+    path: "/tournaments/:id",
+    name: "tournamentDetails",
+    component: TournamentDetailsView
   },
   {
     path: "/login",
