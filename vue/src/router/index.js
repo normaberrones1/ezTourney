@@ -11,6 +11,10 @@ import TournamentView from '../views/TournamentView.vue';
 import TeamDetailView from '../views/TeamDetailView.vue';
 import TournamentDetailsView from '../views/TournamentDetailsView.vue';
 
+// I understand that this should probably be a View in views but its just 
+//easier for demo purposes to do this
+import EditTeam from '../components/EditTeam.vue';
+
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -36,6 +40,12 @@ const routes = [
     meta: {
       requiresAuth: false
     }
+  },
+  //this should be changed so the component is a /views/... instead of /components/...
+  {
+    path: "/teams/:teamId/edit",
+    name: 'editTeam',
+    component: EditTeam
   },
   {
     path: "/teams",

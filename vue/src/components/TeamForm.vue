@@ -1,43 +1,54 @@
 <template>
     <div class="team-form">
-        <h1>Team Enrollment Form</h1>
-        <p> Register your team to compete!</p>
-        <form>
+
+        <form>        
+            
+            <h1 id="team-form-title">Team Enrollment Form</h1>
+        
+            <p> Register your team to compete!</p>
+
             <div class="form-filling">
             <label for="team-name">Team Name</label>
             <input type="text" id="team-name" name="team-name" required>
             </div>
 
+            <div>
+            <label for="gameInput">Game of choice</label>
+            <input type="list" name="gameInput" list="gameInput" required>
+            <datalist id="gameInput" >
+                <option v-bind:value="game.gameId" v-for="game in games" :key="game.gameId">{{ game.gameName }}</option>
+            </datalist>
+        </div>
+
+            <!-- <div>
+            <label for="total-teams">Number of Teams</label>
+            <input type="list" id="total-teams" name="total-teams" required>
+            </div> -->
 
             <div>
-            <label for="team-captain">Team Captain</label>
-            <input type="text" id="team-captain" name="team-captain" required>
+            <label for="num-of-players">Max Players on Your Team</label>
+            <input placeholder="Select # of players" type="number" min="1" name="num-of-players" required>
             </div>
 
-            <div>
-            <label for="tournament-category">Tournament Category</label>
-            <input type="list" id="tourney-name" name="tourney-name" required>
-            </div>
-        
+
             <div>
             <label for="accepting-teammates">Is your team accepting new teammates?</label>
-            <div class="checkbox">
-                <label for="is-accepting-yes">Yes</label>
-                <input type="checkbox" id="is-accepting-yes" name="is-accepting" value="yes">
+            <div class="radio">
+                <label for="is-accepting-yes">True</label>
+                <input type="radio" id="is-accepting-yes" name="is-accepting" value="yes">
+                <label for="is-accepting-no">False</label>
+                <input type="radio" id="is-accepting-no" name="is-accepting" value="no">
+            </div>
+
+            </div>
+
             
-                <label for="is-accepting-no">No</label>   
-                <input type="checkbox" id="is-accepting-no" name="is-accepting" value="no">
-            </div>
-
-            </div>
-
-
             <button type="submit" id="form-submit">SUBMIT TEAM!</button>
         </form>
     </div>
 </template>
-
 <script>
+
 export default {
     name: 'TeamForm',
     data() {
@@ -57,39 +68,66 @@ export default {
 </script>
 
 <style>
+
+#team-form-title {
+    margin-bottom: 20px;
+    color: #000000
+
+}
+
 .team-form {
     position: relative;
-    margin: 0 auto;
-    width: 40%;
+    width: 50%;
     text-align: center;
-    padding: 50px;
+    padding: 40px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.2);
     color: #000000;
     font-weight: bold;
 }
-
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
-label, input {
-    width: 70%;
+label, input, select{
+    width: 100%;
     margin-bottom: 10px;
 }
-
 #form-submit {
     font-size: 17px;
-    color: #b130fc;
+    color: #B130FC;
     font-weight: bold;
+    cursor: pointer;
 }
-
 .checkbox {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.radio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#team-name {
+    margin-bottom: 20px;
+}
+
+#num-of-players {
+    margin-bottom: 20px;
+}
+
+#accepting-teammates {
+    margin-bottom: 20px;
+}
+
+#preference {
+    margin-bottom: 20px;
+}
+
+
 </style>

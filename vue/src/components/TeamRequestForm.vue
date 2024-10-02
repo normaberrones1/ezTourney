@@ -1,9 +1,15 @@
 <template>
+<<<<<<< HEAD
   <div>
     <h1>Team Request Form</h1>
     <p>Request to join {{this.teamName}}!</p>
+=======
+    <div>
+        <h1>Team Request Form</h1>
+        <p>Request to join {{ this.teamName }}!</p>
+>>>>>>> dca344b95ea1c546dfce42c67e40c0c040992ed8
 
-    <button @click="showModal = true" id="form-submit"> Request to Join Team!</button>
+        <button @click="showModal = true" id="form-submit"> Request to Join Team!</button>
 
 
         <div v-if="showModal" class="modal">
@@ -16,19 +22,19 @@
                     </div>
 
 
-        <div>
-            <label for="player-email">Player Email</label>
-            <input type="email" id="player-email" name="player-email" required>
+                    <div>
+                        <label for="player-email">Player Email</label>
+                        <input type="email" id="player-email" name="player-email" required>
+                    </div>
+
+
+                    <button type="submit" id="form-submit">SUBMIT REQUEST!</button>
+                    <button type="button" @click="showModal = false">Cancel</button>
+
+                </form>
+            </div>
         </div>
-
-
-    <button type="submit" id="form-submit">SUBMIT REQUEST!</button>
-    <button type="button" @click="showModal = false">Cancel</button>
-
-    </form>
     </div>
-    </div>
-</div>
 </template>
 
 <script>
@@ -54,7 +60,11 @@ export default {
 }
 </script>
 
+<<<<<<< HEAD
 <style>
 
 </style>
 
+=======
+<style></style>
+>>>>>>> dca344b95ea1c546dfce42c67e40c0c040992ed8
