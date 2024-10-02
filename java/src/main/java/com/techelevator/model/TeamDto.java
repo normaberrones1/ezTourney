@@ -5,6 +5,16 @@ public class TeamDto {
     private String teamName;
     private int captainId;
 
+    private int teamId;
+
+    public int getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
+    }
+
     public String getTeamName() {
         return teamName;
     }

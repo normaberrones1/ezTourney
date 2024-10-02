@@ -2,9 +2,17 @@ BEGIN TRANSACTION;
 
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
-INSERT INTO users (username,password_hash,role) VALUES ('footballer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
-INSERT INTO users (username,password_hash,role) VALUES ('Basketballer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,password_hash,role) VALUES ('soccerer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('James Howard','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Rodger Remes','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Romulus','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Frank Ocean','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Charli XcX','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Dorian Electra','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Saul Goodman','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Ryan Gosling','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('Howls Castle','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+
+
 
 INSERT INTO game_category(category_name) VALUES ('Traditional Sports');
 INSERT INTO games(game_name, category_id) VALUES ('American Football', 1);
@@ -81,6 +89,34 @@ INSERT INTO games(game_name, category_id) VALUES ('Bowling', 9);
 INSERT INTO games(game_name, category_id) VALUES ('Cycling', 9);
 
 INSERT INTO teams(team_name, captain_id, game_id, isaccepting, max_players)
+VALUES ('League of Cornholers', 4, 43, true, 16);
 
+INSERT INTO teams(team_name, captain_id, game_id, isaccepting, max_players)
+VALUES ('Champs of the Underground', 5, 22, true, 8);
+
+INSERT INTO teams(team_name, captain_id, game_id, isaccepting, max_players)
+VALUES ('Freaked Out', 3, 13, true, 12);
+
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (4,1,true);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (5,2,true);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (3,3,true);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (6,3,true);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (7,3,false);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (8,2,true);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (9,2,true);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (10,1,true);
+INSERT INTO team_users (user_id, team_id, accepted) VALUES (11,1,true);
+
+INSERT INTO tournament (tourney_name, start_date, end_date, location, entry_fee,
+prize_desc, tourney_desc, game_id, director_id, round)
+VALUES ('Tournament TITLE WOOOO', '2024-10-4', '2024-10-6', 'Columbus OH', 200,
+'500 V-Bucks', 'Win v-bucks in this exciting matchup, coming to you over the first weekend of october',
+13, 9, 1);
+
+INSERT INTO team_tourney (team_id, tourney_id, isAccepted, eliminated)
+VALUES (2,1, false, false);
+
+INSERT INTO team_tourney (team_id, tourney_id, isAccepted, eliminated)
+VALUES (3,1, true, true);
 
 COMMIT TRANSACTION;

@@ -8,6 +8,7 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import TeamView from '../views/TeamView.vue';
 import TournamentView from '../views/TournamentView.vue';
+import TeamDetailView from '../views/TeamDetailView.vue';
 
 
 /**
@@ -23,6 +24,14 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView,
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: "/teams/:teamId",
+    name: 'teamDetails',
+    component: TeamDetailView,
     meta: {
       requiresAuth: false
     }

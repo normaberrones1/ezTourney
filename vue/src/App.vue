@@ -13,3 +13,12 @@
     <router-view />
   </div>
 </template>
+
+<style>
+#nav {
+  background-color: #58deff;
+  color: rgb(81, 0, 212);
+  text-align: center;
+  padding: 10px;
+}
+</style>
