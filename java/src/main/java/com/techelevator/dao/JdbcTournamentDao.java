@@ -70,6 +70,18 @@ public class JdbcTournamentDao implements TournamentDao{
         return null;
     }
 
+
+     public boolean acceptRejectTeamJoin(int teamId, int tourneyId){
+        return false;
+     }
+    public  Tournament createTournament(Tournament newTournament){
+        return null;
+    }
+
+    public  void nextRound(int tourneyId){
+
+    }
+
     @Override
     public WinLossDto getWinsAndLosses(int teamId) {
         //this method is all under the pretext that "tourney_desc" means "decision," and equals either 'win' or 'loss'
@@ -94,6 +106,7 @@ public class JdbcTournamentDao implements TournamentDao{
     }
 
     public List<TournamentDto> getAllCurrentTournaments(int teamId) {
+
         List<TournamentDto> currentTournaments = new ArrayList<>();
         String sql = "SELECT is_complete FROM " +
                 "team_tourney tt " +
@@ -109,7 +122,6 @@ public class JdbcTournamentDao implements TournamentDao{
 
         }
         return currentTournaments;
-
     }
 
     private TournamentDto mapRowToTournamentDto(SqlRowSet rowSet){
