@@ -8,12 +8,27 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class JdbcGameDao implements GameDao {
     private JdbcTemplate jdbcTemplate;
 
     public JdbcGameDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public List<Game> getAllGames(){
+        List<Game> games = new ArrayList<>();
+
+        String sql = "SELECT * FROM games";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql);
+        while(rowSet.next()){
+            games.add(mapToRowSet(rowSet));
+        }
+
+        return games;
     }
 
     public Game getGameById(int gameId) {

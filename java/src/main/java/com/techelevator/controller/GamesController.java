@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 
+import com.techelevator.dao.GameDao;
 import com.techelevator.dao.JdbcGameDao;
 import com.techelevator.model.Game;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +11,9 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class GamesController {
-    private JdbcGameDao dao;
+    private GameDao dao;
 
-    public GamesController(JdbcGameDao dao){
+    public GamesController(GameDao dao){
         this.dao = dao;
     }
 
