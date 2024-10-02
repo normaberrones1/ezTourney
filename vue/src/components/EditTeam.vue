@@ -23,10 +23,13 @@
 
         <div>
             <label for="gameInput">Game of choice</label>
-            <input type="list" name="gameInput" id="gameInput">
-            <datalist id="gameInput" v-for="game in games" :key="game.gameId">
-                <option v-bind:value="game.gameId"></option>
+            <input type="list" name="gameInput" list="gameInput" required v-model="team.gameId">
+            <datalist id="gameInput" >
+                <option v-bind:value="game.gameId" v-for="game in games" :key="game.gameId">{{ game.gameName }}</option>
             </datalist>
+        </div>
+        <div>
+            <input type="submit">
         </div>
     </form>
 </template>
@@ -34,6 +37,7 @@
 
 <script>
 import TeamService from '../services/TeamService';
+import GamesService from '../services/GamesService';
 
 export default {
     data() {
@@ -46,7 +50,14 @@ export default {
     created() {
         TeamService.getTeamById(this.$route.params.teamId).then((response) => {
             this.team = response.data;
-        })
+        });
+        GamesService.getAllGames().then((response) => {
+            this.games = response.data;
+        });
+    },
+
+    methods: {
+        
     }
 }
 
