@@ -37,7 +37,7 @@
 
     <div class="button-container" >
         <button id="team-request" v-on:click="requestTeamJoin()" v-if="isTeamCaptain === false">Request to Join Team!</button>
-        <button id="edit-team" v-on:click="this.$router.push(`/teams/${teamId}/edit`)" v-if="isTeamCaptain === true">Edit Team</button>
+        <button id="edit-team" v-on:click="this.$router.push(`/teams/${teamId}/edit`)" v-if="isTeamCaptain === true">Edit Team/Accept Requests to Join</button>
     </div>
 
     
