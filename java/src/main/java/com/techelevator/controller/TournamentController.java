@@ -49,7 +49,7 @@ public class TournamentController {
     }
 
     @RequestMapping(path="create-tournament", method=RequestMethod.POST)
-    public void createTourney(@RequestBody Tournament tourney, Principal principal){
-        dao.createTournament(tourney, principal);
+    public Tournament createTourney(@RequestBody Tournament tourney, Principal principal){
+        return dao.createTournament(tourney, principal);
     }
 }
