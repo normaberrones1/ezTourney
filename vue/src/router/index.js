@@ -14,6 +14,7 @@ import TournamentDetailsView from '../views/TournamentDetailsView.vue';
 // I understand that this should probably be a View in views but its just 
 //easier for demo purposes to do this
 import EditTeam from '../components/EditTeam.vue';
+import EditTournament from '../components/EditTournament.vue';
 
 
 
@@ -47,6 +48,12 @@ const routes = [
     path: "/teams/:teamId/edit",
     name: 'editTeam',
     component: EditTeam
+  },
+  {
+    path: "/tournaments/:tourneyId/edit",
+    name: 'editTournament',
+    component: EditTournament
+
   },
 
   {

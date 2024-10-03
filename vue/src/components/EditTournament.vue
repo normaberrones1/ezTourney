@@ -2,7 +2,7 @@
     <form v-on:submit.prevent="updateTournament()">
         <div class="nameInput">
                 <label for="tournamentName">Tournament Name</label>
-                <input v-model="tournament.tournamentName" type="text" id="tournamentName" name="tournamentName" required>
+                <input v-model="tournament.tourneyName" type="text" id="tourneyName" name="tournamentName" required>
             </div>
         <div class="startDateInput">
             <label for="startDate">Start Date</label>
@@ -18,11 +18,11 @@
             </div>
         <div class="entryFeeInput">
                 <label for="entryFee">Entry Fee</label>
-                <input v-model="tournament.entryFee" type="number" id="entryFee" name="entryFee" required>
+                <input v-model="tournament.entry_fee" type="number" id="entryFee" name="entryFee" required>
             </div>
         <div class="prizeInput">
                 <label for="prizeDesc">Prize Desc</label>
-                <input v-model="tournament.prizeDesc" type="number" id="prizeDesc" name="prizeDesc" required>
+                <input v-model="tournament.prizeDesc" type="text" id="prizeDesc" name="prizeDesc" required>
             </div>
         <div class="tourneyDescInput">
                 <label for="tourneyDesc">Tournament Description</label>
@@ -34,12 +34,12 @@
             </div>
         <div class="roundInput">
                 <label for="rounds">Rounds</label>
-                <input v-model="tournament.rounds" type="number" id="rounds" name="rounds" required>
+                <input v-model="tournament.round" type="number" id="round" name="round" required>
             </div>
-        <div class="winnerIdInput">
+        <!-- <div class="winnerIdInput">
                 <label for="winnerId">Winner ID</label>
-                <input v-model="tournament.winnerId" type="number" id="winnerId" name="winnerId" required>
-            </div>  
+                <input v-model="tournament.winner" type="number" id="winner" name="winner" required>
+            </div>   -->
          <div>
             <input type="submit">
         </div>
@@ -66,9 +66,9 @@
 
         methods: {
         updateTeam(){
-            TourneyService.updateTeam(this.tournament).then((response) => {
+            TourneyService.updateTournament(this.tournament).then((response) => {
                 if(response.status === 200){
-                    this.$router.push(`/tournament/${this.tournament.tourneyId}`)
+                    this.$router.push(`/tournaments/${this.tournament.tourneyId}`)
                 }
             });
         }

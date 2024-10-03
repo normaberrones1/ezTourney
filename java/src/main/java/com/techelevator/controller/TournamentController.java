@@ -52,4 +52,8 @@ public class TournamentController {
     public Tournament createTourney(@RequestBody Tournament tourney, Principal principal){
         return dao.createTournament(tourney, principal);
     }
+    @RequestMapping(path="/tournaments/{tourneyId}/edit", method=RequestMethod.PUT)
+    public Tournament updateTournament(@RequestBody Tournament tournament){
+        return dao.updateTournament(tournament);
+    }
 }
