@@ -68,6 +68,19 @@ export default {
     justify-content: center;
     align-items: center;
 }
+
+#tourney-request {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #b130fc;
+    font-weight: bold;
+    font-size: 30px;
+    border-radius: 10px;
+    margin: 10px auto;
+    cursor: pointer;
+    text-align: center;
+    font-size: 20px;
+}
     
 .tourneyDetails {
     color:white;

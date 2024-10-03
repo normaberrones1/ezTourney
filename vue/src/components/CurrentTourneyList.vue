@@ -1,8 +1,10 @@
 <template>
 
-    <div class="tournament">
-        <h1>CURRENT TOURNAMENTS</h1>
+    <div>
+    
+        <h1 id="tournaments-title">CURRENT TOURNAMENTS</h1>
         <h2 id="click-tourney">Click a tournament to view details</h2>
+        <div id="tournament-container">
         <div class="tourneyDiv">
             <router-link v-for="tourney in tournaments" :key="tourney.tourneyId"
                 v-bind:to="{ name: 'tournamentDetails', params: { id: tourney.tourneyId } }">
@@ -14,7 +16,7 @@
             <TourneyForm></TourneyForm>
         </div>
 
-
+</div>
 
     </div>
 
@@ -38,15 +40,16 @@ export default {
             required: true
         }
     },
-
-
+    
     components: { TournamentCard, TourneyForm },
 
     created() {
         TourneyService.getCurrentTournaments().then((response) => {
+            console.log(response.data);
             this.tournaments = response.data;
         })
     }
+
 }
 </script>
 
@@ -55,6 +58,7 @@ body {
     background-image: url('/public/teams-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    
 }
 
 h1 {
@@ -62,39 +66,45 @@ h1 {
     color: #58deff;
 }
 
-#tourneyContainer {
+#tournament-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas:
-        "teams teams teams teamForm"
-        "teams teams teams teamForm";
+        "tourney tourney tourney tourneyForm"
+        "tourney tourney tourney tourneyForm";
 }
 
 #tourneyForm {
-    grid-area: teamForm;
+    grid-area: tourneyForm;
     display: flex;
     justify-content: center;
 }
 
-#click-tourney {
-    text-align: center;
-    color: #58deff;
-}
 
 .tourneyDiv {
-    grid-area: teams;
+
     background-color: rgba(255, 255, 255, 0.2);
     padding: 25px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
 }
 
-#tourneys-title {
+#tournaments-title {
     position: relative;
     right: 12.3%;
     margin-top: 2%;
     margin-bottom: 2%;
     font-size: 2em;
     color: #B130FC;
+}
+
+#click-tourney {
+    position: relative;
+    right: 12.3%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-size: 1.5em;
+    text-align: center;
+    color: #58deff;
 }
 </style>
