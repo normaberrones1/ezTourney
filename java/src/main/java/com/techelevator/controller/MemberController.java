@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.MemberDao;
+import com.techelevator.model.AcceptRejectTeamDto;
 import com.techelevator.model.TeamDto;
 import com.techelevator.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,10 @@ public class MemberController {
     @RequestMapping(path="/am-team-captain/{teamId}", method = RequestMethod.GET)
     public boolean amTeamCaptain(Principal principal, @PathVariable int teamId){
         return dao.isCurrentUserTeamCaptain(principal, teamId);
+    }
+
+    @RequestMapping(path="/accept-reject-teammate/", method = RequestMethod.PATCH)
+    public void acceptRejectTeammate(@RequestBody AcceptRejectTeamDto acceptReject){
+        dao.acceptRejectRequest(acceptReject);
     }
 }

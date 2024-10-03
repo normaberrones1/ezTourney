@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 
+import com.techelevator.model.AcceptRejectTeamDto;
 import com.techelevator.model.TeamDto;
 import com.techelevator.model.UserDto;
 
@@ -19,4 +20,6 @@ public interface MemberDao {
     int getUserIdByName(String username);
 
     boolean isCurrentUserTeamCaptain(Principal principal, int teamId);
+
+    void acceptRejectRequest(AcceptRejectTeamDto acceptReject);
 }
