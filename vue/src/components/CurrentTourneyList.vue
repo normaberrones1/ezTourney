@@ -10,7 +10,7 @@
             </router-link>
         </div>
 
-    <!-- <div>
+    </div>
     <div>
 
         <h1 id="tourneys-title">CURRENT TOURNEYS</h1>
@@ -27,8 +27,8 @@
                 <TourneyForm></TourneyForm>
             </div>
 
-    </div> -->
-</div>
+    </div>
+
 
 </template>
 
@@ -41,6 +41,12 @@ export default {
     data() {
         return {
             tournaments: [],
+        }
+    },
+    props: {
+        tourney: {
+            type: Object,
+            required: true
         }
     },
 
