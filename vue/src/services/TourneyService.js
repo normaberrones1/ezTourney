@@ -51,6 +51,10 @@ export default {
 
     getTournamentWinsAndLosses(id){
         return axios.get(`/tournaments/${id}/wl`);
+    },
+
+    getMatchWinsAndLosses(id){
+        return axios.get(`/match-info/${id}`);
     }
 
 }

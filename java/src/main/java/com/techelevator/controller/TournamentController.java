@@ -34,6 +34,11 @@ public class TournamentController {
 
     @RequestMapping(path="/tournaments/{teamId}/wl", method=RequestMethod.GET)
     public WinLossDto getTournamentWinsAndLossesByTeam(@PathVariable int teamId){
-        return dao.getWinsAndLosses(teamId);
+        return dao.getTourneyWinsAndLosses(teamId);
+    }
+
+    @RequestMapping(path="/match-info/{teamId}", method = RequestMethod.GET)
+    public WinLossDto getMatchWinsAndLossesByTeam(@PathVariable int teamId){
+        return dao.getMatchWinLoss(teamId);
     }
 }

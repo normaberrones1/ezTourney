@@ -12,7 +12,6 @@ public class Tournament {
     private String prizeDesc;
     private String tourneyDesc;
     private int gameId;
-    private int directorId;
     private int winner;
      private int round;
 
@@ -86,14 +85,6 @@ public class Tournament {
 
     public void setGameId(int gameId) {
         this.gameId = gameId;
-    }
-
-    public int getDirectorId() {
-        return directorId;
-    }
-
-    public void setDirectorId(int directorId) {
-        this.directorId = directorId;
     }
 
     public int getWinner() {

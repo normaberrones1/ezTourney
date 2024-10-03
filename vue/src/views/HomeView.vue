@@ -30,6 +30,13 @@ export default {
     color: #58deff
   }
 
+  .home {
+    text-align: center;
+    color: #58deff;
+  }
+
+
+
 
 </style>
 

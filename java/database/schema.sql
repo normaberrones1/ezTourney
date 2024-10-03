@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS game_category;
 DROP TABLE IF EXISTS tournament;
 DROP TABLE IF EXISTS team_tourney;
 DROP TABLE IF EXISTS tourney_matches;
+DROP TABLE IF EXISTS tourney_matches;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -62,11 +63,17 @@ CREATE TABLE tournament (
     prize_desc varchar(100) NOT NULL,
     tourney_desc varchar(500) NOT NULL,
     game_id int NOT NULL,
-    director_id int NOT NULL,
     round int NOT NULL,
     winner_id int,
     CONSTRAINT PK_tourney PRIMARY KEY (tourney_id),
-    CONSTRAINT FK_game FOREIGN KEY (game_id) REFERENCES games(game_id),
+    CONSTRAINT FK_game FOREIGN KEY (game_id) REFERENCES games(game_id)
+);
+
+CREATE TABLE tourney_directors (
+    tourney_id int NOT NULL,
+    director_id int NOT NULL,
+    CONSTRAINT PK_tourney_directors PRIMARY KEY (tourney_id, director_id),
+    CONSTRAINT FK_tourney FOREIGN KEY (tourney_id) REFERENCES tournament(tourney_id),
     CONSTRAINT FK_director FOREIGN KEY (director_id) REFERENCES users(user_id)
 );
 

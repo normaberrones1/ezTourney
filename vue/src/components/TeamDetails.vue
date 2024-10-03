@@ -9,13 +9,13 @@
     <div class="matches-wins-losses">
         <div id="win">
             <p>WINS</p> 
-            <p id="wins">{{}}0</p>
+            <p id="wins">{{matchWinLoss.wins}}</p>
         </div>
 
 
         <div id="loss">
             <P>LOSSES</P> 
-            <p id="losses">{{}}0</p>
+            <p id="losses">{{matchWinLoss.losses}}</p>
         </div>
     </div>
 
@@ -92,7 +92,10 @@ export default {
         });
         TourneyService.getTournamentWinsAndLosses(this.teamId).then((response) => {
             this.tourneyWinsLoss = response.data;
-        })
+        });
+        TourneyService.getMatchWinsAndLosses(this.teamId).then((response) => {
+            this.matchWinLoss = response.data;
+        });
     },
 
     methods: {

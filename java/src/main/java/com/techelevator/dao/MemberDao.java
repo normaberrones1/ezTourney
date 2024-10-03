@@ -15,4 +15,6 @@ public interface MemberDao {
 
     //as a user I want the teams I am part of
     List<TeamDto> getMyTeams(Principal principal);
+
+    int getUserIdByName(String username);
 }

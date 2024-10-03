@@ -13,14 +13,26 @@
         <div id="round">Round: {{ tournament.rounds }}</div>
         <div id="winner_id">Winner ID: {{ tournament.winnerId }}</div>
     </div>
+
+    <div class="tourney-button" >
+        <button id="tourney-request" v-on:click="requestTeamJoin()">Request to Join Tournament!</button>
+    </div>
+
+    <TourneyRequestForm v-if="showModal" @close="showModal = false"/>
+
 </template>
+
+
 
 <script>
 import TourneyService from '../services/TourneyService';
+import TourneyRequestForm from './TournamentRequestForm.vue';
+
 export default {
     data() {
        return {
-              tournament: {}
+              tournament: {},
+              showModal: false,
          }
     },
     methods: {
@@ -28,19 +40,32 @@ export default {
             TourneyService.getTournamentById(this.$route.params.id).then((response) => {
                 this.tournament = response.data;
             });
+
         }
     },
+    components: {TourneyRequestForm},
+
     created() {
-           this.getTournament();
-    }
+        this.getTournament();
+    },
+
 }
 </script>
 
 <style scoped>
+
+#tourney-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    
 .tourneyDetails {
     color:white;
     text-align: center;
     margin-top: 2em;
     padding: auto;
 }
+
 </style>
+

@@ -59,6 +59,6 @@ export default {
     flex-wrap: wrap;
     border: 1px solid rgb(124, 124, 124);
     grid-area: teams;
-    color: #58deff;
+    color: #000000;
 }
 </style>
