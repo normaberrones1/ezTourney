@@ -44,6 +44,10 @@ export default {
 
     requestJoinTeam(teamId){
         return axios.post(`/teams/join/${teamId}`);
+    },
+
+    amITeamCaptain(teamId){
+        return axios.get(`/am-team-captain/${teamId}`);
     }
  
 };
