@@ -31,7 +31,7 @@ const routes = [
     name: 'home',
     component: HomeView,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -105,7 +105,7 @@ router.beforeEach((to) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
 
   // If it does and they are not logged in, send the user to "/login"
-  if (requiresAuth && store.state.token === '') {
+  if (requiresAuth && !store.state.token) {
     return { name: "login" };
   }
   // Otherwise, do nothing and they'll go to their next destination
