@@ -44,6 +44,7 @@
           <input type="text" id="prize-description" v-model="tourney.prizeDescription">
       </div>
 
+
       <!-- <div>
                     <label>Do you need teams or individual players?</label>
                 <div class="radio">
