@@ -51,7 +51,7 @@ h1 {
         "teams teams teams teamForm";
 }
 #teamForm {
-    grid-area: teamForm;
+  
     display: flex;
     justify-content: center;
 }
