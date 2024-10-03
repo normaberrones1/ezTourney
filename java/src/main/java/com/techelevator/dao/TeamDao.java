@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.AcceptRejectTeamDto;
 import com.techelevator.model.Team;
 import com.techelevator.model.TeamDto;
 
@@ -25,6 +26,8 @@ public interface TeamDao {
     Team getTeamByGameId(int gameId);
 
     boolean requestTeamJoin(Principal principal, int teamId);
+
+    void acceptRejectRequest(AcceptRejectTeamDto acceptReject);
 
 }
 

@@ -1,9 +1,6 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.AcceptRejectTeamDto;
-import com.techelevator.model.Team;
-import com.techelevator.model.TeamDto;
-import com.techelevator.model.UserDto;
+import com.techelevator.model.*;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -94,16 +91,16 @@ public class JdbcMemberDao implements MemberDao{
         return 0;
     }
 
-    public void acceptRejectRequest(AcceptRejectTeamDto acceptReject){
-        String sql = "";
-        if(acceptReject.isAccepted()){
-            sql = "UPDATE team_users SET accepted = true " +
-                    "WHERE user_id = ? AND team_id = ?;";
-        }else{
-            sql = "DELETE FROM team_users " +
-                    "WHERE user_id = ? AND team_id = ?;";
+    public List<UserDto> getPendingJoinRequests(int teamId){
+        List<UserDto> users = new ArrayList<>();
+        String sql = "SELECT username, users.user_id FROM users " +
+                "JOIN team_users ON team_users.user_id = users.user_id " +
+                "WHERE team_id = ?";
+        SqlRowSet rowSet = template.queryForRowSet(sql, teamId);
+        while(rowSet.next()){
+            users.add(mapRowToUserDto(rowSet));
         }
-        template.update(sql, acceptReject.getUserId(), acceptReject.getTeamId());
+        return users;
     }
 
     private UserDto mapRowToUserDto(SqlRowSet rowSet){
