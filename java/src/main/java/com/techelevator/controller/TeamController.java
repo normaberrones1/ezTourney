@@ -4,6 +4,7 @@ import com.techelevator.dao.GameDao;
 import com.techelevator.dao.JdbcMemberDao;
 import com.techelevator.dao.TeamDao;
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.AcceptRejectTeamDto;
 import com.techelevator.model.Team;
 import com.techelevator.model.TeamDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,6 +111,14 @@ public class TeamController {
     }
 
     //PATCH accept/reject team members
+    @RequestMapping(path="/accept-teammate/", method = RequestMethod.PUT)
+    public void acceptTeammate(@RequestBody AcceptRejectTeamDto acceptReject){
+        teamDao.acceptRequest(acceptReject);
+    }
 
+    @RequestMapping(path="/reject-teammate/", method = RequestMethod.PUT)
+    public void rejectTeammate(@RequestBody AcceptRejectTeamDto acceptReject){
+        teamDao.rejectRequest(acceptReject);
+    }
 }
 

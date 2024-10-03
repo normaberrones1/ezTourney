@@ -6,9 +6,9 @@
         <h2 id="click-tourney">Click a tournament to view details</h2>
         <div id="tournament-container">
         <div class="tourneyDiv">
-            <router-link v-for="tourney in tournaments" :key="tourney.tourneyId"
+            <router-link class="tourney-link" v-for="tourney in tournaments" :key="tourney.tourneyId"
                 v-bind:to="{ name: 'tournamentDetails', params: { id: tourney.tourneyId } }">
-                <TournamentCard v-bind:tourney="tourney" />
+                <TournamentCard id="tourney-list" v-bind:tourney="tourney" />
             </router-link>
         </div>
 
@@ -82,7 +82,7 @@ h1 {
 
 .tourneyDiv {
     grid-area: tourney;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.5);
     padding: 25px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
@@ -105,5 +105,13 @@ h1 {
     font-size: 1.5em;
     text-align: center;
     color: #58deff;
+}
+
+#tourney-list {
+    margin-bottom: 20px;
+}
+
+.tourney-link {
+    text-decoration: none;
 }
 </style>

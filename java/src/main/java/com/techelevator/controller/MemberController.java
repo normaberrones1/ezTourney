@@ -4,6 +4,7 @@ import com.techelevator.dao.MemberDao;
 import com.techelevator.model.AcceptRejectTeamDto;
 import com.techelevator.model.TeamDto;
 import com.techelevator.model.UserDto;
+import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.RequestScope;
@@ -44,8 +45,8 @@ public class MemberController {
         return dao.isCurrentUserTeamCaptain(principal, teamId);
     }
 
-    @RequestMapping(path="/accept-reject-teammate/", method = RequestMethod.PATCH)
-    public void acceptRejectTeammate(@RequestBody AcceptRejectTeamDto acceptReject){
-        dao.acceptRejectRequest(acceptReject);
+    @RequestMapping(path="/pending-joins/{teamId}", method = RequestMethod.GET)
+    public List<UserDto> getPendingJoinRequests(@PathVariable int teamId){
+        return dao.getPendingJoinRequests(teamId);
     }
 }

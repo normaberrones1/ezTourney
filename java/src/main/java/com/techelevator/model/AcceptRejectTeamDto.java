@@ -3,8 +3,6 @@ package com.techelevator.model;
 public class AcceptRejectTeamDto {
     private int teamId;
     private int userId;
-    private boolean isAccepted;
-
     public int getTeamId() {
         return teamId;
     }
@@ -21,11 +19,4 @@ public class AcceptRejectTeamDto {
         this.userId = userId;
     }
 
-    public boolean isAccepted() {
-        return isAccepted;
-    }
-
-    public void setAccepted(boolean accepted) {
-        isAccepted = accepted;
-    }
 }
