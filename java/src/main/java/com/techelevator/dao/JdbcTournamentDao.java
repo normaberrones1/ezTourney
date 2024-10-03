@@ -90,23 +90,21 @@ public class JdbcTournamentDao implements TournamentDao{
      }
 
 
-    public  void createTournament(Tournament newTournament, Principal principal){
-        String sql = "INSERT INTO tourney_directors (tourney_id, director_id) VALUES (" +
-                "(INSERT INTO tournament(tourney_name,start_date,end_date,location,entry_fee,prize_desc," +
-                "tourney_desc,game_id,round,) VALUES (?,?,?,?,?,?,?,?,?) RETURNING tourney_id)," +
-                "?)";
+    public  Tournament createTournament(Tournament newTournament, Principal principal){
+        int newTournamentId = 0;
+        String sql = "INSERT INTO tournament(tourney_name, start_date, end_date, location, entry_fee, prize_desc, tourney_desc, game_id, round) " +
+        "VALUES (?,?,?,?,?,?,?,?,1) RETURNING tourney_id;";
+            String sql2 = "INSERT INTO tourney_directors (tourney_id, director_id) VALUES (?,?);";
         try{
-            template.update(sql,
-                    newTournament.getTourneyName(),newTournament.getStartDate(),newTournament.getEndDate(),newTournament.getLocation(),
-                    newTournament.getEntry_fee(),newTournament.getPrizeDesc(),newTournament.getTourneyDesc(),
-                    newTournament.getGameId(),1, memberDao.getUserIdByName(principal.getName()));
-
+            newTournamentId = template.queryForObject(sql, Integer.class, newTournament.getTourneyName(), newTournament.getStartDate(), newTournament.getEndDate(),
+                    newTournament.getLocation(), newTournament.getEntry_fee(), newTournament.getPrizeDesc(), newTournament.getTourneyDesc(), newTournament.getGameId());
+            template.update(sql2, newTournamentId, memberDao.getUserIdByName(principal.getName()));
         }catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
-
+        return getTournamentById(newTournamentId);
     }
 
      public Tournament updateTournament(Tournament tournament){
@@ -236,6 +234,7 @@ public class JdbcTournamentDao implements TournamentDao{
         tournament.setEntry_fee(rowSet.getInt("entry_fee"));
         tournament.setPrizeDesc(rowSet.getString("prize_desc"));
         tournament.setGameId(rowSet.getInt("game_id"));
+        tournament.setTourneyDesc(rowSet.getString("tourney_desc"));
         tournament.setRound(rowSet.getInt("round"));
         tournament.setWinner(rowSet.getInt("winner_id"));
 

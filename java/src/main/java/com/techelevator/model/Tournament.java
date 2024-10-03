@@ -13,7 +13,7 @@ public class Tournament {
     private String tourneyDesc;
     private int gameId;
     private int winner;
-     private int round;
+    private int round;
 
     public int getTourneyId() {
         return tourneyId;

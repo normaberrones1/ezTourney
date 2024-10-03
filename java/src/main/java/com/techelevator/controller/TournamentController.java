@@ -43,13 +43,13 @@ public class TournamentController {
         return dao.getMatchWinLoss(teamId);
     }
 
-    @RequestMapping(path="is-director/{tourneyId}", method=RequestMethod.GET)
+    @RequestMapping(path="/is-director/{tourneyId}", method=RequestMethod.GET)
     public boolean isUserDirector(Principal principal, @PathVariable int tourneyId ){
         return dao.isUserDirector(principal, tourneyId);
     }
 
-    @RequestMapping(path="create-tournament", method=RequestMethod.POST)
-    public void createTourney(@RequestBody Tournament tourney, Principal principal){
-        dao.createTournament(tourney, principal);
+    @RequestMapping(path="/create-tournament", method=RequestMethod.POST)
+    public Tournament createTourney(@RequestBody Tournament tourney, Principal principal){
+        return dao.createTournament(tourney, principal);
     }
 }
