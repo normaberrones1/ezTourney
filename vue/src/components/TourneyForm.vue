@@ -6,7 +6,7 @@
 
             <div>
                 <label for="tourney-name">Tournament Name</label>
-                <input type="text" id="tourney-name" v-model="tourney.tourneyName">
+                <input type="text" id="tourney-name" v-model="tourney.tourneyName" required>
             </div>
 
 
@@ -22,27 +22,32 @@
 
             <div>
                 <label for="start-date">Start Date</label>
-                <input type="date" id="start-date" v-model="tourney.startDate">
+                <input type="date" id="start-date" v-model="tourney.startDate" required>
             </div>
 
             <div>
                 <label for="end-date">End Date</label>
-                <input type="date" id="end-date" v-model="tourney.endDate">
+                <input type="date" id="end-date" v-model="tourney.endDate" required>
             </div>
 
             <div>
                 <label for="location">Location</label>
-                <input type="text" id="location" v-model="tourney.location">
+                <input type="text" id="location" v-model="tourney.location" required>
             </div>
 
             <div>
                 <label for="entry-fee">Entry Fee</label>
-                <input type="number" id="entry-fee" v-model="tourney.entryFee">
+                <input type="number" id="entry-fee" v-model="tourney.entry_fee" required min="1">
             </div>
 
             <div>
                 <label for="prize-description">Prize Description</label>
-                <input type="text" id="prize-description" v-model="tourney.prizeDescription">
+                <input type="text" id="prize-description" v-model="tourney.prizeDesc" required>
+            </div>
+
+            <div>
+                <label for="tourney-description">Tournament Description</label>
+                <input type="text" id="tourney-description" v-model="tourney.tourneyDesc" required>
             </div>
 
             <button type="submit" id="form-submit">CREATE TOURNAMENT!</button>
@@ -62,12 +67,13 @@ export default {
         return {
             tourney: {
                 tourneyName: '',
-                gameId: '',
                 startDate: '',
                 endDate: '',
                 location: '',
-                entryFee: '',
-                prizeDescription: ''  
+                entry_fee: '',
+                prizeDesc: '',
+                tourneyDesc: '', 
+                gameId: ''
             },
             games: []
         }
@@ -75,7 +81,7 @@ export default {
 
     methods: {
         submitTourney() {
-            TourneyService.createTournament(this.tournament)
+            TourneyService.createTournament(this.tourney)
                 .then(response => {
                     console.log("Tournament created successfully", response);
                 })
