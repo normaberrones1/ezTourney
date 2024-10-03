@@ -1,7 +1,7 @@
 <template>
     <div class="team-form">
 
-        <form @:submit.prevent="submitTeam()">
+        <form @:submit="submitTeam()">
             <h1 id="team-form-title">Team Enrollment Form</h1>
 
             <p> Register your team to compete!</p>
