@@ -34,12 +34,24 @@ export default {
   },
   data() {
     return {
-      
+      currentSlide: 0,
+      slides: [
+        'Standings',
+        'Current Tourneys',
+        'Teams'
+      ]
     }
   },
   computed: {
 
+  },
+  created() {
+    console.log('created');
+  },
+  updated() {
+    console.log('updated');
   }
+  
 
 }
 </script>

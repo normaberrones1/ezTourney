@@ -12,7 +12,7 @@
             </router-link>
         </div>
 
-        <div>
+        <div id="tourneyForm">
             <TourneyForm></TourneyForm>
         </div>
 

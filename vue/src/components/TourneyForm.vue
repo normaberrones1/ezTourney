@@ -92,7 +92,7 @@ export default {
 
 <style>
 #tourney-form-title {
-    margin-bottom: 0px;
+    margin-bottom: 20px;
     color: #000000
 }
 
@@ -112,6 +112,7 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 
 label,

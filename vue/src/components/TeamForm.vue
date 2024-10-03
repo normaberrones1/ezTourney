@@ -2,7 +2,7 @@
     <div class="team-form">
 
         <form @:submit="submitTeam()">
-            <h1 id="team-form-title">Team Enrollment Form</h1>
+            <h1 id="team-form-title">Team Sign-Up</h1>
 
             <p> Register your team to compete!</p>
 

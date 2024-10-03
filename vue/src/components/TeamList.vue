@@ -1,6 +1,7 @@
 <template>
     <div>
     <h1 id="teams-title">CURRENT TEAMS</h1>
+    <p id="click-team">Click a team to view details!</p>
     <div id="teamContainer">
         <div class="teamsDiv" >
             <router-link
@@ -38,7 +39,18 @@ body {
     background-image: url('/public/teams-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100vh;
     
+}
+
+#click-team {
+    position: relative;
+    right: 12.3%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-size: 1.5em;
+    text-align: center;
+    color: #58deff;
 }
 h1 {
     text-align: center;
@@ -62,6 +74,7 @@ h1 {
     padding: 25px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
+    
 }
 #teams-title {
     position: relative;
