@@ -68,6 +68,16 @@ public class JdbcMemberDao implements MemberDao{
         return teams;
     }
 
+    @Override
+    public int getUserIdByName(String username) {
+        String sql = "SELECT user_id FROM users WHERE username = ?";
+        SqlRowSet rowSet = template.queryForRowSet(sql,username);
+        if(rowSet.next()){
+            return rowSet.getInt("user_id");
+        }
+        return 0;
+    }
+
     private UserDto mapRowToUserDto(SqlRowSet rowSet){
         UserDto user = new UserDto();
         user.setUserId(rowSet.getInt("user_id"));
