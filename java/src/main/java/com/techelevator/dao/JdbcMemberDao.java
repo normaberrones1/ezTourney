@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.AcceptRejectTeamDto;
 import com.techelevator.model.Team;
 import com.techelevator.model.TeamDto;
 import com.techelevator.model.UserDto;
@@ -91,6 +92,18 @@ public class JdbcMemberDao implements MemberDao{
             return rowSet.getInt("user_id");
         }
         return 0;
+    }
+
+    public void acceptRejectRequest(AcceptRejectTeamDto acceptReject){
+        String sql = "";
+        if(acceptReject.isAccepted()){
+            sql = "UPDATE team_users SET accepted = true " +
+                    "WHERE user_id = ? AND team_id = ?;";
+        }else{
+            sql = "DELETE FROM team_users " +
+                    "WHERE user_id = ? AND team_id = ?;";
+        }
+        template.update(sql, acceptReject.getUserId(), acceptReject.getTeamId());
     }
 
     private UserDto mapRowToUserDto(SqlRowSet rowSet){
