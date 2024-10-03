@@ -1,5 +1,53 @@
 <template>
     <div class="tourney-form">
+        
+      <form v-on:submit="submitTourney()">
+      <h1 id="tourney-form-title">Create Tournament</h1>
+  
+      <div>
+          <label for="tourney-name">Tournament Name</label>
+          <input type="text" id="tourney-name" v-model="tourney.tourneyName">
+      </div>
+  
+  
+      <div>
+          <label for="gameInput">Select Tournament</label>
+          <input type="list" name="gameInput" list="gameInput" required v-model="team.gameId">
+          <datalist id="gameInput" >
+              <option v-bind:value="game.gameId" v-for="game in games" :key="game.gameId">{{ game.gameName }}</option>
+          </datalist>
+      </div>
+  
+  
+      <div>
+          <label for="start-date">Start Date</label>
+          <input type="date" id="start-date" v-model="tourney.startDate">
+      </div>
+  
+      <div>
+          <label for="end-date">End Date</label>
+          <input type="date" id="end-date" v-model="tourney.endDate">
+      </div>
+  
+      <div>
+          <label for="location">Location</label>
+          <input type="text" id="location" v-model="tourney.location">
+      </div>
+  
+      <div>
+          <label for="entry-fee">Entry Fee</label>
+          <input type="number" id="entry-fee" v-model="tourney.entryFee">
+      </div>
+  
+      <div>
+          <label for="prize-description">Prize Description</label>
+          <input type="text" id="prize-description" v-model="tourney.prizeDescription">
+      </div>
+
+
+      <!-- <div>
+                    <label>Do you need teams or individual players?</label>
+
 
         <form v-on:submit="submitTourney()">
             <h1 id="tourney-form-title">Create Tournament</h1>

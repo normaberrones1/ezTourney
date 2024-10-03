@@ -59,6 +59,12 @@ public interface TournamentDao {
      */
     void nextRound(int tourneyId);
 
+
+    Tournament updateTournament(Tournament tournament);
+
+
+
     WinLossDto getMatchWinLoss(int teamId);
+
 }
 
