@@ -85,15 +85,18 @@ public class JdbcTeamDao implements TeamDao {
         return team;
     }
 
-    public void acceptRejectRequest(AcceptRejectTeamDto acceptReject){
-        String sql = "";
-        if(acceptReject.isAccepted()){
-            sql = "UPDATE team_users SET accepted = true " +
-                    "WHERE user_id = ? AND team_id = ?;";
-        }else{
-            sql = "DELETE FROM team_users " +
-                    "WHERE user_id = ? AND team_id = ?;";
-        }
+    public void acceptRequest(AcceptRejectTeamDto acceptReject){
+        String sql = "UPDATE team_users SET accepted = 'true' " +
+                "WHERE user_id = ? AND team_id = ?;";
+        jdbcTemplate.update(sql, acceptReject.getUserId(), acceptReject.getTeamId());
+
+    }
+
+    @Override
+    public void rejectRequest(AcceptRejectTeamDto acceptReject) {
+        String sql = "DELETE FROM team_users WHERE " +
+                "user_id = ? AND team_id = ?;";
+
         jdbcTemplate.update(sql, acceptReject.getUserId(), acceptReject.getTeamId());
     }
 

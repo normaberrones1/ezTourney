@@ -111,9 +111,14 @@ public class TeamController {
     }
 
     //PATCH accept/reject team members
-    @RequestMapping(path="/accept-reject-teammate/", method = RequestMethod.PATCH)
-    public void acceptRejectTeammate(@RequestBody AcceptRejectTeamDto acceptReject){
-        teamDao.acceptRejectRequest(acceptReject);
+    @RequestMapping(path="/accept-teammate/", method = RequestMethod.PUT)
+    public void acceptTeammate(@RequestBody AcceptRejectTeamDto acceptReject){
+        teamDao.acceptRequest(acceptReject);
+    }
+
+    @RequestMapping(path="/reject-teammate/", method = RequestMethod.PUT)
+    public void rejectTeammate(@RequestBody AcceptRejectTeamDto acceptReject){
+        teamDao.rejectRequest(acceptReject);
     }
 }
 

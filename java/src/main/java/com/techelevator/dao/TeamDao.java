@@ -27,7 +27,8 @@ public interface TeamDao {
 
     boolean requestTeamJoin(Principal principal, int teamId);
 
-    void acceptRejectRequest(AcceptRejectTeamDto acceptReject);
+    void acceptRequest(AcceptRejectTeamDto acceptReject);
 
+    void rejectRequest(AcceptRejectTeamDto acceptReject);
 }
 

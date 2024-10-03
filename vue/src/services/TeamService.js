@@ -17,7 +17,6 @@ export default {
         return axios.get(`/teams/captain/${captainId}`);
     },
 
-
     //Input params Team obj.
     //outputs a promise/
     //inserts a tean into database
@@ -31,12 +30,6 @@ export default {
         return axios.put(`/teams/${team.teamId}`, team);
     },
 
-    //Accepts or rejects teammates,
-    //Need to show pending requests
-    acceptTeammate(teammateId){
-        return axios.patch(`/teams/${teammateId}/accepting`);
-    },
-    
     //Allows a team to be deleted from the database
     disbandTeam(teamId){
         return axios.delete(`/teams/${teamId}`);
@@ -48,6 +41,14 @@ export default {
 
     amITeamCaptain(teamId){
         return axios.get(`/am-team-captain/${teamId}`);
+    },
+
+    acceptJoin(acceptDto){
+        return axios.put(`/accept-teammate/`, acceptDto);
+    },
+
+    rejectJoin(rejectDto){
+        return axios.put(`/reject-teammate/`, rejectDto);
     }
  
 };

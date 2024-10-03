@@ -95,7 +95,7 @@ public class JdbcMemberDao implements MemberDao{
         List<UserDto> users = new ArrayList<>();
         String sql = "SELECT username, users.user_id FROM users " +
                 "JOIN team_users ON team_users.user_id = users.user_id " +
-                "WHERE team_id = ?";
+                "WHERE team_id = ? AND accepted = false";
         SqlRowSet rowSet = template.queryForRowSet(sql, teamId);
         while(rowSet.next()){
             users.add(mapRowToUserDto(rowSet));

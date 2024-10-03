@@ -11,4 +11,8 @@ export default {
         return axios.get(`/team/${teamId}/members`);
     },
 
+    getPendingInvites(teamId){
+        return axios.get(`/pending-joins/${teamId}`)
+    }
+
 }
