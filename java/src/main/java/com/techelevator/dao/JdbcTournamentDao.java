@@ -6,10 +6,12 @@ import com.techelevator.model.Tournament;
 import com.techelevator.model.TournamentDto;
 import com.techelevator.model.WinLossDto;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -101,7 +103,7 @@ public class JdbcTournamentDao implements TournamentDao{
     }
 
     @Override
-    public WinLossDto getWinsAndLosses(int teamId) {
+    public WinLossDto getTourneyWinsAndLosses(int teamId) {
         WinLossDto winLoss = new WinLossDto();
         String winnerSql = "SELECT COUNT(*) as wins FROM tournament " +
                 "where winner_id = ?;";
@@ -109,13 +111,17 @@ public class JdbcTournamentDao implements TournamentDao{
                 "JOIN team_tourney ON tournament.tourney_id = team_tourney.tourney_id " +
                 "WHERE winner_id NOTNULL AND winner_id != ? AND team_id = ?;";
 
-        SqlRowSet winsRows = template.queryForRowSet(winnerSql, teamId);
-        if(winsRows.next()){
-            winLoss.setWins(winsRows.getInt("wins"));
-        }
-        SqlRowSet lossRows = template.queryForRowSet(loserSql, teamId, teamId);
-        if(lossRows.next()){
-            winLoss.setLosses(lossRows.getInt("losses"));
+        try {
+            SqlRowSet winsRows = template.queryForRowSet(winnerSql, teamId);
+            if (winsRows.next()) {
+                winLoss.setWins(winsRows.getInt("wins"));
+            }
+            SqlRowSet lossRows = template.queryForRowSet(loserSql, teamId, teamId);
+            if (lossRows.next()) {
+                winLoss.setLosses(lossRows.getInt("losses"));
+            }
+        }catch(CannotGetJdbcConnectionException e){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
         }
 
         return winLoss;
@@ -140,6 +146,26 @@ public class JdbcTournamentDao implements TournamentDao{
             throw new DaoException("Data integrity violation", e);
         }
         return currentTournaments;
+    }
+
+    public WinLossDto getMatchWinLoss(int teamId){
+        WinLossDto winLoss = new WinLossDto();
+        String winSql = "SELECT COUNT(*) as wins FROM tourney_matches " +
+                "WHERE set_winner = ?";
+        String lossSql = "SELECT COUNT(*) as loss FROM tourney_matches " +
+                "WHERE set_winner NOTNULL AND set_winner != ? " +
+                "AND (team_1_id = ? OR team_2_id = ?) ";
+
+        SqlRowSet wins = template.queryForRowSet(winSql, teamId);
+        if(wins.next()){
+            winLoss.setWins(wins.getInt("wins"));
+        }
+        SqlRowSet losses = template.queryForRowSet(lossSql, teamId, teamId, teamId);
+        if(losses.next()){
+            winLoss.setLosses(losses.getInt("loss"));
+        }
+
+        return winLoss;
     }
 
     private TournamentDto mapRowToTournamentDto(SqlRowSet rowSet){

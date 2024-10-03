@@ -23,7 +23,7 @@ public interface TournamentDao {
     those ints are Wins and Losses
 
      */
-    WinLossDto getWinsAndLosses(int teamId);
+    WinLossDto getTourneyWinsAndLosses(int teamId);
 
     /*
     With a teamId, get all tournaments they're participating in. The output will be a
@@ -57,5 +57,7 @@ public interface TournamentDao {
     Give it a proper path on TournamentController.java
      */
     void nextRound(int tourneyId);
+
+    WinLossDto getMatchWinLoss(int teamId);
 }
 
