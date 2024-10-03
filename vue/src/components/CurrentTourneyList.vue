@@ -75,14 +75,13 @@ h1 {
 }
 
 #tourneyForm {
-    grid-area: tourneyForm;
     display: flex;
     justify-content: center;
 }
 
 
 .tourneyDiv {
-
+    grid-area: tourney;
     background-color: rgba(255, 255, 255, 0.2);
     padding: 25px;
     border: 1px solid rgb(124, 124, 124);

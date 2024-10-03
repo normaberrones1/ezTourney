@@ -38,6 +38,7 @@ body {
     background-image: url('/public/teams-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    
 }
 h1 {
     text-align: center;

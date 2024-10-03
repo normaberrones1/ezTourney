@@ -16,10 +16,6 @@ export default {
     getTournamentByTeamId(id){
         return axios.get(``);
     },
-
-    getTournamentByDirector(directorName){
-        return axios.get(``);
-    },
     
     getTournamentByDate(date){
         return axios.get(``);
