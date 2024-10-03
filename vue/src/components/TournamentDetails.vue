@@ -15,7 +15,7 @@
     </div>
 
     <div class="tourney-button" >
-        <button id="tourney-request" v-on:click="requestTeamJoin()">Request to Join Tournament!</button>
+        <button id="tourney-request" v-on:click="requestTournamentJoin()">Request to Join Tournament!</button>
     </div>
 
     <TourneyRequestForm v-if="showModal" @close="showModal = false"/>
@@ -41,6 +41,15 @@ export default {
                 this.tournament = response.data;
             });
 
+        },
+        requestTournamentJoin() {
+            TourneyService.requestTournamentJoin(this.tournament.id).then((response) => {
+                if(response.data) {
+                    alert("Request to join tournament sent!");
+                } else {
+                    alert("Request to join tournament failed!");
+                }
+            })
         }
     },
     components: {TourneyRequestForm},

@@ -102,9 +102,9 @@ export default {
         requestTeamJoin() {
             TeamService.requestJoinTeam(this.teamId).then((response) => {
                 if(response.data){
-                    alert("Request to join sent")
+                    alert("Request to join sent!")
                 }else{
-                    alert("Request to join failed")
+                    alert("Request to join failed!")
                 }
             });
         },
