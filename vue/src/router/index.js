@@ -16,6 +16,7 @@ import TournamentDetailsView from '../views/TournamentDetailsView.vue';
 import EditTeam from '../components/EditTeam.vue';
 
 
+
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
  * inside of App.vue depending on the URL.
@@ -47,6 +48,7 @@ const routes = [
     name: 'editTeam',
     component: EditTeam
   },
+
   {
     path: "/teams",
     name: "teams",
@@ -104,7 +106,7 @@ router.beforeEach((to) => {
 
   // If it does and they are not logged in, send the user to "/login"
   if (requiresAuth && store.state.token === '') {
-    return {name: "login"};
+    return { name: "login" };
   }
   // Otherwise, do nothing and they'll go to their next destination
 });

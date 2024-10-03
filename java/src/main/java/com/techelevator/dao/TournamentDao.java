@@ -40,7 +40,7 @@ public interface TournamentDao {
     created tournament object. Assume the tournament object is valid
     Give it a proper path on TournamentController.java
      */
-    Tournament createTournament(Tournament newTournament, Principal principal);
+    void createTournament(Tournament newTournament, Principal principal);
 
     /*
     If current user is the tournament director, allow them to update team_tourney to
