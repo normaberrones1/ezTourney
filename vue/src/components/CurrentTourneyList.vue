@@ -1,6 +1,6 @@
 <template>
 
-<div class="tournament">
+    <div class="tournament">
         <h1>CURRENT TOURNAMENTS</h1>
         <h2 id="click-tourney">Click a tournament to view details</h2>
         <div class="tourneyDiv">
@@ -14,20 +14,6 @@
             <TourneyForm></TourneyForm>
         </div>
 
-    <!-- <div>
-    <div>
-
-        <h1 id="tourneys-title">CURRENT TOURNEYS</h1>
-        <div id="tourneyContainer">
-            <div class="tourneysDiv">
-                <router-link
-                class="tourneyCardLink" v-for="tourney in tournaments" :key="tourney.tourneyId"
-                    v-bind:to="{ name: 'tourneyDetails', params: { id: tourney.tourneyId } }">
-                    <TournamentCard v-bind:tourney="tourney" />
-                </router-link>
-            </div>
-        </div>
-          
 
 
     </div>
@@ -111,6 +97,4 @@ h1 {
     font-size: 2em;
     color: #B130FC;
 }
-
-
 </style>
