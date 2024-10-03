@@ -2,6 +2,7 @@ package com.techelevator.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class TournamentDto {
     private int tourneyId;
@@ -9,7 +10,7 @@ public class TournamentDto {
     private BigDecimal entryFee;
     private String tourneyDesc;
     private Date startDate;
-    private String directorName;
+    private List<String> directorNames;
 
     public int getTourneyId() {
         return tourneyId;
@@ -51,11 +52,11 @@ public class TournamentDto {
         this.startDate = startDate;
     }
 
-    public String getDirectorName() {
-        return directorName;
+    public List<String> getDirectorNames() {
+        return directorNames;
     }
 
-    public void setDirectorName(String directorName) {
-        this.directorName = directorName;
+    public void setDirectorNames(List<String> directorNames) {
+        this.directorNames = directorNames;
     }
 }

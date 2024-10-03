@@ -53,7 +53,7 @@ const routes = [
     component: TeamView,
   },
   {
-    path: "/tournamens",
+    path: "/tournaments",
     name: "tournament",
     component: TournamentView,
   },

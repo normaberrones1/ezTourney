@@ -1,16 +1,20 @@
 <template>
 
-    <div class="tournament">
-        <h1>this page will display the current tournaments in the system</h1>
-        <h2>clicking a tourney will give the actual brackets and the info</h2>
-        <div>
+<div class="tournament">
+        <h1>Current Tournaments</h1>
+        <h2 id="click-tourney">Click a tournament to view details</h2>
+        <div class="tourneyDiv">
             <router-link v-for="tourney in tournaments" :key="tourney.tourneyId"
                 v-bind:to="{ name: 'tournamentDetails', params: { id: tourney.tourneyId } }">
                 <TournamentCard v-bind:tourney="tourney" />
             </router-link>
         </div>
 
-    </div>
+        <div>
+            <TourneyForm></TourneyForm>
+        </div>
+
+    <!-- <div>
     <div>
 
         <h1 id="tourneys-title">CURRENT TOURNEYS</h1>
@@ -23,9 +27,8 @@
                 </router-link>
             </div>
         </div>
-            <div id="tourneyForm">
-                <TourneyForm></TourneyForm>
-            </div>
+          
+
 
     </div>
 
@@ -50,7 +53,7 @@ export default {
         }
     },
 
-    
+
     components: { TournamentCard, TourneyForm },
 
     created() {
@@ -70,7 +73,7 @@ body {
 
 h1 {
     text-align: center;
-    color: #B130FC;
+    color: #58deff;
 }
 
 #tourneyContainer {
@@ -87,7 +90,12 @@ h1 {
     justify-content: center;
 }
 
-.tourneysDiv{
+#click-tourney {
+    text-align: center;
+    color: #58deff;
+}
+
+.tourneyDiv {
     grid-area: teams;
     background-color: rgba(255, 255, 255, 0.2);
     padding: 25px;
@@ -103,4 +111,6 @@ h1 {
     font-size: 2em;
     color: #B130FC;
 }
+
+
 </style>
