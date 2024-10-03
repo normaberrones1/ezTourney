@@ -90,28 +90,23 @@ public class JdbcTournamentDao implements TournamentDao{
      }
 
 
-    public  Tournament createTournament(Tournament newTournament, Principal principal){
-        String sql = "INSERT INTO tournament(tourney_name,start_date,end_date,location,entry_fee,prize_desc," +
-                "tourney_desc,game_id,director_id,round,winner_id) VALUES (?,?,?,?,?,?,?,?,?,?) RETURNING tourney_id; ";
-        String sql2 = "INSERT INTO tourney_directors (tourney_id, director_id) VALUES (?,?)";
+    public  void createTournament(Tournament newTournament, Principal principal){
+        String sql = "INSERT INTO tourney_directors (tourney_id, director_id) VALUES (" +
+                "(INSERT INTO tournament(tourney_name,start_date,end_date,location,entry_fee,prize_desc," +
+                "tourney_desc,game_id,round,) VALUES (?,?,?,?,?,?,?,?,?) RETURNING tourney_id)," +
+                "?)";
         try{
-            int newTourneyId = template.queryForObject(sql,int.class,
+            template.update(sql,
                     newTournament.getTourneyName(),newTournament.getStartDate(),newTournament.getEndDate(),newTournament.getLocation(),
                     newTournament.getEntry_fee(),newTournament.getPrizeDesc(),newTournament.getTourneyDesc(),
-                    newTournament.getGameId(),newTournament.getRound(),newTournament.getWinner());
-            if(newTourneyId > 0){
-                newTournament.setTourneyId(newTourneyId);
-            }
-            int userId = memberDao.getUserIdByName(principal.getName());
-            if(userId != 0) {
-                template.update(sql2, newTourneyId, userId);
-            }
+                    newTournament.getGameId(),1, memberDao.getUserIdByName(principal.getName()));
+
         }catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
-        return newTournament;
+
     }
 
      public Tournament updateTournament(Tournament tournament){

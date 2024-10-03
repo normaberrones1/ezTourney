@@ -47,4 +47,9 @@ public class TournamentController {
     public boolean isUserDirector(Principal principal, @PathVariable int tourneyId ){
         return dao.isUserDirector(principal, tourneyId);
     }
+
+    @RequestMapping(path="create-tournament", method=RequestMethod.POST)
+    public void createTourney(@RequestBody Tournament tourney, Principal principal){
+        dao.createTournament(tourney, principal);
+    }
 }

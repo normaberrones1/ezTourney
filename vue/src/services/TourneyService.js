@@ -22,7 +22,7 @@ export default {
     },
 
     createTournament(tournament){
-        return axios.post(``);
+        return axios.post(`create-tournament`, tournament);
     },
 
     updateTournament(tournament){
