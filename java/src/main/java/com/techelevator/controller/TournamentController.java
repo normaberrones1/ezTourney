@@ -6,6 +6,7 @@ import com.techelevator.model.TournamentDto;
 import com.techelevator.model.WinLossDto;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -40,5 +41,10 @@ public class TournamentController {
     @RequestMapping(path="/match-info/{teamId}", method = RequestMethod.GET)
     public WinLossDto getMatchWinsAndLossesByTeam(@PathVariable int teamId){
         return dao.getMatchWinLoss(teamId);
+    }
+
+    @RequestMapping(path="is-director/{tourneyId}", method=RequestMethod.GET)
+    public boolean isUserDirector(Principal principal, @PathVariable int tourneyId ){
+        return dao.isUserDirector(principal, tourneyId);
     }
 }

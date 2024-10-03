@@ -66,5 +66,6 @@ public interface TournamentDao {
 
     WinLossDto getMatchWinLoss(int teamId);
 
+    boolean isUserDirector(Principal principal, int tourneyId);
 }
 

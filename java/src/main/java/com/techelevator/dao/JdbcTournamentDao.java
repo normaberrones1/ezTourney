@@ -205,6 +205,10 @@ public class JdbcTournamentDao implements TournamentDao{
         return winLoss;
     }
 
+    public boolean isUserDirector(Principal principal, int tourneyId){
+        return getUserNamesInTournament(tourneyId).contains(principal.getName());
+    }
+
     private List<String> getUserNamesInTournament(int tourneyId){
         List<String> usernames = new ArrayList<>();
         String sql = "SELECT username FROM users " +
