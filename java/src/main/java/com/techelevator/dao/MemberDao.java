@@ -21,5 +21,5 @@ public interface MemberDao {
 
     boolean isCurrentUserTeamCaptain(Principal principal, int teamId);
 
-    void acceptRejectRequest(AcceptRejectTeamDto acceptReject);
+    List<UserDto> getPendingJoinRequests(int teamId);
 }
