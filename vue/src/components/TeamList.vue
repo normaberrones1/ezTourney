@@ -1,18 +1,40 @@
 <template>
     <div>
     <h1 id="teams-title">CURRENT TEAMS</h1>
-    <p id="click-team">Click a team to view details!</p>
+    <p v-if="isAuthenticated" id="click-team">Click a team to view details!</p>
+    
     <div id="teamContainer">
         <div class="teamsDiv" >
-            <router-link
-            class="teamCardLink" v-for="team in teams" :key="team.teamId"
-            v-bind:to="{ name: 'teamDetails', params: { teamId: team.teamId } }">
-                <TeamCard v-bind:team="team" />
-            </router-link>
+            <div v-for="team in teams" :key="team.teamId">
+                <div v-if="isAuthenticated">
+                    <router-link
+                    class="teamCardLink" 
+                    v-bind:to="{ name: 'teamDetails', params: { teamId: team.teamId } }">
+                    <TeamCard v-bind:team="team"/>
+                    </router-link>
+                </div>
+                <div v-else>
+                
+                    <p id="display-name">{{ team.teamName }}</p>
+                    <p id="login-script">Log in to see team details!</p>
+    
+                    </div>
+                    
+            </div>
         </div>
-        <div id="teamForm">
+
+        <div id="teamForm" v-if="isAuthenticated">
             <TeamForm></TeamForm>
         </div>
+
+
+
+        <div v-else>
+            <router-link to="/login" id="home-login">Log in to create a Team!</router-link>
+        </div>
+
+
+        
     </div>
 </div>
 </template>
@@ -31,6 +53,12 @@ export default {
         TeamService.getAllTeams().then((response) => {
             this.teams = response.data;
         })
+    },
+
+    computed: {
+        isAuthenticated() {
+            return this.$store.state.token != '';
+        }
     }
 }
 </script>
@@ -70,7 +98,7 @@ h1 {
 }
 .teamsDiv{
     grid-area: teams;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.5);
     padding: 25px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
@@ -83,5 +111,31 @@ h1 {
     margin-bottom: 2%;
     font-size: 2em;
     color: #B130FC;
+}
+
+#display-name {
+    text-align: center;
+    font-size: 1.5em;
+    color: #000000;
+    font-weight: bold;
+}
+
+#login-script {
+    text-align: center;
+    font-size: 1.0em;
+    color: #B130FC;
+}
+
+#home-login {
+    color: #000000;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: -60px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgb(124, 124, 124);
+    font-weight: bold;
 }
 </style>
