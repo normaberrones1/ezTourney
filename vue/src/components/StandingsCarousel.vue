@@ -1,48 +1,86 @@
 <template>
   <div>
   <div class="standings-carousel">
+    
     <div class="standings">
+
       <h1 class="moveInMoveOut">Standings</h1>
-      <h1 class="moveInMoveOut">Current Tourneys</h1>
-      <h1 class="moveInMoveOut">Teams</h1>
-      <div>
+      <div v-if="currentSlide === 1">
+          <ul>
+            <li v-for="standing in standings" :key="standing.id">
+              {{ standing.teamName }}: {{ standing.wins }}: {{ standing.losses }}
+            </li>
+          </ul>
       </div>
 
-    </div>
+      <h1 class="moveInMoveOut">Current Tourneys</h1>
+      <div  v-if="currentSlide === 2">
+          <ul>
+            <li v-for="tourney in Tournaments" :key="tourney.id">
+              {{ tourney.tourneyName }}: {{ tourney.startDate }}: {{ tourney.endDate }}
+            </li>
+          </ul>
+      </div>
+      
+      <h1 class="moveInMoveOut">Teams</h1>
+      <div v-if="currentSlide === 3">
+          <ul>
+            <li v-for="team in Teams" :key="team.id">
+              {{ team.teamName }}: {{ team.teamMembers }}
+            </li>
+          </ul>
+      </div>
+
+
+
   </div>
-  <div class="controls">
+  <div class="carousel-controls">
     <button @click="previous"> &lt; </button>
-
     <button @click="next"> &gt; </button>
-
+  </div>
   </div>
 </div>
 
 </template>
 
 <script>
+import GamesService from '../services/GamesService';
+import TeamService from '../services/TeamService';
+import TourneyService from '../services/TourneyService';
 
 export default {
   methods: {
     previous() {
-      console.log('previous');
+      this.currentSlide = this.currentSlide === 0 ? 2 : this.currentSlide - 1;
     },
     next() {
-      console.log('next');
+      this.currentSlide = this.currentSlide === 1 ? 0 : this.currentSlide + 1;
     },
+    autoSlide() {
+  
+      this.currentSlide = this.currentSlide === 2 ? 0 : this.currentSlide + 1;
+
+    }
 
   },
   data() {
     return {
+      standings: [],
+      currentTournaments: [],
+      teams: [],
       currentSlide: 0,
-      slides: [
-        'Standings',
-        'Current Tourneys',
-        'Teams'
-      ]
     }
   },
   computed: {
+    Tournaments() {
+      return this.currentTournaments;
+    },
+    Teams() {
+      return this.teams;
+    },
+    Standings() {
+      return this.standings;
+    },
 
   },
   created() {
@@ -50,22 +88,51 @@ export default {
   },
   updated() {
     console.log('updated');
-  }
-  
+  },
+
+
 
 }
 </script>
 
 <style>
+.standings-carousel {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    
+  }
+
+  .standings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 30px;
+    text-align: center;
+  }
 
   button {
     background-color: rgba(255, 255, 255, 0.0);
     color: #58deff;
     border: none;
     padding: 10px;
-    margin: 30px;
+    margin: 0 30px;
     font-size: 50px;
   
+  }
+
+  .carousel-controls {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   .moveInMoveOut {
