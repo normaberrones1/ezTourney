@@ -1,5 +1,5 @@
 <template>
-    <form v-on:submit.prevent="updateTeam()">
+    <form v-on:submit.prevent="updateTeam()" v-if="isTeamCaptain === true">
         <div class="nameInput">
             <label for="teamName">Team Name</label>
             <input v-model="team.teamName" type="text" id="teamName" name="teamName" required>
@@ -43,7 +43,8 @@ export default {
     data() {
         return {
             team: {},
-            games: []
+            games: [],
+            isTeamCaptain: false,
         }
     },
 
@@ -54,6 +55,9 @@ export default {
         GamesService.getAllGames().then((response) => {
             this.games = response.data;
         });
+        TeamService.amITeamCaptain(this.$route.params.teamId).then((response) => {
+            this.isTeamCaptain = response.data;
+        })
     },
 
     methods: {

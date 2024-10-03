@@ -36,8 +36,12 @@
     </div>
 
     <div class="button-container" >
-        <button id="team-request" v-on:click="requestTeamJoin()">Request to Join Team!</button>
+        <button id="team-request" v-on:click="requestTeamJoin()" v-if="isTeamCaptain === false">Request to Join Team!</button>
+        <button id="edit-team" v-on:click="this.$router.push(`/teams/${teamId}/edit`)" v-if="isTeamCaptain === true">Edit Team</button>
     </div>
+
+    
+ 
 
     <TeamRequestForm v-if="showModal" @close="showModal = false"/>
 
@@ -74,8 +78,10 @@ export default {
             members: [],
             tourneyWinsLoss: {},
             matchWinLoss: {},
+            isTeamCaptain: false,
         }
     },
+
 
     components: {MemberCard, TeamRequestForm},
 
@@ -96,6 +102,9 @@ export default {
         TourneyService.getMatchWinsAndLosses(this.teamId).then((response) => {
             this.matchWinLoss = response.data;
         });
+        TeamService.amITeamCaptain(this.teamId).then((response) => {
+            this.isTeamCaptain = response.data;
+        })
     },
 
     methods: {
@@ -122,6 +131,19 @@ export default {
 }
 
 #team-request {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #b130fc;
+    font-weight: bold;
+    font-size: 30px;
+    border-radius: 10px;
+    margin: 10px auto;
+    cursor: pointer;
+    text-align: center;
+    font-size: 20px;
+}
+
+#edit-team {
     display: block;
     background-color: rgba(255, 255, 255, 0.2);
     color: #b130fc;
