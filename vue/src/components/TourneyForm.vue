@@ -92,7 +92,7 @@ export default {
 
 <style>
 #tourney-form-title {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     color: #000000
 }
 
@@ -117,7 +117,7 @@ form {
 label,
 input {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #form-submit {
