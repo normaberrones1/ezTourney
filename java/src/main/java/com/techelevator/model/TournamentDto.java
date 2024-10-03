@@ -9,7 +9,7 @@ public class TournamentDto {
     private BigDecimal entryFee;
     private String tourneyDesc;
     private Date startDate;
-    private String directorName;
+    private String[] directorNames;
 
     public int getTourneyId() {
         return tourneyId;
@@ -51,11 +51,11 @@ public class TournamentDto {
         this.startDate = startDate;
     }
 
-    public String getDirectorName() {
-        return directorName;
+    public String[] getDirectorName() {
+        return directorNames;
     }
 
-    public void setDirectorName(String directorName) {
-        this.directorName = directorName;
+    public void setDirectorName(String[] directorNames) {
+        this.directorNames = directorNames;
     }
 }
