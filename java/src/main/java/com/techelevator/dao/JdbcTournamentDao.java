@@ -96,9 +96,30 @@ public class JdbcTournamentDao implements TournamentDao{
         return newTournament;
     }
 
+     public Tournament updateTournament(Tournament tournament){
+        String sql= "UPDATE tournament SET game_id = ?," +
+                " tourney_name = ?, start_date = ? , end_date = ?, location = ?, entry_fee = ?, prize_desc = ?, " +
+                "tourney_desc= ? , round = ?, winner_id = ? WHERE tourney_id=?";
+        try{
+            int newTourneyId = template.update(sql,tournament.getTourneyName(),tournament.getStartDate(),
+                    tournament.getEndDate(),tournament.getLocation(),tournament.getEntry_fee(),tournament.getTourneyDesc(),
+                    tournament.getRound(),tournament.getWinner());
+            if(newTourneyId > 0){
+                tournament.setTourneyId(newTourneyId);
+            }
+        }catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        return tournament;
+     }
+
     public  void nextRound(int tourneyId){
 
     }
+
 
     @Override
     public WinLossDto getWinsAndLosses(int teamId) {

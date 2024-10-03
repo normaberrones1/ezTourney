@@ -57,5 +57,9 @@ public interface TournamentDao {
     Give it a proper path on TournamentController.java
      */
     void nextRound(int tourneyId);
+
+    Tournament updateTournament(Tournament tournament);
+
+
 }
 
