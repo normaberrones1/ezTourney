@@ -17,4 +17,6 @@ public interface MemberDao {
     List<TeamDto> getMyTeams(Principal principal);
 
     int getUserIdByName(String username);
+
+    boolean isCurrentUserTeamCaptain(Principal principal, int teamId);
 }

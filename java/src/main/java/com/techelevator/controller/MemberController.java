@@ -37,4 +37,9 @@ public class MemberController {
     public List<TeamDto> viewMyTeams(Principal principal){
         return dao.getMyTeams(principal);
     }
+
+    @RequestMapping(path="/am-team-captain/{teamId}", method = RequestMethod.GET)
+    public boolean amTeamCaptain(Principal principal, @PathVariable int teamId){
+        return dao.isCurrentUserTeamCaptain(principal, teamId);
+    }
 }

@@ -68,6 +68,22 @@ public class JdbcMemberDao implements MemberDao{
         return teams;
     }
 
+    public boolean isCurrentUserTeamCaptain(Principal principal, int teamId){
+        String sql = "SELECT COUNT(*) FROM teams " +
+                "JOIN team_users on teams.team_id = team_users.team_id " +
+                "JOIN users on team_users.user_id = users.user_id " +
+                "WHERE teams.team_id = ? AND username = ?";
+
+        SqlRowSet rowSet = template.queryForRowSet(sql, teamId, principal.getName());
+
+        if(rowSet.next()){
+            if(rowSet.getInt("count") >= 1){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public int getUserIdByName(String username) {
         String sql = "SELECT user_id FROM users WHERE username = ?";
