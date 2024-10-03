@@ -8,11 +8,12 @@
                 v-bind:to="{ name: 'tournamentDetails', params: { id: tourney.tourneyId } }">
                 <TournamentCard v-bind:tourney="tourney" />
             </router-link>
-
-
         </div>
 
-        
+        <div>
+            <TourneyForm></TourneyForm>
+        </div>
+
     <!-- <div>
     <div>
 
