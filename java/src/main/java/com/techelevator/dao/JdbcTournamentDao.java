@@ -1,7 +1,7 @@
 package com.techelevator.dao;
 
 
-import com.techelevator.exception.DaoException;
+import  com.techelevator.exception.DaoException;
 import com.techelevator.model.Tournament;
 import com.techelevator.model.TournamentDto;
 import com.techelevator.model.WinLossDto;
@@ -17,7 +17,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.lang.reflect.Member;
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -66,6 +68,33 @@ public class JdbcTournamentDao implements TournamentDao{
             }
         }catch(CannotGetJdbcConnectionException e){
         }
+        return tournaments;
+    }
+
+    @Override
+    public List<TournamentDto> getTournamentsByFilters(String status, Date startDate, Date endDate) {
+        List<TournamentDto> tournaments = new ArrayList<>();
+
+        StringBuilder sql = new StringBuilder("SELECT * FROM tournament WHERE 1=1");
+
+        if(status != null && !status.equalsIgnoreCase("All")) {
+            if(status.equalsIgnoreCase("Current")) {
+                sql.append(" AND start_date <= CURRENT_DATE AND end_date >= CURRENT_DATE");
+            } else if (status.equalsIgnoreCase("Upcoming")) {
+                sql.append(" AND start_date > CURRENT_DATE");
+            } else if (status.equalsIgnoreCase("Past")) {
+                sql.append(" AND end_date < CURRENT_DATE");
+            }
+        }
+
+        SqlRowSet rowSet = template.queryForRowSet(sql.toString());
+
+        while (rowSet.next()) {
+            TournamentDto dto = mapRowToTournamentDto(rowSet);
+            tournaments.add(dto);
+        }
+
+
         return tournaments;
     }
 
@@ -219,6 +248,7 @@ public class JdbcTournamentDao implements TournamentDao{
         dto.setEntryFee(BigDecimal.valueOf(rowSet.getInt("entry_fee")));
         dto.setTourneyDesc(rowSet.getString("tourney_desc"));
         dto.setStartDate(rowSet.getDate("start_date"));
+        dto.setEndDate(rowSet.getDate("end_date"));
         return dto;
     }
 

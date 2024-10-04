@@ -118,6 +118,7 @@ h1 {
     font-size: 1.5em;
     color: #000000;
     font-weight: bold;
+
 }
 
 #login-script {
@@ -137,5 +138,9 @@ h1 {
     background-color: rgba(255, 255, 255, 0.7);
     border: 1px solid rgb(124, 124, 124);
     font-weight: bold;
+}
+
+.teamCardLink {
+    text-decoration: none;
 }
 </style>

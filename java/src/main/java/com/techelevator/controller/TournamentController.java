@@ -7,6 +7,8 @@ import com.techelevator.model.WinLossDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -56,4 +58,14 @@ public class TournamentController {
     public Tournament updateTournament(@RequestBody Tournament tournament){
         return dao.updateTournament(tournament);
     }
+
+    @RequestMapping(path="tournaments/filter", method=RequestMethod.GET)
+    public List<TournamentDto> getFilteredTournaments(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) Date startDate,
+            @RequestParam(required = false) Date endDate) {
+
+        return dao.getTournamentsByFilters(status, startDate, endDate);
+    }
+
 }

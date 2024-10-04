@@ -3,14 +3,41 @@
     <div>
     
         <h1 id="tournaments-title">CURRENT TOURNAMENTS</h1>
+
         <h2 id="click-tourney">Click a tournament to view details</h2>
+
+        
         <div id="tournament-container">
         <div class="tourneyDiv">
-            <router-link class="tourney-link" v-for="tourney in tournaments" :key="tourney.tourneyId"
+            <input 
+                id="search-bar" type="text" 
+                v-model="searchTerm" placeholder="Search Tournaments"
+            />
+
+            <div id="tourney-filter">
+                <label for="filter"></label>
+                <select id="select-filter" placeholder="Filter By" v-model="currentFilter" @change="fetchFilteredTournaments">
+
+
+                    <option value="current">Current</option>
+
+                    <option value="upcoming">Upcoming</option>
+
+                    <option value="past">Past</option>
+
+                    <option value="all">All</option>
+                </select>
+            </div>
+
+
+
+            <router-link class="tourney-link" v-for="tourney in filteredTournaments" :key="tourney.tourneyId"
                 v-bind:to="{ name: 'tournamentDetails', params: { id: tourney.tourneyId } }">
                 <TournamentCard id="tourney-list" v-bind:tourney="tourney" />
             </router-link>
         </div>
+
+        
 
         <div id="tourneyForm">
             <TourneyForm></TourneyForm>
@@ -32,6 +59,9 @@ export default {
     data() {
         return {
             tournaments: [],
+            searchTerm: '',
+            dropdown: false,
+            currentFilter: 'Current',
         }
     },
     props: {
@@ -44,10 +74,44 @@ export default {
     components: { TournamentCard, TourneyForm },
 
     created() {
-        TourneyService.getCurrentTournaments().then((response) => {
-            console.log(response.data);
-            this.tournaments = response.data;
-        })
+        this.fetchFilteredTournaments();
+    },
+    computed: {
+        filteredTournaments() {
+            const today = new Date();
+
+            return this.tournaments.filter((tourney) => {
+                return tourney.tourneyName.toLowerCase().includes(this.searchTerm.toLowerCase());
+            });
+
+
+        }
+    },
+
+    methods: {
+        toggleDropdown() {
+            this.dropdown = !this.dropdown;
+        },
+        tourneyFilter(filter) {
+            this.currentFilter = filter;
+            this.fetchFilteredTournaments();
+
+        },
+
+        fetchFilteredTournaments() {
+            TourneyService.getFilteredTournaments(this.currentFilter).then(response => {
+                this.tournaments = response.data;
+            }).catch((error) => {
+                console.log("Error finding tournaments", error);
+            });
+        },
+    },
+
+
+    watch: {
+        currentFilter(newFilter) {
+            this.searchTerm = '';
+        }
     }
 
 }
@@ -55,6 +119,29 @@ export default {
 
 <style>
 
+
+#select-filter {
+    position: relative;
+    width: 30%;
+    height: 15%;
+    border-radius: 5px;
+    border: 1px solid rgb(124, 124, 124);
+    text-align: center;
+    cursor: pointer;
+}
+
+#search-bar {
+    position: relative;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 30%;
+    height: 15px;
+    border-radius: 5px;
+    border: 1px solid rgb(124, 124, 124);
+    text-align: center;
+}
 
 
 h1 {

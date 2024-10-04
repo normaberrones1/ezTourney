@@ -10,6 +10,7 @@ public class TournamentDto {
     private BigDecimal entryFee;
     private String tourneyDesc;
     private Date startDate;
+    private Date endDate;
     private List<String> directorNames;
 
     public int getTourneyId() {
@@ -50,6 +51,14 @@ public class TournamentDto {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public List<String> getDirectorNames() {

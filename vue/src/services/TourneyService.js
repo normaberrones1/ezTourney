@@ -55,6 +55,16 @@ export default {
 
     isUserDirector(tourneyId) {
         return axios.get(`/is-director/${tourneyId}`);
-    }
+    },
+
+    getFilteredTournaments(filter) {
+        return axios.get(`/tournaments/filter`, { 
+            params: {
+                status: filter
+            }
+    });
+
+
+}
 
 }
