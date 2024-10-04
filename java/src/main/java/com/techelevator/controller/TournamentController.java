@@ -56,4 +56,9 @@ public class TournamentController {
     public Tournament updateTournament(@RequestBody Tournament tournament){
         return dao.updateTournament(tournament);
     }
+
+    @RequestMapping(path="/tournaments/join/{tourneyId}/{teamId}", method=RequestMethod.POST)
+    public boolean requestToJoinTourney(@PathVariable int tourneyId, @PathVariable int teamId){
+        return dao.requestToJoinTourney(tourneyId,teamId);
+    }
 }

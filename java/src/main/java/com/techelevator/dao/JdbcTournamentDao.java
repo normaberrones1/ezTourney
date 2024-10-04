@@ -196,6 +196,19 @@ public class JdbcTournamentDao implements TournamentDao{
         return winLoss;
     }
 
+    public boolean requestToJoinTourney(int tourneyId, int teamId){
+        String sql = "INSERT INTO team_tourney(team_id, tourney_id, isAccepted, eliminated) " +
+                "VALUES (?,?, 'false', 'false')";
+        try {
+            template.update(sql, teamId, tourneyId);
+            return true;
+        }catch(CannotGetJdbcConnectionException e){
+            return false;
+        }catch(DataIntegrityViolationException e){
+            return false;
+        }
+    }
+
     public boolean isUserDirector(Principal principal, int tourneyId){
         return getUserNamesInTournament(tourneyId).contains(principal.getName());
     }

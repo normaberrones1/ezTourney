@@ -120,5 +120,10 @@ public class TeamController {
     public void rejectTeammate(@RequestBody AcceptRejectTeamDto acceptReject){
         teamDao.rejectRequest(acceptReject);
     }
+
+    @RequestMapping(path="/teams-im-captain/", method= RequestMethod.GET)
+    public List<TeamDto> teamsImCaptain(Principal principal){
+        return teamDao.teamsIAmCaptainOn(principal);
+    }
 }
 

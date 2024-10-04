@@ -55,6 +55,10 @@ export default {
 
     isUserDirector(tourneyId) {
         return axios.get(`/is-director/${tourneyId}`);
+    },
+
+    requestTournamentJoin(tourneyId,teamId){
+        return axios.post(`/tournaments/join/${tourneyId}/${teamId}`);
     }
 
 }
