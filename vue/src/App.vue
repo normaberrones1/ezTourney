@@ -21,4 +21,14 @@
   text-align: center;
   padding: 10px;
 }
+
+body {
+    background-image: url('/public/teams-background.jpg');
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: auto;
+    
+}
 </style>

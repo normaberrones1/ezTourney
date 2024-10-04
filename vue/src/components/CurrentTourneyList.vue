@@ -15,15 +15,15 @@
             />
 
             <div id="tourney-filter">
-                <label for="filter"></label>
+                <label for="select-filter"></label>
                 <select id="select-filter" placeholder="Filter By" v-model="currentFilter" @change="fetchFilteredTournaments">
 
 
-                    <option value="current">Current</option>
+                    <option value="current">Current Tournaments</option>
 
-                    <option value="upcoming">Upcoming</option>
+                    <option value="upcoming">Upcoming Tournaments</option>
 
-                    <option value="past">Past</option>
+                    <option value="past">Past Tournaments</option>
 
                     <option value="all">All</option>
                 </select>
@@ -39,8 +39,12 @@
 
         
 
-        <div id="tourneyForm">
+        <div id="tourneyForm" v-if="isAuthenticated">
             <TourneyForm></TourneyForm>
+        </div>
+
+        <div v-else>
+            <router-link to="/login" id="home-login">Log in to create a tournament!</router-link>
         </div>
 
 </div>
@@ -85,6 +89,10 @@ export default {
             });
 
 
+        },
+
+        isAuthenticated() {
+            return this.$store.state.token != '';
         }
     },
 
@@ -120,9 +128,11 @@ export default {
 <style>
 
 
+
+
 #select-filter {
     position: relative;
-    width: 30%;
+    width: 40%;
     height: 15%;
     border-radius: 5px;
     border: 1px solid rgb(124, 124, 124);
@@ -136,7 +146,7 @@ export default {
     cursor: pointer;
     margin-top: 2%;
     margin-bottom: 2%;
-    width: 30%;
+    width: 39%;
     height: 15px;
     border-radius: 5px;
     border: 1px solid rgb(124, 124, 124);
@@ -155,6 +165,8 @@ h1 {
     grid-template-areas:
         "tourney tourney tourney tourneyForm"
         "tourney tourney tourney tourneyForm";
+    margin-left: 32px;
+    margin-right: 15px;
 }
 
 #tourneyForm {
@@ -165,10 +177,11 @@ h1 {
 
 .tourneyDiv {
     grid-area: tourney;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
     padding: 25px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
+    
 }
 
 #tournaments-title {
@@ -177,7 +190,12 @@ h1 {
     margin-top: 2%;
     margin-bottom: 2%;
     font-size: 2em;
-    color: #B130FC;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    margin-left: 150px;
+    margin-right: 220px;
+
 }
 
 #click-tourney {
@@ -187,7 +205,12 @@ h1 {
     margin-bottom: 2%;
     font-size: 1.5em;
     text-align: center;
-    color: #58deff;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    margin-left: 180px;
+    margin-right: 250px;
+    
 }
 
 #tourney-list {

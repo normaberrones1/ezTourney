@@ -1,7 +1,7 @@
 <template>
     <div class="tourney-form">
 
-        <form v-on:submit="submitTourney()">
+        <form v-on:submit.prevent="submitTourney()">
             <h1 id="tourney-form-title">Create Tournament</h1>
 
             <div>
@@ -109,7 +109,7 @@ export default {
     padding: 40px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
     color: #000000;
     font-weight: bold;
 }

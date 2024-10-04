@@ -4,9 +4,10 @@
         <h4>Hosted By: {{tourney.directorNames}}</h4>
         <section class="tourneyNotes">
             <span>Entry Cost: ${{ tourney.entryFee }}</span>
-            <span>Start Date: {{ tourney.startDate }}</span>
+            <p><span> Start Date: {{ tourney.startDate }}</span></p>
         </section>
         <p>{{ tourney.tourneyDesc }}</p>
+        <p>--------------------------------------------</p>
     </div>
 </template>
 
@@ -39,7 +40,7 @@ export default {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    border: 1px solid rgb(124, 124, 124);
+
     grid-area: tournaments;
     color: #000000;
 }
