@@ -10,11 +10,12 @@ import TeamView from '../views/TeamView.vue';
 import TournamentView from '../views/TournamentView.vue';
 import TeamDetailView from '../views/TeamDetailView.vue';
 import TournamentDetailsView from '../views/TournamentDetailsView.vue';
+import EditTournamentView from '../views/EditTournamentView.vue';
 
 // I understand that this should probably be a View in views but its just 
 //easier for demo purposes to do this
 import EditTeam from '../components/EditTeam.vue';
-import EditTournament from '../components/EditTournament.vue';
+
 
 
 
@@ -52,7 +53,7 @@ const routes = [
   {
     path: "/tournaments/:tourneyId/edit",
     name: 'editTournament',
-    component: EditTournament
+    component: EditTournamentView
 
   },
 

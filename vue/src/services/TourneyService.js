@@ -1,56 +1,60 @@
 import axios from 'axios';
 
 export default {
-    getCurrentTournaments(){
+    getCurrentTournaments() {
         return axios.get(`/tournaments`);
     },
 
-    getTournamentsHistory(){
+    getTournamentsHistory() {
         return axios.get(`/tournaments/history`)
     },
 
-    getTournamentById(id){
+    getTournamentById(id) {
         return axios.get(`/tournaments/${id}`);
     },
 
-    getTournamentByTeamId(id){
-        return axios.get(``);
-    },
-    
-    getTournamentByDate(date){
+    getTournamentByTeamId(id) {
         return axios.get(``);
     },
 
-    createTournament(tournament){
+    getTournamentByDate(date) {
+        return axios.get(``);
+    },
+
+    createTournament(tournament) {
         return axios.post(`/create-tournament`, tournament);
     },
 
-    updateTournament(tournament){
-        return axios.put(``);
+    updateTournament(tournament) {
+        return axios.put(`/tournaments/${tournament.tourneyId}`, tournament);
     },
 
-    deleteTournament(id){
+    deleteTournament(id) {
         return axios.delete(``);
     },
 
-    getTournamentTeams(id){
+    getTournamentTeams(id) {
         return axios.get(``);
     },
 
-    getTournamentMatches(id){
+    getTournamentMatches(id) {
         return axios.get(``);
     },
 
-    getTournamentStandings(id){
+    getTournamentStandings(id) {
         return axios.get(``);
     },
 
-    getTournamentWinsAndLosses(id){
+    getTournamentWinsAndLosses(id) {
         return axios.get(`/tournaments/${id}/wl`);
     },
 
-    getMatchWinsAndLosses(id){
+    getMatchWinsAndLosses(id) {
         return axios.get(`/match-info/${id}`);
+    },
+
+    isUserDirector(tourneyId) {
+        return axios.get(`/is-director/${tourneyId}`);
     }
 
 }

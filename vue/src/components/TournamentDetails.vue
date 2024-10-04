@@ -1,25 +1,25 @@
 <template>
+
     <div class="tourneyDetails">
-        <div>Tourney Details</div>
-        <h1>{{ tournament.name }}</h1>
+        <h1>Tourney Details</h1>
+        <div><button class="tourneyEditBtn" v-if="displayEditButton" v-on:click="this.$router.push(`/tournaments/${tournament.tourneyId}/edit`)">Edit Tournament</button></div>
+        <h3>{{ tournament.tourneyName }}</h3>
         <div id="start_date">Start Date: {{ tournament.startDate }}</div>
         <div id="end_date">End Date: {{ tournament.endDate }}</div>
         <div id="location">Location: {{ tournament.location }}</div>
-        <div id="entry_fee">Entry Fee: ${{ tournament.entryFee }}</div>
-        <div id="prize">Prize: ${{ tournament.prize }}</div>
-        <div id="tourney_desc">{{ tournament.tourneyDesc }}</div>
-        <div id="game_id">Game ID: {{ tournament.gameId }}</div>
-        <div id="director_id">Director ID: {{ tournament.directorId }}</div>
-        <div id="round">Round: {{ tournament.rounds }}</div>
-        <div id="winner_id">Winner ID: {{ tournament.winnerId }}</div>
+        <div id="entry_fee">Entry Fee: ${{ tournament.entry_fee }}</div>
+        <div id="prizeDesc">Prize: ${{ tournament.prizeDesc }}</div>
+        <div id="tourneyDesc">{{ tournament.tourneyDesc }}</div>
+        <div id="gameId">Game ID: {{ tournament.gameId }}</div>
+        <div id="round">Round: {{ tournament.round }}</div>
+        <div id="winner">Winner ID: {{ tournament.winner }}</div>
+    
+        <div class="tourney-button" >
+            <button id="tourney-request" v-on:click="requestTournamentJoin()">Request to Join Tournament!</button>
+        </div>
+
+        <TourneyRequestForm v-if="showModal" @close="showModal = false"/>
     </div>
-
-    <div class="tourney-button" >
-        <button id="tourney-request" v-on:click="requestTournamentJoin()">Request to Join Tournament!</button>
-    </div>
-
-    <TourneyRequestForm v-if="showModal" @close="showModal = false"/>
-
 </template>
 
 
@@ -33,6 +33,7 @@ export default {
        return {
               tournament: {},
               showModal: false,
+              displayEditButton: false
          }
     },
     methods: {
@@ -40,7 +41,6 @@ export default {
             TourneyService.getTournamentById(this.$route.params.id).then((response) => {
                 this.tournament = response.data;
             });
-
         },
         requestTournamentJoin() {
             TourneyService.requestTournamentJoin(this.tournament.id).then((response) => {
@@ -50,12 +50,18 @@ export default {
                     alert("Request to join tournament failed!");
                 }
             })
+        },
+        setEditBtnVisible() {
+            TourneyService.isUserDirector(this.$route.params.id).then((response) => {
+                this.displayEditButton = response.data;
+            });
         }
     },
     components: {TourneyRequestForm},
 
     created() {
-        this.getTournament();
+        this.getTournament(); 
+        this.setEditBtnVisible();
     },
 
 }
@@ -87,6 +93,20 @@ export default {
     text-align: center;
     margin-top: 2em;
     padding: auto;
+    border: 1px solid rgb(124, 124, 124);
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.tourneyEditBtn{
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #b130fc;
+    font-weight: bold;
+    font-size: 30px;
+    border-radius: 10px;
+    margin: 10px auto;
+    cursor: pointer;
+    text-align: center;
+    font-size: 20px;
 }
 
 </style>
