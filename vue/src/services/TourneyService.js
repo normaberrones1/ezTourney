@@ -57,6 +57,7 @@ export default {
         return axios.get(`/is-director/${tourneyId}`);
     },
 
+<<<<<<< HEAD
     getFilteredTournaments(filter) {
         return axios.get(`/tournaments/filter`, { 
             params: {
@@ -66,5 +67,10 @@ export default {
 
 
 }
+=======
+    requestTournamentJoin(tourneyId,teamId){
+        return axios.post(`/tournaments/join/${tourneyId}/${teamId}`);
+    }
+>>>>>>> cbe3cc05d73bcc1561f0719de2e4707d9f896aaa
 
 }

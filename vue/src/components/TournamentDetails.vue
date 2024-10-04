@@ -15,6 +15,11 @@
         <div id="winner">Winner ID: {{ tournament.winner }}</div>
     
         <div class="tourney-button" >
+            <label for="teamsList">Which of Your Teams Should Join?</label>
+            <input type="list" name="teamsList" list="teamInput" required v-model="teamChoice">
+            <datalist id="teamInput">
+                <option v-for="team in myTeamsList" :key="team.teamID" v-bind:value="team.teamId" >{{ team.teamName }}</option>
+            </datalist>
             <button id="tourney-request" v-on:click="requestTournamentJoin()">Request to Join Tournament!</button>
         </div>
 
@@ -27,13 +32,16 @@
 <script>
 import TourneyService from '../services/TourneyService';
 import TourneyRequestForm from './TournamentRequestForm.vue';
+import TeamService from '../services/TeamService';
 
 export default {
     data() {
        return {
               tournament: {},
               showModal: false,
-              displayEditButton: false
+              displayEditButton: false,
+              teamChoice: 0,
+              myTeamsList: []
          }
     },
     methods: {
@@ -43,7 +51,7 @@ export default {
             });
         },
         requestTournamentJoin() {
-            TourneyService.requestTournamentJoin(this.tournament.id).then((response) => {
+            TourneyService.requestTournamentJoin(this.$route.params.id,this.teamChoice).then((response) => {
                 if(response.data) {
                     alert("Request to join tournament sent!");
                 } else {
@@ -62,6 +70,9 @@ export default {
     created() {
         this.getTournament(); 
         this.setEditBtnVisible();
+        TeamService.teamsImCaptain().then((response) => {
+            this.myTeamsList = response.data;
+        })
     },
 
 }
