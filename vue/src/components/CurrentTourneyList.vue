@@ -54,12 +54,8 @@ export default {
 </script>
 
 <style>
-body {
-    background-image: url('/public/teams-background.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    
-}
+
+
 
 h1 {
     text-align: center;
@@ -113,5 +109,6 @@ h1 {
 
 .tourney-link {
     text-decoration: none;
+    text-align: center;
 }
 </style>
