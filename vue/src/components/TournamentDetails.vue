@@ -16,7 +16,7 @@
     
         <div class="tourney-button" >
             <label for="teamsList">Which of Your Teams Should Join?</label>
-            <input type="list" name="teamsList" list="teamInput" required v-model="teamChoice">
+            <input id="input-team" placeholder="Choose Team" type="list" name="teamsList" list="teamInput" required v-model="teamChoice">
             <datalist id="teamInput">
                 <option v-for="team in myTeamsList" :key="team.teamID" v-bind:value="team.teamId" >{{ team.teamName }}</option>
             </datalist>
@@ -40,7 +40,7 @@ export default {
               tournament: {},
               showModal: false,
               displayEditButton: false,
-              teamChoice: 0,
+              teamChoice: '',
               myTeamsList: []
          }
     },
@@ -88,7 +88,7 @@ export default {
 
 #tourney-request {
     display: block;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.6);
     color: #b130fc;
     font-weight: bold;
     font-size: 30px;
@@ -100,16 +100,18 @@ export default {
 }
     
 .tourneyDetails {
-    color:white;
+    color:black;
     text-align: center;
     margin-top: 2em;
     padding: auto;
     border: 1px solid rgb(124, 124, 124);
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .tourneyEditBtn{
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.6);
     color: #b130fc;
     font-weight: bold;
     font-size: 30px;
@@ -118,6 +120,15 @@ export default {
     cursor: pointer;
     text-align: center;
     font-size: 20px;
+}
+
+#input-team {
+    width: 50%;
+    margin: 10px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid rgb(124, 124, 124);
+    font-size: 17px;
 }
 
 </style>

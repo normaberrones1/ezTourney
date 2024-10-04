@@ -103,6 +103,7 @@ h1 {
     padding: 25px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
+    margin-bottom: 20px;
     
 }
 #teams-title {
@@ -121,7 +122,6 @@ h1 {
 #display-name {
     text-align: center;
     font-size: 1.5em;
-    color: #000000;
     font-weight: bold;
 
 }

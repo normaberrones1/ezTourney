@@ -99,6 +99,7 @@ export default {
     background-color: rgba(255, 255, 255, 0.6);
     color: #000000;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
 form {

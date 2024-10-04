@@ -46,6 +46,8 @@ export default {
 .teamName {
     font-style: italic;
     margin: 1%;
+    color: #58deff;
+
 }
 
 .teamCaptain {
@@ -59,6 +61,8 @@ export default {
     align-items: center;
     flex-wrap: wrap;
     grid-area: teams;
-    color: #000000;
+
 }
+
+
 </style>

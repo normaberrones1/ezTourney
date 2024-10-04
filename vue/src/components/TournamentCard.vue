@@ -1,6 +1,6 @@
 <template>
     <div class="tourneyCardContainer">
-        <h2>{{ tourney.tourneyName }}</h2>
+        <h2 id="tourney-title-card">{{ tourney.tourneyName }}</h2>
         <h4>Hosted By: {{tourney.directorNames}}</h4>
         <section class="tourneyNotes">
             <span>Entry Cost: ${{ tourney.entryFee }}</span>
@@ -42,6 +42,12 @@ export default {
     flex-wrap: wrap;
 
     grid-area: tournaments;
-    color: #000000;
+
+}
+
+#tourney-title-card {
+    font-style: italic;
+    margin: 1%;
+    color: #58deff;
 }
 </style>

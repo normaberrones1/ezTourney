@@ -181,6 +181,7 @@ h1 {
     padding: 25px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
+    margin-bottom: 20px;
     
 }
 
