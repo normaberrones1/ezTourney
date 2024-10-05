@@ -13,14 +13,13 @@
     </p>
     </div>
 
-  
-    <div>
-      <p></p>
+  <div class="home-image">
       <img src="/public/trophy.jpg" alt="trophy">
-    </div>
+  </div>
+  <div class="carousel-container">
     <StandingsCarousel />
     </div>
-
+</div>
     <div v-else>
       <router-link to="/login" id="home-login">Log in to unlock full experience!</router-link>
     </div>
@@ -56,7 +55,7 @@ export default {
     color: #000000;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
-    padding: 0px;
+    padding: px;
     margin-left: 32px;
     margin-right: 30px;
     
@@ -65,7 +64,12 @@ export default {
   img {
     width: 400px;
     height: 250px;
+    margin-top: 20px;
+    border-radius: 10px;
+    
   }
+
+
 
   #home-login {
     color: #58deff;

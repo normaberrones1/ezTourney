@@ -7,8 +7,8 @@
       <h1 class="moveInMoveOut">Standings</h1>
       <div v-if="currentSlide === 1">
           <ul>
-            <li v-for="standing in standings" :key="standing.id">
-              {{ standing.teamName }}: {{ standing.wins }}: {{ standing.losses }}
+            <li v-for="standing in Standings" :key="standing.id">
+
             </li>
           </ul>
       </div>
@@ -17,7 +17,7 @@
       <div  v-if="currentSlide === 2">
           <ul>
             <li v-for="tourney in Tournaments" :key="tourney.id">
-              {{ tourney.tourneyName }}: {{ tourney.startDate }}: {{ tourney.endDate }}
+              
             </li>
           </ul>
       </div>
@@ -26,7 +26,7 @@
       <div v-if="currentSlide === 3">
           <ul>
             <li v-for="team in Teams" :key="team.id">
-              {{ team.teamName }}: {{ team.teamMembers }}
+
             </li>
           </ul>
       </div>
@@ -65,22 +65,14 @@ export default {
   },
   data() {
     return {
-      standings: [],
-      currentTournaments: [],
-      teams: [],
+      Standings: [],
+      Tournaments: [],
+      Teams: [],
       currentSlide: 0,
     }
   },
   computed: {
-    Tournaments() {
-      return this.currentTournaments;
-    },
-    Teams() {
-      return this.teams;
-    },
-    Standings() {
-      return this.standings;
-    },
+    
 
   },
   created() {
@@ -137,8 +129,14 @@ export default {
 
   .moveInMoveOut {
     position: absolute;
-    left: 100%;
+    
     animation: move 9s ease-in-out infinite;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
     
   }
 
@@ -167,30 +165,20 @@ export default {
   
 
   @keyframes move {
-    10% {
-      left: 100%;
+    
+    0%, 10% {
       opacity: 0;
     }
-    10% {
-      left: 50%;
+    15%, 30% {
       opacity: 1;
     }
-    30% {
-      left: 50%;
+    35%, 45% {
       opacity: 1;
     }
-    40% {
-      left: 50%;
-      opacity: 1;
-    }
-    50% {
-      left: -100%;
+    50%, 100% {
       opacity: 0;
     }
-    100% {
-      left: -100%;
-      opacity: 0;
-    }
+    
   }
 
 </style>

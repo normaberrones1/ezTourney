@@ -140,7 +140,7 @@ h1 {
     padding: 10px;
     margin: -60px;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.6);
     border: 1px solid rgb(124, 124, 124);
     font-weight: bold;
 }

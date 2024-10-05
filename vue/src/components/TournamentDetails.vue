@@ -108,6 +108,7 @@ export default {
     background-color: rgba(255, 255, 255, 0.6);
     margin-left: 20%;
     margin-right: 20%;
+    border-radius: 10px;
 }
 
 .tourneyEditBtn{
