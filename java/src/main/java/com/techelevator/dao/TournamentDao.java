@@ -75,12 +75,11 @@ public interface TournamentDao {
 
     boolean isUserDirector(Principal principal, int tourneyId);
 
-<<<<<<< HEAD
     List<TourneyTeamDto> getTourneyTeams(int tourneyId);
 
     Tournament getTourneyDetailsViewById(int tourneyId);
-=======
+
     boolean requestToJoinTourney(int tourneyId, int teamId);
->>>>>>> 5e61e9d8924453074228fbd48656fb086175bd4f
+
 }
 

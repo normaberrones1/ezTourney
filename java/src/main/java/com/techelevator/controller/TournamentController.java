@@ -63,7 +63,7 @@ public class TournamentController {
         return dao.updateTournament(tournament);
     }
 
-<<<<<<< HEAD
+
     @RequestMapping(path = "/tournaments/{tourneyId}/teams", method = RequestMethod.GET )
     public List<TourneyTeamDto> getTourneyTeams(@PathVariable int tourneyId){
         return dao.getTourneyTeams(tourneyId);
@@ -82,7 +82,7 @@ public class TournamentController {
     public Tournament getTournamentViewById(@PathVariable int id) {
         return dao.getTourneyDetailsViewById(id);
     }
-=======
+
 
     @RequestMapping(path="tournaments/filter", method=RequestMethod.GET)
     public List<TournamentDto> getFilteredTournaments(
@@ -99,5 +99,4 @@ public class TournamentController {
         return dao.requestToJoinTourney(tourneyId,teamId);
     }
 
->>>>>>> 5e61e9d8924453074228fbd48656fb086175bd4f
 }

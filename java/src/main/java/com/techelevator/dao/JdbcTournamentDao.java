@@ -1,11 +1,7 @@
 package com.techelevator.dao;
 
-<<<<<<< HEAD
-import com.techelevator.exception.DaoException;
-=======
 
-import  com.techelevator.exception.DaoException;
->>>>>>> 5e61e9d8924453074228fbd48656fb086175bd4f
+import com.techelevator.exception.DaoException;
 import com.techelevator.model.Tournament;
 import com.techelevator.model.TournamentDto;
 import com.techelevator.model.TourneyTeamDto;
@@ -76,9 +72,6 @@ public class JdbcTournamentDao implements TournamentDao {
         return tournaments;
     }
 
-<<<<<<< HEAD
-    public Tournament getTournamentById(int id) {
-=======
     @Override
     public List<TournamentDto> getTournamentsByFilters(String status, Date startDate, Date endDate) {
         List<TournamentDto> tournaments = new ArrayList<>();
@@ -107,7 +100,6 @@ public class JdbcTournamentDao implements TournamentDao {
     }
 
     public Tournament getTournamentById(int id){
->>>>>>> 5e61e9d8924453074228fbd48656fb086175bd4f
         String sql = "SELECT * FROM tournament WHERE tourney_id = ?;";
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql, id);
@@ -247,9 +239,6 @@ public class JdbcTournamentDao implements TournamentDao {
         return winLoss;
     }
 
-<<<<<<< HEAD
-    public boolean isUserDirector(Principal principal, int tourneyId) {
-=======
     public boolean requestToJoinTourney(int tourneyId, int teamId){
         String sql = "INSERT INTO team_tourney(team_id, tourney_id, isAccepted, eliminated) " +
                 "VALUES (?,?, 'false', 'false')";
@@ -264,7 +253,6 @@ public class JdbcTournamentDao implements TournamentDao {
     }
 
     public boolean isUserDirector(Principal principal, int tourneyId){
->>>>>>> 5e61e9d8924453074228fbd48656fb086175bd4f
         return getUserNamesInTournament(tourneyId).contains(principal.getName());
     }
 
