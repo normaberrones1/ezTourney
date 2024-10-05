@@ -1,7 +1,7 @@
 <template>
   <div id="register" class="text-center">
     <form v-on:submit.prevent="register">
-      <h1>Create Account</h1>
+      <h1>Create an ezTourney Account</h1>
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
@@ -17,7 +17,7 @@
         <label for="confirmPassword">Confirm Password</label>
         <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
       </div>
-      <button type="submit">Create Account</button>
+      <button id="create-account" type="submit">Create Account</button>
       <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
   </div>
@@ -73,10 +73,55 @@ export default {
 </script>
 
 <style scoped>
+
+#register {
+  margin-top: 20%;
+  background-color: rgba(255, 255, 255, 0.6);
+  margin-left: 30%;
+  margin-right: 30%;
+  border-radius: 10px;
+}
+
 .form-input-group {
-  margin-bottom: 1rem;
+  margin-bottom: 15px;
+  text-align: center;
+  
+}
+
+.form-input-group input {
+  width: 100%;
+  max-width: 300px;
+  height: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(124, 124, 124);
+  font-size: 17px;
+  box-sizing: border-box;
 }
 label {
   margin-right: 0.5rem;
 }
+
+
+#create-account {
+  font-size: 17px;
+  color: #B130FC;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#username {
+
+}
+
+#password {
+
+}
+
+#confirmPassword {
+
+}
+
+
+
 </style>

@@ -56,9 +56,22 @@ export default {
     isUserDirector(tourneyId) {
         return axios.get(`/is-director/${tourneyId}`);
     },
+<<<<<<< HEAD
     acceptTeam(teamId, tourneyId) {
         return axios.patch(`/tournaments/${tourneyId}/accept-team/${teamId}`);
     },
+=======
+
+    getFilteredTournaments(filter) {
+        return axios.get(`/tournaments/filter`, { 
+            params: {
+                status: filter
+            }
+    });
+
+
+}
+>>>>>>> 5e61e9d8924453074228fbd48656fb086175bd4f
 
     getTournamentViewById(id) {
         return axios.get(`/tournaments/${id}/view`);

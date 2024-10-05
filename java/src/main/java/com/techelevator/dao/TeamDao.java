@@ -30,5 +30,7 @@ public interface TeamDao {
     void acceptRequest(AcceptRejectTeamDto acceptReject);
 
     void rejectRequest(AcceptRejectTeamDto acceptReject);
+
+    List<TeamDto> teamsIAmCaptainOn(Principal principal);
 }
 

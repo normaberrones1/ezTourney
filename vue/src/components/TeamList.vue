@@ -4,13 +4,15 @@
     <p v-if="isAuthenticated" id="click-team">Click a team to view details!</p>
     
     <div id="teamContainer">
+        
         <div class="teamsDiv" >
             <div v-for="team in teams" :key="team.teamId">
                 <div v-if="isAuthenticated">
                     <router-link
                     class="teamCardLink" 
                     v-bind:to="{ name: 'teamDetails', params: { teamId: team.teamId } }">
-                    <TeamCard v-bind:team="team"/>
+                    <TeamCard id="team-list" v-bind:team="team"/>
+                    
                     </router-link>
                 </div>
                 <div v-else>
@@ -63,13 +65,6 @@ export default {
 }
 </script>
 <style>
-body {
-    background-image: url('/public/teams-background.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
-    
-}
 
 #click-team {
     position: relative;
@@ -78,7 +73,11 @@ body {
     margin-bottom: 2%;
     font-size: 1.5em;
     text-align: center;
-    color: #58deff;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    margin-left: 235px;
+    margin-right: 250px;
 }
 h1 {
     text-align: center;
@@ -90,6 +89,8 @@ h1 {
     grid-template-areas:
         "teams teams teams teamForm"
         "teams teams teams teamForm";
+    margin-left: 32px;
+    margin-right: 15px;
 }
 #teamForm {
   
@@ -98,10 +99,11 @@ h1 {
 }
 .teamsDiv{
     grid-area: teams;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
     padding: 25px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
+    margin-bottom: 20px;
     
 }
 #teams-title {
@@ -110,14 +112,18 @@ h1 {
     margin-top: 2%;
     margin-bottom: 2%;
     font-size: 2em;
-    color: #B130FC;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    margin-left: 205px;
+    margin-right: 220px;
 }
 
 #display-name {
     text-align: center;
     font-size: 1.5em;
-    color: #000000;
     font-weight: bold;
+
 }
 
 #login-script {
@@ -134,8 +140,16 @@ h1 {
     padding: 10px;
     margin: -60px;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.6);
     border: 1px solid rgb(124, 124, 124);
     font-weight: bold;
+}
+
+.teamCardLink {
+    text-decoration: none;
+}
+
+#team-list {
+    margin-bottom: 20px;
 }
 </style>

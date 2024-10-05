@@ -34,6 +34,11 @@
 
         </div>
         <div class="tourney-button" >
+            <label for="teamsList">Which of Your Teams Should Join?</label>
+            <input id="input-team" placeholder="Choose Team" type="list" name="teamsList" list="teamInput" required v-model="teamChoice">
+            <datalist id="teamInput">
+                <option v-for="team in myTeamsList" :key="team.teamID" v-bind:value="team.teamId" >{{ team.teamName }}</option>
+            </datalist>
             <button id="tourney-request" v-on:click="requestTournamentJoin()">Request to Join Tournament!</button>
         </div>
 
@@ -46,13 +51,16 @@
 <script>
 import TourneyService from '../services/TourneyService';
 import TourneyRequestForm from './TournamentRequestForm.vue';
+import TeamService from '../services/TeamService';
 
 export default {
     data() {
        return {
               tournament: {},
               showModal: false,
-              displayEditButton: false
+              displayEditButton: false,
+              teamChoice: '',
+              myTeamsList: []
          }
     },
     methods: {
@@ -62,7 +70,7 @@ export default {
             });
         },
         requestTournamentJoin() {
-            TourneyService.requestTournamentJoin(this.tournament.id).then((response) => {
+            TourneyService.requestTournamentJoin(this.$route.params.id,this.teamChoice).then((response) => {
                 if(response.data) {
                     alert("Request to join tournament sent!");
                 } else {
@@ -81,6 +89,9 @@ export default {
     created() {
         this.getTournament(); 
         this.setEditBtnVisible();
+        TeamService.teamsImCaptain().then((response) => {
+            this.myTeamsList = response.data;
+        })
     },
 
 }
@@ -96,7 +107,7 @@ export default {
 
 #tourney-request {
     display: block;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.6);
     color: #b130fc;
     font-weight: bold;
     font-size: 30px;
@@ -113,7 +124,10 @@ export default {
     margin-top: 2em;
     padding: auto;
     border: 1px solid rgb(124, 124, 124);
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
+    margin-left: 20%;
+    margin-right: 20%;
+    border-radius: 10px;
 }
 
 .tourneyDetails h1 {
@@ -122,7 +136,7 @@ export default {
 }
 
 .tourneyEditBtn{
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.6);
     color: #b130fc;
     font-weight: bold;
     font-size: 30px;
@@ -133,6 +147,7 @@ export default {
     font-size: 20px;
 }
 
+<<<<<<< HEAD
 .tourneyDetailsGrid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -152,6 +167,15 @@ export default {
 
 .tourneyTitle{
     font-weight: bold;
+=======
+#input-team {
+    width: 50%;
+    margin: 10px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid rgb(124, 124, 124);
+    font-size: 17px;
+>>>>>>> 5e61e9d8924453074228fbd48656fb086175bd4f
 }
 
 </style>

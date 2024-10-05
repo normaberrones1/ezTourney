@@ -70,7 +70,9 @@ const routes = [
   {
     path: "/tournaments/:id",
     name: "tournamentDetails",
-    component: TournamentDetailsView
+    component: TournamentDetailsView,
+    props: true
+
   },
   {
     path: "/login",

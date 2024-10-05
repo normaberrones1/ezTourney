@@ -10,6 +10,7 @@ if we even choose to do that.
     <div class="teamCardContainer">
         <h2 class="teamName">{{ team.teamName }}</h2>
         <h4 class="teamCaptain">{{ teamCaptain.username }}</h4>
+        <p>--------------------------------------------</p>
     </div>
 
 </template>
@@ -45,6 +46,8 @@ export default {
 .teamName {
     font-style: italic;
     margin: 1%;
+    color: #58deff;
+
 }
 
 .teamCaptain {
@@ -57,8 +60,9 @@ export default {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    border: 1px solid rgb(124, 124, 124);
     grid-area: teams;
-    color: #000000;
+
 }
+
+
 </style>

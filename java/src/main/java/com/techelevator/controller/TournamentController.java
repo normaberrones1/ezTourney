@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -61,6 +63,7 @@ public class TournamentController {
         return dao.updateTournament(tournament);
     }
 
+<<<<<<< HEAD
     @RequestMapping(path = "/tournaments/{tourneyId}/teams", method = RequestMethod.GET )
     public List<TourneyTeamDto> getTourneyTeams(@PathVariable int tourneyId){
         return dao.getTourneyTeams(tourneyId);
@@ -79,4 +82,22 @@ public class TournamentController {
     public Tournament getTournamentViewById(@PathVariable int id) {
         return dao.getTourneyDetailsViewById(id);
     }
+=======
+
+    @RequestMapping(path="tournaments/filter", method=RequestMethod.GET)
+    public List<TournamentDto> getFilteredTournaments(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) Date startDate,
+            @RequestParam(required = false) Date endDate) {
+
+        return dao.getTournamentsByFilters(status, startDate, endDate);
+    }
+
+
+    @RequestMapping(path="/tournaments/join/{tourneyId}/{teamId}", method=RequestMethod.POST)
+    public boolean requestToJoinTourney(@PathVariable int tourneyId, @PathVariable int teamId){
+        return dao.requestToJoinTourney(tourneyId,teamId);
+    }
+
+>>>>>>> 5e61e9d8924453074228fbd48656fb086175bd4f
 }

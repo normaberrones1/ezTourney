@@ -45,7 +45,7 @@
 
     <TeamRequestForm v-if="showModal" @close="showModal = false"/>
 
-
+<div class="display-team">
     <div class="players">
     <h2 id="players-title">Team Players</h2>
     <h3 id="captain-name">{{ captain.username }}</h3>
@@ -53,7 +53,7 @@
     <div class="Members" v-for="user in members" :key="user.userId">
         <MemberCard v-bind:user="user"/>
     </div>
-
+</div>
 </div>
     </div>
 </template>
@@ -132,7 +132,7 @@ export default {
 
 #team-request {
     display: block;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.6);
     color: #b130fc;
     font-weight: bold;
     font-size: 30px;
@@ -141,11 +141,12 @@ export default {
     cursor: pointer;
     text-align: center;
     font-size: 20px;
+
 }
 
 #edit-team {
     display: block;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.6);
     color: #b130fc;
     font-weight: bold;
     font-size: 30px;
@@ -157,21 +158,24 @@ export default {
 }
 
 #players-title {
-    text-align: left;
-    color: #c0c0c0;
+
+    color: #000000;
     
 }
 
 .Members {
     color: #b130fc;
+    font-size: 17px;
 }
 
 #captain-name {
-    color: #58deff
+    color: #58deff;
+    text-align: center;
 }
 
 .players {
-    text-align: left;
+    text-align: center;
+
 }
 
 #match-title {
@@ -190,22 +194,26 @@ export default {
 
 .matches-wins-losses {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     font-size: 25px;
     font-weight: bold;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .tournaments-wins-losses {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     font-size: 25px;
     font-weight: bold;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 #win {
@@ -217,6 +225,18 @@ export default {
     color: #ff0033;
     font-weight: bold;
     
+}
+
+.display-team {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.6);
+    margin-left: 30%;
+    margin-right: 30%;
+    border-radius: 10px;
 }
 
 </style>

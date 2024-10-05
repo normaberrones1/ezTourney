@@ -96,9 +96,10 @@ export default {
     padding: 40px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
     color: #000000;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
 form {

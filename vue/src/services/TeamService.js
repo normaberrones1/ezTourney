@@ -49,6 +49,10 @@ export default {
 
     rejectJoin(rejectDto){
         return axios.put(`/reject-teammate/`, rejectDto);
+    },
+
+    teamsImCaptain(){
+        return axios.get(`/teams-im-captain/`);
     }
  
 };

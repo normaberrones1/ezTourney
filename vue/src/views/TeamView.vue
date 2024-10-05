@@ -16,11 +16,6 @@ export default {
 
 <style>
 
-body {
-    background-image: url('/public/teams-background.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
 
-}
 
 </style>

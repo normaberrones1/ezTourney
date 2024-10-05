@@ -1,11 +1,15 @@
 package com.techelevator.dao;
 
+import com.techelevator.exception.DaoException;
 import com.techelevator.model.Tournament;
 import com.techelevator.model.TournamentDto;
 import com.techelevator.model.TourneyTeamDto;
 import com.techelevator.model.WinLossDto;
+import org.apache.tomcat.jni.Local;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public interface TournamentDao {
@@ -15,6 +19,8 @@ public interface TournamentDao {
     Tournament getTournamentById(int id);
 
     List<TournamentDto> getAllActiveTournaments();
+
+    List<TournamentDto> getTournamentsByFilters(String status, Date startDate, Date endDate);
 
     /*
     INPUTS: Team id
@@ -69,8 +75,12 @@ public interface TournamentDao {
 
     boolean isUserDirector(Principal principal, int tourneyId);
 
+<<<<<<< HEAD
     List<TourneyTeamDto> getTourneyTeams(int tourneyId);
 
     Tournament getTourneyDetailsViewById(int tourneyId);
+=======
+    boolean requestToJoinTourney(int tourneyId, int teamId);
+>>>>>>> 5e61e9d8924453074228fbd48656fb086175bd4f
 }
 

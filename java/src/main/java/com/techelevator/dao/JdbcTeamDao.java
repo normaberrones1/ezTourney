@@ -203,6 +203,18 @@ public class JdbcTeamDao implements TeamDao {
         }
     }
 
+    public List<TeamDto> teamsIAmCaptainOn(Principal principal){
+        List<TeamDto> teams = new ArrayList<>();
+        String sql = "SELECT captain_id, team_name, team_id FROM teams " +
+                "JOIN users ON captain_id = user_id " +
+                "WHERE username = ?";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, principal.getName());
+        while(rowSet.next()){
+            teams.add(mapRowSetToTeamDto(rowSet));
+        }
+        return teams;
+    }
+
 
     private TeamDto mapRowSetToTeamDto(SqlRowSet rowSet) {
         TeamDto teamDto = new TeamDto();
