@@ -32,7 +32,7 @@ public class JdbcTournamentDao implements TournamentDao {
     private MemberDao memberDao;
 
     private String dtoSelect = "SELECT tourney_id, tourney_name, entry_fee, tourney_desc, " +
-            "start_date";
+            "start_date, end_date";
 
     JdbcTournamentDao(JdbcTemplate template, MemberDao memberDao) {
         this.template = template;

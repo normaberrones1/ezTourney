@@ -25,12 +25,11 @@
   padding: 10px;
 }
 
-<<<<<<< HEAD
 .greeting {
   color: rgb(81, 0, 212);
   text-align: center;
   float:right;
-=======
+}
 body {
     background-image: url('/public/teams-background.jpg');
     background-repeat: no-repeat;
@@ -38,7 +37,6 @@ body {
     background-position: center;
     background-attachment: fixed;
     overflow: auto;
-    
->>>>>>> 5e61e9d8924453074228fbd48656fb086175bd4f
+
 }
 </style>

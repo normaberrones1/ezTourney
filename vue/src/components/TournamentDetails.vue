@@ -147,7 +147,6 @@ export default {
     font-size: 20px;
 }
 
-<<<<<<< HEAD
 .tourneyDetailsGrid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -167,15 +166,6 @@ export default {
 
 .tourneyTitle{
     font-weight: bold;
-=======
-#input-team {
-    width: 50%;
-    margin: 10px;
-    text-align: center;
-    border-radius: 10px;
-    border: 1px solid rgb(124, 124, 124);
-    font-size: 17px;
->>>>>>> 5e61e9d8924453074228fbd48656fb086175bd4f
 }
 
 </style>
