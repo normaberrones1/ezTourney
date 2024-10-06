@@ -34,6 +34,7 @@ import TourneyService from '../services/TourneyService';
 import TourneyRequestForm from './TournamentRequestForm.vue';
 import TeamService from '../services/TeamService';
 
+
 export default {
     data() {
        return {
@@ -66,7 +67,6 @@ export default {
         }
     },
     components: {TourneyRequestForm},
-
     created() {
         this.getTournament(); 
         this.setEditBtnVisible();

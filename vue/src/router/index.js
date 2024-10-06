@@ -11,10 +11,12 @@ import TournamentView from '../views/TournamentView.vue';
 import TeamDetailView from '../views/TeamDetailView.vue';
 import TournamentDetailsView from '../views/TournamentDetailsView.vue';
 import EditTournamentView from '../views/EditTournamentView.vue';
+import BuildBracket from '../components/BuildBracket.vue';
 
 // I understand that this should probably be a View in views but its just 
 //easier for demo purposes to do this
 import EditTeam from '../components/EditTeam.vue';
+import TournamentBracketView from '../views/TournamentBracketView.vue';
 
 
 
@@ -73,6 +75,16 @@ const routes = [
     component: TournamentDetailsView,
     props: true
 
+  },
+  {
+    path: '/tournamentBracketBuilder',
+    name: "tournamentBracketBuilder",
+    component: TournamentBracketView,
+  },
+  {
+    path: '/buildBracket',
+    name: 'BuildBracket',
+    component: BuildBracket,
   },
   {
     path: "/login",

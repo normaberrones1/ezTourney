@@ -4,11 +4,14 @@
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
       <router-link v-bind:to="{ name: 'teams' }">Teams</router-link>&nbsp;|&nbsp;
       <router-link v-bind:to="{ name: 'tournament' }">Tournaments</router-link>&nbsp;|&nbsp;
+      <router-link v-bind:to="{ name: 'tournamentBracketBuilder' }">Brackets</router-link>&nbsp;|&nbsp;
       <router-link v-bind:to="{ name: 'logout' }" v-if="this.$store.state.token != ''">Logout</router-link>
         <!-- the span below adds a bar after logout if logout appears -->
         <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
       <router-link v-bind:to="{ name: 'login' }">Log In</router-link>&nbsp;|&nbsp;
       <router-link v-bind:to="{ name: 'register' }">Sign Up</router-link>
+      
+      
     </div>
     <router-view />
   </div>
