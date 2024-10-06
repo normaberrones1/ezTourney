@@ -83,10 +83,20 @@ export default {
 }
 
 .form-input-group {
-  margin-bottom: 1rem;
+  margin-bottom: 15px;
   text-align: center;
   
-  
+}
+
+.form-input-group input {
+  width: 100%;
+  max-width: 300px;
+  height: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(124, 124, 124);
+  font-size: 17px;
+  box-sizing: border-box;
 }
 label {
   margin-right: 0.5rem;
@@ -111,5 +121,7 @@ label {
 #confirmPassword {
 
 }
+
+
 
 </style>

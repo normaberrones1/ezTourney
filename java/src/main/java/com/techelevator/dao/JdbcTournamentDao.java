@@ -1,9 +1,10 @@
 package com.techelevator.dao;
 
 
-import  com.techelevator.exception.DaoException;
+import com.techelevator.exception.DaoException;
 import com.techelevator.model.Tournament;
 import com.techelevator.model.TournamentDto;
+import com.techelevator.model.TourneyTeamDto;
 import com.techelevator.model.WinLossDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-public class JdbcTournamentDao implements TournamentDao{
+public class JdbcTournamentDao implements TournamentDao {
 
     private JdbcTemplate template;
 
@@ -31,42 +32,42 @@ public class JdbcTournamentDao implements TournamentDao{
     private MemberDao memberDao;
 
     private String dtoSelect = "SELECT tourney_id, tourney_name, entry_fee, tourney_desc, " +
-            "start_date";
+            "start_date, end_date";
 
-    JdbcTournamentDao(JdbcTemplate template, MemberDao memberDao){
+    JdbcTournamentDao(JdbcTemplate template, MemberDao memberDao) {
         this.template = template;
         this.memberDao = memberDao;
     }
 
-    //PAST AND PRESENT
-    public List<TournamentDto> getAllTournamentHistory(){
+    // PAST AND PRESENT
+    public List<TournamentDto> getAllTournamentHistory() {
         List<TournamentDto> tournaments = new ArrayList<>();
         String sql = dtoSelect + " FROM TOURNAMENT;";
 
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql);
-            while(rowSet.next()){
+            while (rowSet.next()) {
                 TournamentDto dto = mapRowToTournamentDto(rowSet);
                 dto.setDirectorNames(getUserNamesInTournament(rowSet.getInt("tourney_id")));
                 tournaments.add(dto);
             }
 
-        }catch(CannotGetJdbcConnectionException e){
+        } catch (CannotGetJdbcConnectionException e) {
         }
         return tournaments;
     }
 
-    public List<TournamentDto> getAllActiveTournaments(){
+    public List<TournamentDto> getAllActiveTournaments() {
         List<TournamentDto> tournaments = new ArrayList<>();
         String sql = dtoSelect + " FROM TOURNAMENT WHERE current_timestamp < start_date;";
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql);
-            while(rowSet.next()){
+            while (rowSet.next()) {
                 TournamentDto dto = mapRowToTournamentDto(rowSet);
                 dto.setDirectorNames(getUserNamesInTournament(rowSet.getInt("tourney_id")));
                 tournaments.add(dto);
             }
-        }catch(CannotGetJdbcConnectionException e){
+        } catch (CannotGetJdbcConnectionException e) {
         }
         return tournaments;
     }
@@ -105,7 +106,7 @@ public class JdbcTournamentDao implements TournamentDao{
             if (rowSet.next()) {
                 return mapRowToTournament(rowSet);
             }
-        }catch(CannotGetJdbcConnectionException e){
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
@@ -113,22 +114,35 @@ public class JdbcTournamentDao implements TournamentDao{
         return null;
     }
 
-
-     public boolean acceptRejectTeamJoin(int teamId, int tourneyId){
+    public boolean acceptTeam(int teamId, int tourneyId) {
+        String sql = "UPDATE team_tourney SET isaccepted = true WHERE team_id = ? AND tourney_id = ?;";
+        try {
+            int numOfRows = template.update(sql, teamId, tourneyId);
+            if (numOfRows > 0) {
+                return true;
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
         return false;
-     }
 
+    }
 
-    public  Tournament createTournament(Tournament newTournament, Principal principal){
+    public Tournament createTournament(Tournament newTournament, Principal principal) {
         int newTournamentId = 0;
-        String sql = "INSERT INTO tournament(tourney_name, start_date, end_date, location, entry_fee, prize_desc, tourney_desc, game_id, round) " +
-        "VALUES (?,?,?,?,?,?,?,?,1) RETURNING tourney_id;";
-            String sql2 = "INSERT INTO tourney_directors (tourney_id, director_id) VALUES (?,?);";
-        try{
-            newTournamentId = template.queryForObject(sql, Integer.class, newTournament.getTourneyName(), newTournament.getStartDate(), newTournament.getEndDate(),
-                    newTournament.getLocation(), newTournament.getEntry_fee(), newTournament.getPrizeDesc(), newTournament.getTourneyDesc(), newTournament.getGameId());
+        String sql = "INSERT INTO tournament(tourney_name, start_date, end_date, location, entry_fee, prize_desc, tourney_desc, game_id, round) "
+                +
+                "VALUES (?,?,?,?,?,?,?,?,1) RETURNING tourney_id;";
+        String sql2 = "INSERT INTO tourney_directors (tourney_id, director_id) VALUES (?,?);";
+        try {
+            newTournamentId = template.queryForObject(sql, Integer.class, newTournament.getTourneyName(),
+                    newTournament.getStartDate(), newTournament.getEndDate(),
+                    newTournament.getLocation(), newTournament.getEntry_fee(), newTournament.getPrizeDesc(),
+                    newTournament.getTourneyDesc(), newTournament.getGameId());
             template.update(sql2, newTournamentId, memberDao.getUserIdByName(principal.getName()));
-        }catch (CannotGetJdbcConnectionException e) {
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
@@ -136,28 +150,28 @@ public class JdbcTournamentDao implements TournamentDao{
         return getTournamentById(newTournamentId);
     }
 
-     public Tournament updateTournament(Tournament tournament){
-        String sql= "UPDATE tournament SET " +
+    public Tournament updateTournament(Tournament tournament) {
+        String sql = "UPDATE tournament SET " +
                 " tourney_name = ?, start_date = ? , end_date = ?, location = ?, entry_fee = ?, prize_desc = ?, " +
                 "tourney_desc= ? , round = ?, winner_id = ? WHERE tourney_id=?";
-        try{
-            int numOfRows = template.update(sql,tournament.getTourneyName(),tournament.getStartDate(),
-                    tournament.getEndDate(),tournament.getLocation(),tournament.getEntry_fee(),tournament.getPrizeDesc(),
+        try {
+            int numOfRows = template.update(sql, tournament.getTourneyName(), tournament.getStartDate(),
+                    tournament.getEndDate(), tournament.getLocation(), tournament.getEntry_fee(),
+                    tournament.getPrizeDesc(),
                     tournament.getTourneyDesc(),
-                    tournament.getRound(),tournament.getWinner(),tournament.getTourneyId());
+                    tournament.getRound(), tournament.getWinner(), tournament.getTourneyId());
 
-        }catch (CannotGetJdbcConnectionException e) {
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
         return tournament;
-     }
-
-    public  void nextRound(int tourneyId){
-
     }
 
+    public void nextRound(int tourneyId) {
+
+    }
 
     @Override
     public WinLossDto getTourneyWinsAndLosses(int teamId) {
@@ -177,7 +191,7 @@ public class JdbcTournamentDao implements TournamentDao{
             if (lossRows.next()) {
                 winLoss.setLosses(lossRows.getInt("losses"));
             }
-        }catch(CannotGetJdbcConnectionException e){
+        } catch (CannotGetJdbcConnectionException e) {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
         }
 
@@ -194,7 +208,7 @@ public class JdbcTournamentDao implements TournamentDao{
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql, teamId);
 
-            while(rowSet.next()){
+            while (rowSet.next()) {
                 currentTournaments.add(mapRowToTournamentDto(rowSet));
             }
         } catch (CannotGetJdbcConnectionException e) {
@@ -205,7 +219,7 @@ public class JdbcTournamentDao implements TournamentDao{
         return currentTournaments;
     }
 
-    public WinLossDto getMatchWinLoss(int teamId){
+    public WinLossDto getMatchWinLoss(int teamId) {
         WinLossDto winLoss = new WinLossDto();
         String winSql = "SELECT COUNT(*) as wins FROM tourney_matches " +
                 "WHERE set_winner = ?";
@@ -214,11 +228,11 @@ public class JdbcTournamentDao implements TournamentDao{
                 "AND (team_1_id = ? OR team_2_id = ?) ";
 
         SqlRowSet wins = template.queryForRowSet(winSql, teamId);
-        if(wins.next()){
+        if (wins.next()) {
             winLoss.setWins(wins.getInt("wins"));
         }
         SqlRowSet losses = template.queryForRowSet(lossSql, teamId, teamId, teamId);
-        if(losses.next()){
+        if (losses.next()) {
             winLoss.setLosses(losses.getInt("loss"));
         }
 
@@ -242,19 +256,65 @@ public class JdbcTournamentDao implements TournamentDao{
         return getUserNamesInTournament(tourneyId).contains(principal.getName());
     }
 
-    private List<String> getUserNamesInTournament(int tourneyId){
+    private List<String> getUserNamesInTournament(int tourneyId) {
         List<String> usernames = new ArrayList<>();
         String sql = "SELECT username FROM users " +
                 "JOIN tourney_directors ON user_id = director_id " +
                 "WHERE tourney_id = ?";
         SqlRowSet rowSet = template.queryForRowSet(sql, tourneyId);
-        while(rowSet.next()){
+        while (rowSet.next()) {
             usernames.add(rowSet.getString("username"));
         }
         return usernames;
     }
 
-    private TournamentDto mapRowToTournamentDto(SqlRowSet rowSet){
+    public List<TourneyTeamDto> getTourneyTeams(int tourneyId) {
+        List<TourneyTeamDto> tourneyTeams = new ArrayList<>();
+        String sql = "SELECT team_tourney.team_id, team_name, isaccepted, eliminated," +
+                "round_eliminated FROM team_tourney " +
+                "JOIN teams ON teams.team_id = team_tourney.team_id " +
+                "WHERE tourney_id = ?; ";
+        try {
+            SqlRowSet rowSet = template.queryForRowSet(sql, tourneyId);
+            while (rowSet.next()) {
+                TourneyTeamDto dto = mapRowToTourneyTeamDto(rowSet);
+                tourneyTeams.add(dto);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+        }
+        return tourneyTeams;
+    }
+
+    public Tournament getTourneyDetailsViewById(int tourneyId){
+        String sql = "SELECT tr.tourney_id,tr.tourney_name,tr.start_date,tr.end_date,tr.location,tr.entry_fee,tr.prize_desc," +
+                "tr.tourney_desc,tr.game_id, tr.winner_id,tr.round, g.game_name,t.team_name FROM tournament tr JOIN games g ON " +
+                "tr.game_id = g.game_id " +
+                "LEFT JOIN teams t ON tr.winner_id = t.team_id " +
+                "WHERE tr.tourney_id=?;";
+        try {
+            SqlRowSet rowSet = template.queryForRowSet(sql, tourneyId);
+            if (rowSet.next()) {
+                return mapRowToTournamentView(rowSet);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return null;
+    }
+
+    private TourneyTeamDto mapRowToTourneyTeamDto(SqlRowSet rowSet) {
+        TourneyTeamDto tourneyteamDto = new TourneyTeamDto();
+        tourneyteamDto.setTeamId(rowSet.getInt("team_id"));
+        tourneyteamDto.setTeamName(rowSet.getString("team_name"));
+        tourneyteamDto.setAccepted(rowSet.getBoolean("isaccepted"));
+        tourneyteamDto.setEliminated(rowSet.getBoolean("eliminated"));
+        tourneyteamDto.setRoundEliminated(rowSet.getInt("round_eliminated"));
+        return tourneyteamDto;
+    }
+
+    private TournamentDto mapRowToTournamentDto(SqlRowSet rowSet) {
         TournamentDto dto = new TournamentDto();
         dto.setTourneyId(rowSet.getInt("tourney_id"));
         dto.setTourneyName(rowSet.getString("tourney_name"));
@@ -265,7 +325,7 @@ public class JdbcTournamentDao implements TournamentDao{
         return dto;
     }
 
-    private Tournament mapRowToTournament(SqlRowSet rowSet){
+    private Tournament mapRowToTournament(SqlRowSet rowSet) {
         Tournament tournament = new Tournament();
         tournament.setTourneyId(rowSet.getInt("tourney_id"));
         tournament.setTourneyName(rowSet.getString("tourney_name"));
@@ -279,6 +339,23 @@ public class JdbcTournamentDao implements TournamentDao{
         tournament.setRound(rowSet.getInt("round"));
         tournament.setWinner(rowSet.getInt("winner_id"));
 
+        return tournament;
+    }
+    private Tournament mapRowToTournamentView(SqlRowSet rowSet) {
+        Tournament tournament = new Tournament();
+        tournament.setTourneyId(rowSet.getInt("tourney_id"));
+        tournament.setTourneyName(rowSet.getString("tourney_name"));
+        tournament.setStartDate(rowSet.getDate("start_Date"));
+        tournament.setEndDate(rowSet.getDate("end_date"));
+        tournament.setLocation(rowSet.getString("location"));
+        tournament.setEntry_fee(rowSet.getInt("entry_fee"));
+        tournament.setPrizeDesc(rowSet.getString("prize_desc"));
+        tournament.setGameId(rowSet.getInt("game_id"));
+        tournament.setTourneyDesc(rowSet.getString("tourney_desc"));
+        tournament.setRound(rowSet.getInt("round"));
+        tournament.setWinner(rowSet.getInt("winner_id"));
+        tournament.setGameName(rowSet.getString("game_name"));
+        tournament.setWinningTeamName(rowSet.getString("team_name"));
         return tournament;
     }
 }

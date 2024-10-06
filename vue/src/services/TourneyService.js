@@ -34,7 +34,7 @@ export default {
     },
 
     getTournamentTeams(id) {
-        return axios.get(``);
+        return axios.get(`/tournaments/${id}/teams`);
     },
 
     getTournamentMatches(id) {
@@ -57,14 +57,19 @@ export default {
         return axios.get(`/is-director/${tourneyId}`);
     },
 
+    acceptTeam(teamId, tourneyId) {
+        return axios.patch(`/tournaments/${tourneyId}/accept-team/${teamId}`);
+    },
+
     getFilteredTournaments(filter) {
-        return axios.get(`/tournaments/filter`, { 
+        return axios.get(`/tournaments/filter`, {
             params: {
                 status: filter
             }
-    });
+        });
 
-
-}
-
+    },
+    getTournamentViewById(id) {
+        return axios.get(`/tournaments/${id}/view`);
+    },
 }

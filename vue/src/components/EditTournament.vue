@@ -1,55 +1,69 @@
 <template>
     <form v-on:submit.prevent="this.handleSubmit()" class="updateTourneyForm">
         <div class="tournamentEdit">
-                <label for="tournamentName">Tournament Name</label>
+                <label for="tournamentName">Name</label>
                 <input v-model="tournament.tourneyName" type="text" id="tourneyName" name="tournamentName" required>
 
-                <label for="startDate">Start Date</label>
+                <label for="tourneyDesc">Description</label>
+                <input v-model="tournament.tourneyDesc" type="text" id="tourneyDesc" name="tourneyDesc" required>
+
+                <label for="startDate">Start date</label>
                 <input v-model="tournament.startDate" type="date" id="startDate" name="startDate" required>
         
-                <label for="endDate">End Date</label>
+                <label for="endDate">End date</label>
                 <input v-model="tournament.endDate" type="date" id="endDate" name="endDate" required>
       
                 <label for="location">Location</label>
                 <input v-model="tournament.location" type="text" id="location" name="location" required>
      
-                <label for="entryFee">Entry Fee</label>
+                <label for="entryFee">Entry fee ($)</label>
                 <input v-model="tournament.entry_fee" type="number" id="entryFee" name="entryFee" required>
        
-                <label for="prizeDesc">Prize Desc</label>
+                <label for="prizeDesc">Prize</label>
                 <input v-model="tournament.prizeDesc" type="text" id="prizeDesc" name="prizeDesc" required>
-
-                <label for="tourneyDesc">Tournament Description</label>
-                <input v-model="tournament.tourneyDesc" type="text" id="tourneyDesc" name="tourneyDesc" required>
            
-                <label for="gameId">Game ID</label>
-                <input v-model="tournament.gameId" type="number" id="gameId" name="gameId" required>
-        
+                <label for="game">Game</label>
+                <select  v-model="tournament.gameId" id="game" name="game" required>
+                    <option v-bind:value="game.gameId" v-for="game in games" 
+                            :key="game.gameId">{{ game.gameName }}
+                    </option>
+                </select>
+                
                 <label for="rounds">Rounds</label>
-                <input v-model="tournament.round" type="number" id="round" name="round" required>   
+                <input v-model="tournament.round" type="number" id="round" name="round" min="1" required>   
                
-   
+                <label for="winner">Winner</label>
+                <select v-model="tournament.winner" id="winner" name="winner">
+                    <option key="" value=""></option>
+                    <option v-bind:value="team.teamId" v-for="team in this.teams" 
+                    :key="team.teamId">{{ team.teamName }}
+                    </option>
+                </select>
         </div>
         <input class="updateBtn" type="submit" value="Save"/>
         
     </form>
 </template>
 
-
-
-
 <script>
+    import GamesService from '../services/GamesService';
     import TourneyService from '../services/TourneyService';
+
     export default{
 
         data(){
             return{
-                tournament: {}
+                tournament: {},
+                games: [],
+                teams: []
+
             }
         },
 
         created(){
            this.getTournamentById(this.$route.params.tourneyId);
+           this.getAllGames();
+           this.getAllAcceptedTeams(this.$route.params.tourneyId);
         },
 
         methods: {
@@ -61,10 +75,28 @@
                 });
             },
             getTournamentById(tourneyId){
-                TourneyService.getTournamentById(tourneyId).then((response) => {
+                TourneyService.getTournamentViewById(tourneyId).then((response) => {
                     this.tournament = response.data;
                 });
+            },
+            acceptRejectTeamJoin(teamId, tourneyId){
+                TourneyService.acceptRejectTeamJoin(teamId,tourneyId).then((response) => {
+                    if(response.status === 200){
+                        this.$router.push(`/tournaments/${tourneyId}`)
+                    }
+                });
+            },
+            getAllGames(){
+                GamesService.getAllGames().then((response) => {
+                    this.games = response.data;
+                });
+            },
+            getAllAcceptedTeams(tourneyId){
+                TourneyService.getTournamentTeams(tourneyId).then((response) => {
+                    this.teams = response.data.filter(team => team.accepted);
+                });
             }
+            
         }
     }
 </script>
@@ -80,7 +112,7 @@
     grid-template-columns: 1fr 1fr;
     padding:5em 20em 0em 20em;
     align-items: center;
-    color:black; 
+    color:white; 
     font-weight:bold;
 }
 .updateBtn {

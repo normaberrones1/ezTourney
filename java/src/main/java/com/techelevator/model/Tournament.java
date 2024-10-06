@@ -14,6 +14,8 @@ public class Tournament {
     private int gameId;
     private int winner;
     private int round;
+    private String gameName;
+    private String winningTeamName;
 
     public int getTourneyId() {
         return tourneyId;
@@ -102,4 +104,20 @@ public class Tournament {
     public void setRound(int round) {
         this.round = round;
     }
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
+
+    public String getWinningTeamName() {
+        return winningTeamName;
+    }
+
+    public void setWinningTeamName(String winningTeamName) {
+        this.winningTeamName = winningTeamName;
+    }
+
 }

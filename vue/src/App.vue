@@ -9,11 +9,18 @@
         <!-- the span below adds a bar after logout if logout appears -->
         <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
       <router-link v-bind:to="{ name: 'login' }">Log In</router-link>&nbsp;|&nbsp;
+<<<<<<< HEAD
       <router-link v-bind:to="{ name: 'register' }">Sign Up</router-link>
       
       
+=======
+      <router-link v-bind:to="{ name: 'register' }">Sign Up</router-link> &nbsp; &nbsp;
+      <span class="greeting" v-if="this.$store.state.token != ''">Welcome, {{ this.$store.state.user.username }}!</span>
+>>>>>>> 219935af3ed030310ab2dca1239681559a555b95
     </div>
+    
     <router-view />
+   
   </div>
 </template>
 
@@ -25,6 +32,11 @@
   padding: 10px;
 }
 
+.greeting {
+  color: rgb(81, 0, 212);
+  text-align: center;
+  float:right;
+}
 body {
     background-image: url('/public/teams-background.jpg');
     background-repeat: no-repeat;
@@ -32,6 +44,6 @@ body {
     background-position: center;
     background-attachment: fixed;
     overflow: auto;
-    
+
 }
 </style>

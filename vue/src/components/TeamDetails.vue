@@ -141,6 +141,7 @@ export default {
     cursor: pointer;
     text-align: center;
     font-size: 20px;
+
 }
 
 #edit-team {
@@ -193,22 +194,26 @@ export default {
 
 .matches-wins-losses {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     font-size: 25px;
     font-weight: bold;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .tournaments-wins-losses {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     font-size: 25px;
     font-weight: bold;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 #win {
