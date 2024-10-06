@@ -25,7 +25,9 @@
                 v-for="(numItems, round) in bracketsPerRound" 
                 :key="'round-' + round" 
                 class="flex-column"
+                
             >
+            
                 <!-- Add a match div for every two teams -->
                 <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex" class="match" :id="'round-' + round + '-match-' + matchIndex">
                     <h2 class="matchTitle">Match</h2>
@@ -73,7 +75,7 @@ export default {
         calculateRounds() {
             const rounds = Math.ceil(Math.log2(this.numTeams)); // Calculate number of rounds
             this.bracketsPerRound = [];
-            this.selectedTeams = new Array(this.numTeams).fill('');
+            this.selectedTeam = new Array(this.numTeams).fill('');
             
             
 
