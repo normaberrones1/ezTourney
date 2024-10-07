@@ -12,7 +12,7 @@
       <router-link v-bind:to="{ name: 'register' }">Sign Up</router-link>
       
       
-      <router-link v-bind:to="{ name: 'register' }">Sign Up</router-link> &nbsp; &nbsp;
+      
       <span class="greeting" v-if="this.$store.state.token != ''">Welcome, {{ this.$store.state.user.username }}!</span>
     </div>
     
