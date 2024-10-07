@@ -11,12 +11,11 @@
 
 
             <div>
-                <label for="tourneyGameInput">Game of choice</label>
-                <input type="list" name="tourneyGameInput" list="tourneyGameInput" required v-model="tourney.gameId">
-                <datalist id="tourneyGameInput">
-                    <option v-bind:value="game.gameId" v-for="game in games" :key="game.gameId">{{ game.gameName }}
-                    </option>
-                </datalist>
+            <label for="gameInput">Game of choice</label>
+            <select id="gameInput" v-model="selectedGameName" @change="handleGameChange">
+                <option disabled value="">Please select one</option>
+                <option v-for="game in games" :key="game.gameId" :value="game.gameName">{{ game.gameName }}</option>
+            </select>
             </div>
 
 
@@ -75,7 +74,17 @@ export default {
                 tourneyDesc: '', 
                 gameId: ''
             },
-            games: []
+            games: [],
+            selectedGameName: '',
+        }
+    },
+
+    computed: {
+        filteredGames() {
+            if (!this.selectedGameName) {
+                return this.games;
+            }
+            return this.games.filter(game => game.gameName.toLowerCase().includes(this.selectedGameName.toLowerCase()));
         }
     },
 
@@ -86,6 +95,13 @@ export default {
                     console.log("Tournament created successfully", response);
                 })
         },
+
+        handleGameChange() {
+            const game = this.games.find(game => game.gameName === this.selectedGameName);
+            if (game) {
+                this.tourney.gameId = game.gameId;
+            }
+        }
     },
 
     created() {

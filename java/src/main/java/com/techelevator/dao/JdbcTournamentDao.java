@@ -42,7 +42,7 @@ public class JdbcTournamentDao implements TournamentDao {
     // PAST AND PRESENT
     public List<TournamentDto> getAllTournamentHistory() {
         List<TournamentDto> tournaments = new ArrayList<>();
-        String sql = dtoSelect + " FROM TOURNAMENT;";
+        String sql = dtoSelect + " FROM TOURNAMENT ORDER BY end_date DESC, start_date DESC;";
 
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql);
@@ -59,7 +59,7 @@ public class JdbcTournamentDao implements TournamentDao {
 
     public List<TournamentDto> getAllActiveTournaments() {
         List<TournamentDto> tournaments = new ArrayList<>();
-        String sql = dtoSelect + " FROM TOURNAMENT WHERE current_timestamp < start_date;";
+        String sql = dtoSelect + " FROM TOURNAMENT WHERE current_timestamp < start_date ORDER BY start_date ASC, end_date DESC;";
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql);
             while (rowSet.next()) {
@@ -87,6 +87,7 @@ public class JdbcTournamentDao implements TournamentDao {
                 sql.append(" AND end_date < CURRENT_DATE");
             }
         }
+        sql.append(" ORDER BY start_date DESC;");
 
         SqlRowSet rowSet = template.queryForRowSet(sql.toString());
 
