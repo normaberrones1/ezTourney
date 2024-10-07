@@ -11,6 +11,7 @@ if we even choose to do that.
         <h2 class="teamName">{{ team.teamName }}</h2>
         <h4 class="teamCaptain">{{ teamCaptain.username }}</h4>
         <p>--------------------------------------------</p>
+
     </div>
 
 </template>
@@ -46,8 +47,6 @@ export default {
 .teamName {
     font-style: italic;
     margin: 1%;
-    color: #58deff;
-
 }
 
 .teamCaptain {
@@ -61,8 +60,10 @@ export default {
     align-items: center;
     flex-wrap: wrap;
     grid-area: teams;
-
+    
 }
 
-
+.teamName {
+    color: #58deff;
+}
 </style>

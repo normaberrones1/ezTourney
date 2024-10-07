@@ -14,6 +14,9 @@
 export default {
     props: {
         teams: Array,
+    },
+    created(){
+        
     }
 }
 </script>
