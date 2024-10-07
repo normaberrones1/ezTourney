@@ -69,10 +69,23 @@ export default {
   margin-right: 30%;
   text-align: center;
   border-radius: 10px;
+  margin-top: 5%;
 }
 
 .form-input-group {
   margin-bottom: 1rem;
+  
+}
+
+.form-input-group input {
+  width: 100%;
+  max-width: 300px;
+  height: 10px;
+  padding: 10px;
+  border: 1px solid rgb(124, 124, 124);
+  font-size: 17px;
+  box-sizing: border-box;
+  text-align: center;
 }
 label {
   margin-right: 0.5rem;
