@@ -9,10 +9,11 @@
         <!-- the span below adds a bar after logout if logout appears -->
         <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
       <router-link v-bind:to="{ name: 'login' }">Log In</router-link>&nbsp;|&nbsp;
-
+      <router-link v-bind:to="{ name: 'register' }">Sign Up</router-link>
+      
+      
       <router-link v-bind:to="{ name: 'register' }">Sign Up</router-link> &nbsp; &nbsp;
       <span class="greeting" v-if="this.$store.state.token != ''">Welcome, {{ this.$store.state.user.username }}!</span>
-
     </div>
     
     <router-view />
