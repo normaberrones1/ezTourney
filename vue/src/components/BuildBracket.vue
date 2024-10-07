@@ -23,13 +23,12 @@
         <div class="flex-container">
             <div v-for="(numItems, round) in bracketsPerRound" :key="'round-' + round" class="flex-column">
 
-                <!-- Add a match div for every two teams -->
+                <!-- Add a match div for every two teams -->{{ numTeamsInRound(round) }}
                 <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex"
                     class="match" :id="'round-' + round + '-match-' + matchIndex">
                     <Match v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems"
                         v-bind:numOfTeams="numTeamsInRound(round) % 2 === 0 ? 2 : 
-                        matchIndex === Math.ceil(numItems/2) ^ (Math.ceil(numItems/2) === 1 && numTeamsInRound(round) >= 2) ? 1 :
-                        2"></Match>
+                        matchIndex === Math.ceil(numItems/2)-1 ? 1:2"></Match>
                 </div>
             </div>
         </div>
@@ -87,7 +86,6 @@ export default {
                 return this.numTeams
             } else {
                 return Math.ceil(this.numTeams / (currentRound * 2))
-
             }
         }
     },
