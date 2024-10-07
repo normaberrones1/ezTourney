@@ -1,4 +1,5 @@
 <template>
+    <div class="update-team">
     <form v-on:submit.prevent="updateTeam()" v-if="isTeamCaptain === true">
         <div class="nameInput">
             <label for="teamName">Team Name</label>
@@ -31,8 +32,9 @@
         <div>
             <input type="submit">
         </div>
-    </form>
 
+    </form>
+    </div>
     <div v-for="user in users" :key="user.userId" class="acceptReject">
         <h7>{{ user.username }}</h7>
         <input label="Accept" v-on:click="acceptJoin(user.userId)">
@@ -89,8 +91,7 @@ export default {
         rejectJoin(userId){
             TeamService.rejectJoin({
                 teamId: this.team.teamId,
-                userId: userId
-            });
+                userId: userId            });
         },
     }
 }
@@ -102,5 +103,52 @@ export default {
 .acceptReject{
     color: blue;
 }
+
+.nameInput{
+    margin-top: 10px;
+
+}
+
+.maxPlayersInput{
+    margin-top: 10px;
+}
+
+.checkbox{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+
+}
+
+.input-group{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.update-team{
+    display: block;
+    background-color: rgba(255, 255, 255, 0.6);
+    margin:10px;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    margin-left: 200px;
+    margin-right: 200px;
+    
+}
+
+.nameInput input{
+    
+    margin-top: 10px;
+    width: 150px;
+}
+
+.update-team input{
+    margin-top: 10px;
+    width: 150px;
+}
+
 
 </style>

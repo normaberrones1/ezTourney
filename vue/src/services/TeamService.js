@@ -54,6 +54,7 @@ export default {
     teamsImCaptain(){
         return axios.get(`/teams-im-captain/`);
     }
+
  
 };
 
