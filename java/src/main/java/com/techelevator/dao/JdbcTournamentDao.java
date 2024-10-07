@@ -284,7 +284,7 @@ public class JdbcTournamentDao implements TournamentDao {
         }
         return tourneyTeams;
     }
-
+    
     public Tournament getTourneyDetailsViewById(int tourneyId){
         String sql = "SELECT tr.tourney_id,tr.tourney_name,tr.start_date,tr.end_date,tr.location,tr.entry_fee,tr.prize_desc," +
                 "tr.tourney_desc,tr.game_id, tr.winner_id,tr.round, g.game_name,t.team_name FROM tournament tr JOIN games g ON " +
