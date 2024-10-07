@@ -27,25 +27,26 @@
                 class="flex-column"
                 
             >
-            
-                <!-- Add a match div for every two teams -->
-                <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex" class="match" :id="'round-' + round + '-match-' + matchIndex">
-                    <h2 class="matchTitle">Match</h2>
-                    <div class="flex-item" v-if="(matchIndex - 1) * 2 < numItems" :id="'round-' + round + '-seat-' + ((matchIndex - 1) * 2 + 1)">
-                        <label for="teamSelect"></label>
-                        <select id="teamSelect" v-model="selectedTeam[(round * 2) + (matchIndex - 1) * 2 + 1]">
-                            <option value="">Select a team</option>
-                            <option v-for="team in teams" :key="team.id" :value="team.id">{{ team.teamName }}</option>
-                        </select>
-                        Team
-                    </div>
-                    <div class="flex-item" v-if="(matchIndex - 1) * 2 + 1 < numItems" :id="'round-' + round + '-seat-' + ((matchIndex - 1) * 2 + 2)">
-                        <label for="teamSelect"></label>
-                        <select id="teamSelect" v-model="selectedTeam[(round * 2) + (matchIndex - 1) * 2 + 1]">
-                            <option value="">Select a team</option>
-                            <option v-for="team in teams" :key="team.id" :value="team.id">{{ team.teamName }}</option>
-                        </select>
-                        Team
+                <div class="matches">
+                    <!-- Add a match div for every two teams -->
+                    <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex" class="match" :id="'round-' + round + '-match-' + matchIndex">
+                        <h2 class="matchTitle">Match</h2>
+                        <div class="flex-item" v-if="(matchIndex - 1) * 2 < numItems" :id="'round-' + round + '-seat-' + ((matchIndex - 1) * 2 + 1)">
+                            <label for="teamSelect"></label>
+                            <select id="teamSelect" v-model="selectedTeam[(round * 2) + (matchIndex - 1) * 2 + 1]">
+                                <option value="">Select a team</option>
+                                <option v-for="team in teams" :key="team.id" :value="team.id">{{ team.teamName }}</option>
+                            </select>
+                            Team
+                        </div>
+                        <div class="flex-item" v-if="(matchIndex - 1) * 2 + 1 < numItems" :id="'round-' + round + '-seat-' + ((matchIndex - 1) * 2 + 2)">
+                            <label for="teamSelect"></label>
+                            <select id="teamSelect" v-model="selectedTeam[(round * 2) + (matchIndex - 1) * 2 + 1]">
+                                <option value="">Select a team</option>
+                                <option v-for="team in teams" :key="team.id" :value="team.id">{{ team.teamName }}</option>
+                            </select>
+                            Team
+                        </div>
                     </div>
                 </div>
         </div>
@@ -183,12 +184,24 @@ h1 {
 }
     
 .flex-container {
-    display: flex; /* Enable Flexbox */
+    display: flex;
+    justify-content: center;
+    
 }
 
 .flex-column {
-    flex: 1; /* Make each column take equal space */
-    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items in this column */
+    position: relative;
+    margin: 0 20px; /* Adjust spacing between rounds */
+}
+
+.matches {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center matches */
+    position: relative;
 }
 
 .flex-item {
@@ -205,15 +218,42 @@ h1 {
     align-items: center;
 }
 .match {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
+    width: 150px; /* Set width of match boxes */
+    margin: 10px 0; /* Space between matches */
     padding: 10px;
     border: 2px solid beige;
     background-color: royalblue;
     border-radius: 8px;
 }
+
+.flex-column:nth-child(n+2){
+    margin-top: 40px; /* Adjust this value as needed */
+}
+
+.flex-column:nth-child(3){
+    margin-top: 70px; /* Adjust this value as needed */
+}
+
+.flex-column:nth-child(4){
+    margin-top: 100px; /* Adjust this value as needed */
+}
+
+.flex-column:nth-child(5){
+    margin-top: 130px; /* Adjust this value as needed */
+}
+
+.flex-column:nth-child(6){
+    margin-top: 150px; /* Adjust this value as needed */
+}
+
+.flex-column:nth-child(7){
+    margin-top: 170px; /* Adjust this value as needed */
+}
+
+.flex-column:nth-child(8){
+    margin-top: 200px; /* Adjust this value as needed */
+}
+
 .matchTitle {
     color: lightgray;
     font-size: 20px;
