@@ -31,9 +31,7 @@
                 <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex"
                     class="match" :id="'round-' + round + '-match-' + matchIndex">
                     <Match v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems"
-                        v-bind:numOfTeams="numTeamsInRound(round) % 2 === 0 ? 2 : 
-                        matchIndex === Math.ceil(numItems/2) ^ (Math.ceil(numItems/2) === 1 && numTeamsInRound(round) >= 2) ? 1 :
-                        2"></Match>
+                        ></Match>
                 </div>
             </div>
         </div>
@@ -118,14 +116,6 @@ export default {
     computed: {
         ...mapState(['bracketData']),
 
-        numTeamsInRound(currentRound) {
-            if (currentRound === 0) {
-                return this.numTeams
-            } else {
-                return Math.ceil(this.numTeams / (currentRound * 2))
-
-            }
-        }
     },
     created() {
         TeamService.getAllTeams().then((response) => {
@@ -205,6 +195,21 @@ h1 {
     font-size: 16px;
     white-space: nowrap;
 }
+#saveBtn {
+
+background-color: purple;
+color: white;
+width: auto;
+height: 40px;
+padding: 10px 20px;
+margin: 8px 0;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+box-shadow: 2px 2px 5px blue;
+font-size: 16px;
+white-space: nowrap;
+}
 .form-container {
     display: flex;
     justify-content: center;
@@ -252,6 +257,11 @@ h1 {
 }
 
 .submitBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.saveBtn {
     display: flex;
     justify-content: center;
     align-items: center;
