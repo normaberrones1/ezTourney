@@ -46,7 +46,7 @@ export default {
 <style>
 .teamName {
     font-style: italic;
-    margin: 1%;
+
 }
 
 .teamCaptain {
@@ -66,5 +66,6 @@ export default {
 
 .teamName {
     color: #58deff;
+    
 }
 </style>
