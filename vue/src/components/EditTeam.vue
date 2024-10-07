@@ -1,6 +1,8 @@
 <template>
     <div class="update-team">
+        
     <form v-on:submit.prevent="updateTeam()" v-if="isTeamCaptain === true">
+        <h1>Update Team</h1>
         <div class="nameInput">
             <label for="teamName">Team Name</label>
             <input v-model="team.teamName" type="text" id="teamName" name="teamName" required>
@@ -22,10 +24,10 @@
             </div>
         </div>
 
-        <div>
+        <div class="gameInput">
             <label for="gameInput">Game of choice</label>
             <input type="list" name="gameInput" list="gameInput" required v-model="team.gameId">
-            <datalist id="gameInput" >
+            <datalist id="gameChoiceInput" >
                 <option v-bind:value="game.gameId" v-for="game in games" :key="game.gameId">{{ game.gameName }}</option>
             </datalist>
         </div>
@@ -104,51 +106,40 @@ export default {
     color: blue;
 }
 
-.nameInput{
-    margin-top: 10px;
+.update-team{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.6);
+    margin:20px;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    margin-left: 400px;
+    margin-right: 400px;
+    
+}
 
+.nameInput{
+    margin: 10px;
+    text-align: center;
+    
 }
 
 .maxPlayersInput{
-    margin-top: 10px;
+    margin: 10px;
+    align-content: center;
+    text-align: center;
 }
 
 .checkbox{
     display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-
+    justify-content: center;
+    margin: 10px;
 }
 
-.input-group{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-    align-items: center;
+.gameInput{
+    margin: 10px;
+    text-align: center;
 }
-
-.update-team{
-    display: block;
-    background-color: rgba(255, 255, 255, 0.6);
-    margin:10px;
-    align-items: center;
-    padding: 20px;
-    border-radius: 10px;
-    margin-left: 200px;
-    margin-right: 200px;
-    
-}
-
-.nameInput input{
-    
-    margin-top: 10px;
-    width: 150px;
-}
-
-.update-team input{
-    margin-top: 10px;
-    width: 150px;
-}
-
 
 </style>
