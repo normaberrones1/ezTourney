@@ -168,12 +168,24 @@ h1 {
 }
     
 .flex-container {
-    display: flex; /* Enable Flexbox */
+    display: flex;
+    justify-content: center;
+    
 }
 
 .flex-column {
-    flex: 1; /* Make each column take equal space */
-    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items in this column */
+    position: relative;
+    margin: 0 20px; /* Adjust spacing between rounds */
+}
+
+.matches {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center matches */
+    position: relative;
 }
 
 .flex-item {
@@ -190,15 +202,42 @@ h1 {
     align-items: center;
 }
 .match {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
+    width: 150px; /* Set width of match boxes */
+    margin: 10px 0; /* Space between matches */
     padding: 10px;
     border: 2px solid beige;
     background-color: royalblue;
     border-radius: 8px;
 }
+
+.flex-column:nth-child(n+2){
+    margin-top: 40px; /* Adjust this value as needed */
+}
+
+.flex-column:nth-child(3){
+    margin-top: 70px; /* Adjust this value as needed */
+}
+
+.flex-column:nth-child(4){
+    margin-top: 100px; /* Adjust this value as needed */
+}
+
+.flex-column:nth-child(5){
+    margin-top: 130px; /* Adjust this value as needed */
+}
+
+.flex-column:nth-child(6){
+    margin-top: 150px; /* Adjust this value as needed */
+}
+
+.flex-column:nth-child(7){
+    margin-top: 170px; /* Adjust this value as needed */
+}
+
+.flex-column:nth-child(8){
+    margin-top: 200px; /* Adjust this value as needed */
+}
+
 .matchTitle {
     color: lightgray;
     font-size: 20px;
