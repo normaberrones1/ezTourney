@@ -13,10 +13,10 @@
 
             <div>
             <label for="gameInput">Game of choice</label>
-            <input type="list" name="gameInput" list="gameInput" required v-model="team.gameId">
-            <datalist id="gameInput" >
-                <option v-bind:value="game.gameId" v-for="game in games" :key="game.gameId">{{ game.gameName }}</option>
-            </datalist>
+            <select id="gameInput" v-model="selectedGameName" @change="handleGameChange">
+                <option disabled value="">Please select one</option>
+                <option v-for="game in games" :key="game.gameId" :value="game.gameName">{{ game.gameName }}</option>
+            </select>
             </div>
 
             <!-- <div>
@@ -63,16 +63,39 @@ export default {
                 maxPlayers: '',
                 isAccepting: ''
             },
-            games: []
+            games: [],
+            selectedGameName: '',
+
         }
     },
-    methods: {
-        submitTeam() {
-            TeamService.createTeam(this.team)
-                .then((response) => {
-                    console.log("Team created successfully", response);
-                })
+    computed: {
+        filteredGames() {
+            if(!this.selectedGameName) {
+                return this.games;
+            }
+            return this.games.filter(game => game.gameName.toLowerCase().includes(this.selectedGameName.toLowerCase()));
+        }
     },
+
+    methods: {
+        
+    submitTeam() {
+        TeamService.createTeam(this.team)
+            .then((response) => {
+                console.log("Team created successfully", response);
+            })
+    },
+
+    handleGameChange() {
+        const game = this.games.find(game => game.gameName === this.selectedGameName);
+        if (game) {
+            this.team.gameId = game.gameId;
+            this.isGameSelected = true;
+            this.showDatalist = false;
+        }
+    },
+
+    
     },
 
     created() { 
@@ -111,8 +134,13 @@ form {
 label,
 input,
 select {
-    width: 100%;
+    width: 105%;
     margin-bottom: 10px;
+}
+
+select {
+    height: 20px;
+    width: 150px;
 }
 
 #form-submit {
@@ -149,4 +177,6 @@ select {
 #preference {
     margin-bottom: 20px;
 }
+
+
 </style>

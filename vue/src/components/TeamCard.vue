@@ -55,6 +55,7 @@ export default {
 
 .teamCardContainer {
     display: flex;
+    text-align: center;
     flex-direction: column;
     justify-content: center;
     align-items: center;

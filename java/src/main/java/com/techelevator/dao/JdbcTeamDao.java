@@ -168,7 +168,7 @@ public class JdbcTeamDao implements TeamDao {
 
     public List<TeamDto> getAllTeams() {
         List<TeamDto> allteams = new ArrayList<>();
-        String sql = "SELECT * FROM teams;";
+        String sql = "SELECT * FROM teams ORDER BY team_name ASC;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
