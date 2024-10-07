@@ -4,6 +4,10 @@
         <div class="bracketBuilderTitle">
             <h1>Bracket Builder</h1>
         </div>
+        <div class="saveBtn">
+            <button @click="handleSaveBracket" id="saveBtn">Save Bracket</button>
+        </div>
+        
         <form @submit.prevent="calculateRounds">
 
             <div class="form-group">
@@ -39,6 +43,9 @@
 <script>
 import TeamService from '../services/TeamService.js';
 import Match from './Match.vue';
+import {mapState, mapActions} from 'vuex';
+import { createStore } from '../store/index.js';
+const store = createStore();
 
 export default {
     components: {Match},
@@ -49,7 +56,7 @@ export default {
             teamName: '',
             teamCaptain: '',
             bracketsPerRound: [],
-            bracketData: [],
+            
             isWon: false,
             teams: [],
             selectedTeam: [],
@@ -81,6 +88,35 @@ export default {
                 }
             }
         },
+        ...mapActions(['setAuthToken', 'setUser', 'setBrackets']),
+
+        handleSaveBracket() {
+            console.log('Handle Save Bracket called. Bracket Data:', this.bracketData);
+
+            // Dispatch actions to save token and user if they exist
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user'));
+
+            if (token) {
+                this.setAuthToken(token);
+            }
+
+            if (user) {
+                this.setUser(user);
+            }
+
+            // Now save the bracket data
+            this.setBrackets(this.bracketData);
+            
+            },
+    },
+    watch: {
+        bracketData(newValue) {
+            console.log('Bracket data in store updated:', newValue);
+        }
+    },
+    computed: {
+        ...mapState(['bracketData']),
     },
     created() {
         TeamService.getAllTeams().then((response) => {
@@ -155,6 +191,23 @@ h1 {
     font-size: 16px;
     white-space: nowrap;
 }
+#saveBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: purple;
+    color: white;
+    width: auto;
+    height: 40px;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px blue;
+    font-size: 16px;
+    white-space: nowrap;
+}
 .form-container {
     display: flex;
     justify-content: center;
@@ -197,6 +250,11 @@ h1 {
     width: 80%;
 }
 .submitBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.saveBtn {
     display: flex;
     justify-content: center;
     align-items: center;
