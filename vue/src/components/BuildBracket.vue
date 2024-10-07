@@ -7,7 +7,7 @@
         <div class="saveBtn">
             <button @click="handleSaveBracket" id="saveBtn">Save Bracket</button>
         </div>
-        
+
         <form @submit.prevent="calculateRounds">
 
             <div class="form-group">
@@ -30,8 +30,10 @@
                 <!-- Add a match div for every two teams -->
                 <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex"
                     class="match" :id="'round-' + round + '-match-' + matchIndex">
-                    <Match v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems"
-                        ></Match>
+                    Teams Remaining: {{ numItems }}
+                    <Match v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems" v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
+                matchIndex === Math.ceil(numItems / 2) ? 1 : 2" 
+                v-bind:matchNumber="matchIndex"></Match>
                 </div>
             </div>
         </div>
@@ -41,7 +43,7 @@
 <script>
 import TeamService from '../services/TeamService.js';
 import Match from './Match.vue';
-import {mapState, mapActions} from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import { createStore } from '../store/index.js';
 const store = createStore();
 
@@ -54,11 +56,10 @@ export default {
             teamName: '',
             teamCaptain: '',
             bracketsPerRound: [],
-            
+
             isWon: false,
             teams: [],
             selectedTeam: [],
-
         };
     },
     methods: {
@@ -105,8 +106,8 @@ export default {
 
             // Now save the bracket data
             this.setBrackets(this.bracketData);
-            
-            },
+
+        },
     },
     watch: {
         bracketData(newValue) {
@@ -116,6 +117,14 @@ export default {
     computed: {
         ...mapState(['bracketData']),
 
+        numTeamsInRound(currentRound) {
+            if (currentRound === 0) {
+                return this.numTeams
+            } else {
+                return Math.ceil(this.numTeams / (currentRound * 2))
+
+            }
+        }
     },
     created() {
         TeamService.getAllTeams().then((response) => {
@@ -124,8 +133,7 @@ export default {
             console.error(error);
         });
     },
-
-};
+}
 
 </script>
 
@@ -210,6 +218,7 @@ box-shadow: 2px 2px 5px blue;
 font-size: 16px;
 white-space: nowrap;
 }
+
 .form-container {
     display: flex;
     justify-content: center;
@@ -257,11 +266,6 @@ white-space: nowrap;
 }
 
 .submitBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.saveBtn {
     display: flex;
     justify-content: center;
     align-items: center;

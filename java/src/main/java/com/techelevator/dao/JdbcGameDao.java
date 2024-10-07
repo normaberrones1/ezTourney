@@ -22,7 +22,7 @@ public class JdbcGameDao implements GameDao {
     public List<Game> getAllGames(){
         List<Game> games = new ArrayList<>();
 
-        String sql = "SELECT * FROM games";
+        String sql = "SELECT * FROM games ORDER BY game_name ASC;";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql);
         while(rowSet.next()){
             games.add(mapToRowSet(rowSet));

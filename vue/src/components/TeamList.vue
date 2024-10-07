@@ -16,7 +16,7 @@
 
                 </div>
 
-                <div v-else>
+                <div class="teamDisplayNA" v-else>
                 
                     <p id="display-name">{{ team.teamName }}</p>
                     <p id="login-script">Log in to see team details!</p>
@@ -87,8 +87,8 @@ h1 {
 }
 #teamContainer {
     display: flex;
-    gap: 20px;
-    margin: 0 70px
+    gap: 10px;
+    margin: 0 0px;
 }
 #teamForm {
     
@@ -99,13 +99,15 @@ h1 {
 .teamsDiv{
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     background-color: rgba(255, 255, 255, 0.6);
-    padding: 25px;
+    padding: 20px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
     margin-bottom: 20px;
     justify-content: center;
     width: 100%;    
+    gap: 0px;
 }
 #teams-title {
     position: relative;
@@ -124,7 +126,7 @@ h1 {
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
-
+    gap: 20px;
 }
 
 #login-script {
@@ -155,6 +157,14 @@ h1 {
 #team-list {
     margin-bottom: 20px;
     margin: 35px;
+}
+
+.teamDisplayNA {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    border-radius: 10px;
 }
 
 

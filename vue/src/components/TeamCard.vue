@@ -46,7 +46,7 @@ export default {
 <style>
 .teamName {
     font-style: italic;
-    margin: 1%;
+
 }
 
 .teamCaptain {
@@ -55,6 +55,7 @@ export default {
 
 .teamCardContainer {
     display: flex;
+    text-align: center;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -65,5 +66,6 @@ export default {
 
 .teamName {
     color: #58deff;
+    
 }
 </style>
