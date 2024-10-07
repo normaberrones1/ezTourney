@@ -16,7 +16,7 @@
 
             <div id="tourney-filter">
                 <label for="select-filter"></label>
-                <select id="select-filter" placeholder="Filter By" v-model="currentFilter" @change="fetchFilteredTournaments">
+                <select id="select-filter" v-model="currentFilter" @change="fetchFilteredTournaments">
 
 
                     <option value="current">Current Tournaments</option>
@@ -65,7 +65,7 @@ export default {
             tournaments: [],
             searchTerm: '',
             dropdown: false,
-            currentFilter: 'Current',
+            currentFilter: 'current',
         }
     },
     props: {
@@ -109,6 +109,13 @@ export default {
         fetchFilteredTournaments() {
             TourneyService.getFilteredTournaments(this.currentFilter).then(response => {
                 this.tournaments = response.data;
+
+                if(this.currentFilter === 'current' && this.tournaments.length === 0) {
+                    
+                    this.currentFilter = 'upcoming';
+                    this.fetchFilteredTournaments();
+                }
+
             }).catch((error) => {
                 console.log("Error finding tournaments", error);
             });

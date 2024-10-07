@@ -5,7 +5,7 @@
         <h1>Update Team</h1>
         <div class="nameInput">
             <label for="teamName">Team Name</label>
-            <input v-model="team.teamName" type="text" id="teamName" name="teamName" required>
+            <input class="update-team-name" v-model="team.teamName" type="text" id="teamName" name="teamName" required>
         </div>
 
         <div class="maxPlayersInput">
@@ -24,13 +24,13 @@
             </div>
         </div>
 
-        <div class="gameInput">
+        <div>
             <label for="gameInput">Game of choice</label>
-            <input type="list" name="gameInput" list="gameInput" required v-model="team.gameId">
-            <datalist id="gameChoiceInput" >
-                <option v-bind:value="game.gameId" v-for="game in games" :key="game.gameId">{{ game.gameName }}</option>
-            </datalist>
-        </div>
+            <select id="gameInput" v-model="selectedGameName" @change="handleGameChange">
+                <option disabled value="">Please select one</option>
+                <option v-for="game in games" :key="game.gameId" :value="game.gameName">{{ game.gameName }}</option>
+            </select>
+            </div>
         <div>
             <input type="submit">
         </div>
@@ -114,32 +114,26 @@ export default {
     align-items: center;
     padding: 20px;
     border-radius: 10px;
-    margin-left: 400px;
-    margin-right: 400px;
+    
+
     
 }
 
-.nameInput{
-    margin: 10px;
+.update-team-name{
     text-align: center;
+    width: 100%;
+    
     
 }
 
-.maxPlayersInput{
-    margin: 10px;
-    align-content: center;
-    text-align: center;
-}
-
-.checkbox{
-    display: flex;
-    justify-content: center;
-    margin: 10px;
-}
-
+.nameInput,
+.maxPlayersInput,
 .gameInput{
-    margin: 10px;
-    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
+
+
 
 </style>
