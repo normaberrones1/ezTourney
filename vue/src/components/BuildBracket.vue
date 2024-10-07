@@ -24,29 +24,12 @@
                 <div
                 v-for="(numItems, round) in bracketsPerRound" 
                 :key="'round-' + round" 
-                class="flex-column"
-                
+                class="flex-column"   
             >
-            
+
                 <!-- Add a match div for every two teams -->
                 <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex" class="match" :id="'round-' + round + '-match-' + matchIndex">
-                    <h2 class="matchTitle">Match</h2>
-                    <div class="flex-item" v-if="(matchIndex - 1) * 2 < numItems" :id="'round-' + round + '-seat-' + ((matchIndex - 1) * 2 + 1)">
-                        <label for="teamSelect"></label>
-                        <select id="teamSelect" v-model="selectedTeam[(round * 2) + (matchIndex - 1) * 2 + 1]">
-                            <option value="">Select a team</option>
-                            <option v-for="team in teams" :key="team.id" :value="team.id">{{ team.teamName }}</option>
-                        </select>
-                        Team
-                    </div>
-                    <div class="flex-item" v-if="(matchIndex - 1) * 2 + 1 < numItems" :id="'round-' + round + '-seat-' + ((matchIndex - 1) * 2 + 2)">
-                        <label for="teamSelect"></label>
-                        <select id="teamSelect" v-model="selectedTeam[(round * 2) + (matchIndex - 1) * 2 + 1]">
-                            <option value="">Select a team</option>
-                            <option v-for="team in teams" :key="team.id" :value="team.id">{{ team.teamName }}</option>
-                        </select>
-                        Team
-                    </div>
+                    <Match v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems" v-bind:numOfTeams="2"></Match>
                 </div>
         </div>
 </div>    
@@ -55,8 +38,10 @@
 
 <script>
 import TeamService from '../services/TeamService.js';
+import Match from './Match.vue';
 
 export default {
+    components: {Match},
     data() {
         return {
             numTeams: 2,
