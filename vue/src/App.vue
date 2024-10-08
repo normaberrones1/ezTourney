@@ -76,6 +76,7 @@ body {
     background-position: center;
     background-attachment: fixed;
     overflow: auto;
+    background-size: cover;
 
 }
 
@@ -86,6 +87,6 @@ body {
   justify-content: center;
   text-align: center;
   font-family:'Arial Narrow', sans-serif;
-  color: rgb(81, 0, 212);
+  color: #790a79;
 }
 </style>

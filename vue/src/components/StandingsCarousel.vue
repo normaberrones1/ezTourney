@@ -4,31 +4,38 @@
     
     <div class="standings">
 
+
+
+      <div v-if="currentSlide === 0" class="slides">
       <h1 class="moveInMoveOut">Standings</h1>
-      <div v-if="currentSlide === 1">
-          <ul>
-            <li v-for="standing in Standings" :key="standing.id">
-              {{ standing.teamName }} - {{ standing.wins }} - {{ standing.losses }}
-            </li>
-          </ul>
+
+        
       </div>
 
+
+
+      <div  v-if="currentSlide === 1" class="slides">
       <h1 class="moveInMoveOut">Current Tourneys</h1>
-      <div  v-if="currentSlide === 2">
-          <ul>
-            <li v-for="tourney in Tournaments" :key="tourney.teamName">
-              {{ tourney.tourneyName }}
-            </li>
-          </ul>
-      </div>
       
-      <h1 class="moveInMoveOut">Teams</h1>
-      <div v-if="currentSlide === 3">
-          <ul>
-            <li v-for="team in Teams" :key="team.id">
-              {{ team.teamName }}
-            </li>
-          </ul>
+        <ul>
+          <li v-for="tourney in Tournaments" :key="tourney.id">
+            <p>{{ tourney.tourneyName }}</p>
+          </li>
+        </ul>
+
+      </div>
+
+
+
+      <div v-if="currentSlide === 2" class="slides">
+      <h1 class="moveInMoveOut">Teams Competing</h1>
+      
+        <ul>
+          <li v-for="team in Teams" :key="team.id">
+            <p>{{ team.teamName }}</p>
+          </li>
+        </ul>
+
       </div>
 
 
@@ -49,12 +56,14 @@ import TeamService from '../services/TeamService';
 import TourneyService from '../services/TourneyService';
 
 export default {
+
+  
   methods: {
     previous() {
       this.currentSlide = this.currentSlide === 0 ? 2 : this.currentSlide - 1;
     },
     next() {
-      this.currentSlide = this.currentSlide === 1 ? 0 : this.currentSlide + 1;
+      this.currentSlide = this.currentSlide === 2 ? 0 : this.currentSlide + 1;
     },
     autoSlide() {
   
@@ -70,22 +79,42 @@ export default {
       });
     },
 
+    fetchTournaments() {
+      TourneyService.getCurrentFilteredTournaments().then((response) => {
+        this.Tournaments = response.data;
+      }).catch((error) => {
+        console.error(error);
+      });
+    },
+
   },
+
+  mounted() {
+    setInterval(this.autoSlide, 7000);
+  },
+  
   data() {
+
+
     return {
       Standings: [],
       Tournaments: [],
       Teams: [],
       currentSlide: 0,
+      
     }
   },
   computed: {
+    slideClass() {
+      return (index) => (index === this.currentSlide ? 'active' : '');
+    }
     
 
   },
     created() {
         console.log('created');
         this.fetchTeams();
+        this.fetchTournaments();
       },
       updated() {
         console.log('updated');
@@ -97,14 +126,19 @@ export default {
 </script>
 
 <style>
-.standings-carousel {
+
+
+ul {
+  list-style-type: none;
+  align-content: center;
+  padding: 0;
+  font-weight: bold;
+  color: #790a79;
+}
+
+  .slides {
     position: relative;
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    text-align: center;
-    display: flex;
-    justify-content: center;
     
   }
 
@@ -113,41 +147,48 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    font-size: 30px;
-    text-align: center;
+    height: 80vh;
+    width: 80%;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 5px double #790a79;
+    border-radius: 10px;
   }
 
-  button {
-    background-color: rgba(255, 255, 255, 0.0);
-    color: #58deff;
-    border: none;
-    padding: 10px;
-    margin: 0 30px;
-    font-size: 50px;
-  
-  }
-
-  .carousel-controls {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
+  .standings-carousel {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    width: 97%;
+    padding: 20px;
   }
 
   .moveInMoveOut {
-    position: absolute;
-    
     animation: move 9s ease-in-out infinite;
-    height: 100%;
-    width: 100%;
-    display: flex;
     justify-content: center;
-    align-items: center;
     opacity: 0;
+    z-index: 1;
     
   }
+
+  .carousel-controls {
+    justify-content: center;
+    gap: 20px;
+    display: flex;
+  }
+
+  button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-size: xx-large;
+    padding: 20px;
+    color: #790a79;
+  
+  }
+
+  
 
   .moveInMoveOut:nth-child(1) {
     animation-delay: 0s;
@@ -161,16 +202,7 @@ export default {
     animation-delay: 6s;
   }
 
-  .standings-carousel {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    
-  }
+
   
 
   @keyframes move {
