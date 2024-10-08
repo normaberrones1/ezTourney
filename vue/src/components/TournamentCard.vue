@@ -48,6 +48,6 @@ export default {
 #tourney-title-card {
     font-style: italic;
     margin: 1%;
-    color: #58deff;
+    color: #7a0e88;
 }
 </style>

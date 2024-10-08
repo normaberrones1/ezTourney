@@ -3,25 +3,26 @@
     <h1 id="teams-title">CURRENT TEAMS</h1>
     <p v-if="isAuthenticated" id="click-team">Click a team to view details!</p>
     
-    <div id="teamContainer">
-        
+    <div id="teamContainer">    
         <div class="teamsDiv" >
             <div v-for="team in teams" :key="team.teamId">
                 <div v-if="isAuthenticated">
+
                     <router-link
                     class="teamCardLink" 
                     v-bind:to="{ name: 'teamDetails', params: { teamId: team.teamId } }">
                     <TeamCard id="team-list" v-bind:team="team"/>
-                    
                     </router-link>
+
                 </div>
-                <div v-else>
+
+                <div class="teamDisplayNA" v-else>
                 
                     <p id="display-name">{{ team.teamName }}</p>
                     <p id="login-script">Log in to see team details!</p>
     
-                    </div>
-                    
+                </div>
+    
             </div>
         </div>
 
@@ -76,35 +77,37 @@ export default {
     color: #000000;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
-    margin-left: 235px;
-    margin-right: 250px;
+    margin-left: 305px;
+    margin-right: 300px;
 }
 h1 {
     text-align: center;
     color: #B130FC;
+    
 }
 #teamContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-areas:
-        "teams teams teams teamForm"
-        "teams teams teams teamForm";
-    margin-left: 32px;
-    margin-right: 15px;
+    display: flex;
+    gap: 10px;
+    margin: 0 0px;
 }
 #teamForm {
-  
+    
     display: flex;
     justify-content: center;
+    flex: 300px;
 }
 .teamsDiv{
-    grid-area: teams;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     background-color: rgba(255, 255, 255, 0.6);
-    padding: 25px;
+    padding: 20px;
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
     margin-bottom: 20px;
-    
+    justify-content: center;
+    width: 100%;    
+    gap: 0px;
 }
 #teams-title {
     position: relative;
@@ -115,15 +118,15 @@ h1 {
     color: #000000;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
-    margin-left: 205px;
-    margin-right: 220px;
+    margin-left: 245px;
+    margin-right: 260px;
 }
 
 #display-name {
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
-
+    gap: 20px;
 }
 
 #login-script {
@@ -147,9 +150,22 @@ h1 {
 
 .teamCardLink {
     text-decoration: none;
+    margin-bottom: 20px;
+
 }
 
 #team-list {
     margin-bottom: 20px;
+    margin: 35px;
 }
+
+.teamDisplayNA {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+
 </style>

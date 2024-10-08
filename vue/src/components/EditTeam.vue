@@ -1,8 +1,11 @@
 <template>
+    <div class="update-team">
+        
     <form v-on:submit.prevent="updateTeam()" v-if="isTeamCaptain === true">
+        <h1>Update Team</h1>
         <div class="nameInput">
             <label for="teamName">Team Name</label>
-            <input v-model="team.teamName" type="text" id="teamName" name="teamName" required>
+            <input class="update-team-name" v-model="team.teamName" required>
         </div>
 
         <div class="maxPlayersInput">
@@ -23,16 +26,18 @@
 
         <div>
             <label for="gameInput">Game of choice</label>
-            <input type="list" name="gameInput" list="gameInput" required v-model="team.gameId">
-            <datalist id="gameInput" >
-                <option v-bind:value="game.gameId" v-for="game in games" :key="game.gameId">{{ game.gameName }}</option>
-            </datalist>
-        </div>
+            <p></p>
+            <select id="gameInput" v-model="selectedGameName" @change="handleGameChange">
+                <option disabled value="">Please select one</option>
+                <option v-for="game in games" :key="game.gameId" :value="game.gameName">{{ game.gameName }}</option>
+            </select>
+            </div>
         <div>
             <input type="submit">
         </div>
-    </form>
 
+    </form>
+    </div>
     <div v-for="user in users" :key="user.userId" class="acceptReject">
         <h7>{{ user.username }}</h7>
         <input label="Accept" v-on:click="acceptJoin(user.userId)">
@@ -102,5 +107,46 @@ export default {
 .acceptReject{
     color: blue;
 }
+
+.update-team{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.6);
+    margin:20px;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    
+
+    
+}
+
+.update-team-name{
+    text-align: center;
+    width: 100%;
+    
+    
+}
+
+.nameInput,
+.maxPlayersInput,
+.gameInput{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.nameInput {
+    margin: 10px;
+
+}
+
+.checkbox{
+    display: flex;
+
+    align-content: center;
+    margin: 10px;
+}
+
 
 </style>

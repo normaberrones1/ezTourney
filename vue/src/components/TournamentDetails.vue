@@ -42,10 +42,11 @@
         </div>
         <div class="tourney-button" >
             <label for="teamsList">Which of Your Teams Should Join?</label>
-            <input id="input-team" placeholder="Choose Team" type="list" name="teamsList" list="teamInput" required v-model="teamChoice">
-            <datalist id="teamInput">
+            <p></p>
+            <select id="input-team" placeholder="Choose Team" type="list" name="teamsList" list="teamInput" required v-model="teamChoice">
                 <option v-for="team in myTeamsList" :key="team.teamID" v-bind:value="team.teamId" >{{ team.teamName }}</option>
-            </datalist>
+            </select>
+
             <button id="tourney-request" v-on:click="requestTournamentJoin()">Request to Join Tournament!</button>
         </div>
 

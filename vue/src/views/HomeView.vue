@@ -16,6 +16,13 @@
   <div class="home-image">
       <img src="/public/trophy.jpg" alt="trophy">
   </div>
+  <div class="trophy-image">
+      <img src="/public/IMG_3569.jpg" alt="trophy">
+      <img src="/public/IMG_3575.jpg" alt="trophy">
+      <img src="/public/IMG_3573.jpg" alt="trophy">
+  </div>
+
+
   <div class="carousel-container">
     <StandingsCarousel />
     </div>
@@ -40,6 +47,8 @@ export default {
       return this.$store.state.token != '';
     }
   },
+
+
   
 };
 </script>
@@ -55,7 +64,6 @@ export default {
     color: #000000;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
-    padding: px;
     margin-left: 32px;
     margin-right: 30px;
     
@@ -66,6 +74,18 @@ export default {
     height: 250px;
     margin-top: 20px;
     border-radius: 10px;
+    
+  }
+
+  .trophy-image {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    width: 90px;
+    height: 90px;
+    margin-left: 80px;
+    margin-top: -450px;
+    justify-content: flex-end;
     
   }
 

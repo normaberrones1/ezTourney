@@ -8,7 +8,7 @@
       <div v-if="currentSlide === 1">
           <ul>
             <li v-for="standing in Standings" :key="standing.id">
-
+              {{ standing.teamName }} - {{ standing.wins }} - {{ standing.losses }}
             </li>
           </ul>
       </div>
@@ -16,8 +16,8 @@
       <h1 class="moveInMoveOut">Current Tourneys</h1>
       <div  v-if="currentSlide === 2">
           <ul>
-            <li v-for="tourney in Tournaments" :key="tourney.id">
-              
+            <li v-for="tourney in Tournaments" :key="tourney.teamName">
+              {{ tourney.tourneyName }}
             </li>
           </ul>
       </div>
@@ -26,7 +26,7 @@
       <div v-if="currentSlide === 3">
           <ul>
             <li v-for="team in Teams" :key="team.id">
-
+              {{ team.teamName }}
             </li>
           </ul>
       </div>
@@ -60,7 +60,15 @@ export default {
   
       this.currentSlide = this.currentSlide === 2 ? 0 : this.currentSlide + 1;
 
-    }
+    },
+
+    fetchTeams() {
+      TeamService.getAllTeams().then((response) => {
+        this.Teams = response.data;
+      }).catch((error) => {
+        console.error(error);
+      });
+    },
 
   },
   data() {
@@ -75,12 +83,13 @@ export default {
     
 
   },
-  created() {
-    console.log('created');
-  },
-  updated() {
-    console.log('updated');
-  },
+    created() {
+        console.log('created');
+        this.fetchTeams();
+      },
+      updated() {
+        console.log('updated');
+      },
 
 
 

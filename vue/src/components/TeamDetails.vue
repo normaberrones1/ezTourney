@@ -137,11 +137,10 @@ export default {
     font-weight: bold;
     font-size: 30px;
     border-radius: 10px;
-    margin: 10px auto;
+    margin: 20px auto;
     cursor: pointer;
     text-align: center;
     font-size: 20px;
-
 }
 
 #edit-team {
@@ -165,7 +164,6 @@ export default {
 
 .Members {
     color: #b130fc;
-    font-size: 17px;
 }
 
 #captain-name {
@@ -175,7 +173,6 @@ export default {
 
 .players {
     text-align: center;
-
 }
 
 #match-title {
@@ -183,6 +180,7 @@ export default {
     color: #c0c0c0;
     font-weight: bold;
     font-size: 30px;
+    margin-top: 20px;
 }
 
 #tourney-title {
@@ -190,30 +188,29 @@ export default {
     color: #c0c0c0;
     font-weight: bold;
     font-size: 30px;
+    margin-top: 20px;
+
 }
 
 .matches-wins-losses {
+
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     font-size: 25px;
     font-weight: bold;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
 }
 
 .tournaments-wins-losses {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     font-size: 25px;
     font-weight: bold;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
 }
 
 #win {
@@ -234,9 +231,11 @@ export default {
     flex-direction: column;
     margin-top: 20px;
     background-color: rgba(255, 255, 255, 0.6);
-    margin-left: 30%;
-    margin-right: 30%;
+
     border-radius: 10px;
 }
+
+
+
 
 </style>
