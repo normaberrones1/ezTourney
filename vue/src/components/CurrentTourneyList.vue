@@ -14,6 +14,10 @@
 
 
         <div class="tourneyDiv">
+            <div class="home-image">
+      <img src="/public/trophy.jpg" alt="trophy">
+            </div>
+
             <input 
                 id="search-bar" type="text" 
                 v-model="searchTerm" placeholder="Search Tournaments"
@@ -179,6 +183,7 @@ h1 {
         "tourney tourney tourney tourneyForm";
     margin-left: 32px;
     margin-right: 15px;
+    
 }
 
 #tourneyForm {
@@ -194,6 +199,7 @@ h1 {
     border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
     margin-bottom: 20px;
+    
     
 }
 
@@ -234,4 +240,19 @@ h1 {
     text-decoration: none;
     text-align: center;
 }
+
+.home-image {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+
+.home-image img {
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+}
+
+
 </style>

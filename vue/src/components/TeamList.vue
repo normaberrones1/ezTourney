@@ -102,7 +102,6 @@ h1 {
     align-items: center;
     background-color: rgba(255, 255, 255, 0.6);
     padding: 20px;
-    border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
     margin-bottom: 20px;
     justify-content: center;
@@ -144,7 +143,6 @@ h1 {
     margin: -60px;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgb(124, 124, 124);
     font-weight: bold;
 }
 

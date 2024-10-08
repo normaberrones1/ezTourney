@@ -76,6 +76,7 @@ body {
     background-position: center;
     background-attachment: fixed;
     overflow: auto;
+    background-size: cover;
 
 }
 

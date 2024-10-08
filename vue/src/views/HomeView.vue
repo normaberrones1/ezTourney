@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1 id="home">Home</h1>
     <!-- remember to make this page only visible if authenticated -->
     <div v-if="isAuthenticated">
     <h2 >Welcome to ezTourney!</h2>
@@ -11,11 +10,11 @@
       and join exciting tournaments for your favorite games. With user-friendly features, real-time updates and a 
       supportive community, hosting and participating in tournaments has never been easier. Sign up today and start!
     </p>
+
+    
     </div>
 
-  <div class="home-image">
-      <img src="/public/trophy.jpg" alt="trophy">
-  </div>
+
   <div class="trophy-image">
       <img src="/public/IMG_3569.jpg" alt="trophy">
       <img src="/public/IMG_3575.jpg" alt="trophy">
@@ -66,26 +65,39 @@ export default {
     border-radius: 10px;
     margin-left: 32px;
     margin-right: 30px;
+    height: 85vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     
   }
 
-  img {
+  .trophy-image img {
     width: 400px;
     height: 250px;
     margin-top: 20px;
     border-radius: 10px;
+    transition: transform 0.2s;
     
   }
 
+  .trophy-image img:hover {
+  transform: scale(1.1);
+  }
+
+
   .trophy-image {
+    position: absolute;
     display: flex;
     flex-wrap: wrap;
     margin-top: 20px;
     width: 90px;
     height: 90px;
-    margin-left: 80px;
-    margin-top: -450px;
+    margin-left: 50px;
+    margin-top: -150px;
     justify-content: flex-end;
+    
     
   }
 
@@ -97,11 +109,11 @@ export default {
   }
 
   #ez-desc {
-    width: 70%;
+    width: 60%;
     margin: 0 auto;
     background-color: rgba(255, 255, 255, 0.6);
     padding: 10px;
-    border: 1px solid rgb(124, 124, 124);
+    border: 5px double #790a79;
     border-radius: 10px;
     color: #000000;
   }

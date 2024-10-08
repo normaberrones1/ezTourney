@@ -83,6 +83,7 @@ export default {
     padding: auto;
     border: 1px solid rgb(124, 124, 124);
     background-color: rgba(255, 255, 255, 0.5);
+    
 }
 #team-list {
     width: 100%;
@@ -92,6 +93,7 @@ export default {
 
 #team-list th {
     background-color: #94dcee93;
+    
     color: black;
     font-weight: bold;
     font-size: 20px;

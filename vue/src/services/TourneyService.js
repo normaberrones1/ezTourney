@@ -80,4 +80,8 @@ export default {
     acceptUser(userId, tourneyId) {
         return axios.patch(`/tournaments/${tourneyId}/accept-user/${userId}`);
     },
+
+    getCurrentFilteredTournaments() {
+        return this.getFilteredTournaments('current');
+    }
 }
