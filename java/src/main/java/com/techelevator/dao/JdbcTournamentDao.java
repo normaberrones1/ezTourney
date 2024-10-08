@@ -279,7 +279,7 @@ public class JdbcTournamentDao implements TournamentDao {
         String sql = "SELECT team_tourney.team_id, team_name, isaccepted, eliminated," +
                 "round_eliminated FROM team_tourney " +
                 "JOIN teams ON teams.team_id = team_tourney.team_id " +
-                "WHERE tourney_id = ?; ";
+                "WHERE tourney_id = ?;";
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql, tourneyId);
             while (rowSet.next()) {

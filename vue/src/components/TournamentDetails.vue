@@ -53,6 +53,8 @@
         <TourneyRequestForm v-if="showModal" @close="showModal = false"/>
         <tourney-team-list v-if="!tournament.singlesEvent" />
         <tourney-users-list v-if="tournament.singlesEvent" />
+
+        <BuildBracket v-bind:teams="acceptedTeams" v-bind:numTeams="acceptedTeams.length"></BuildBracket>
     </div>
 </template>
 
@@ -64,7 +66,7 @@ import TourneyRequestForm from './TournamentRequestForm.vue';
 import TeamService from '../services/TeamService';
 import TourneyTeamList from './TourneyTeamList.vue';
 import TourneyUsersList from './TourneyUsersList.vue';  
-
+import BuildBracket from './BuildBracket.vue';
 
 
 export default {
@@ -74,7 +76,8 @@ export default {
               showModal: false,
               displayEditButton: false,
               teamChoice: '',
-              myTeamsList: []
+              myTeamsList: [],
+              teams: [],
          }
     },
     methods: {
@@ -98,14 +101,25 @@ export default {
             });
         }
     },
-    components: {TourneyRequestForm, TourneyTeamList, TourneyUsersList},
+    components: {TourneyRequestForm, TourneyTeamList, TourneyUsersList, BuildBracket},
     created() {
         this.getTournament(); 
         this.setEditBtnVisible();
         TeamService.teamsImCaptain().then((response) => {
             this.myTeamsList = response.data;
-        })
+        });
+        TourneyService.getTournamentTeams(this.$route.params.id).then((response) => {
+                this.teams = response.data;
+            });
     },
+
+    computed: {
+        acceptedTeams(){
+            return this.teams.filter((team) => {
+                return team.accepted;
+            })
+        }
+    }
 
 }
 </script>
