@@ -223,7 +223,7 @@ h1 {
     font-size: 1.5em;
     text-align: center;
 
-    color: #6ce7fd;
+    color: #0502c2;
     
 }
 
