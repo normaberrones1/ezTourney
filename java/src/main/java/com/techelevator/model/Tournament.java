@@ -17,6 +17,15 @@ public class Tournament {
     private String gameName;
     private String winningTeamName;
 
+    private boolean isPrivate;
+
+    private boolean singlesEvent;
+
+    private int winningUserId;
+
+    private String winningUserName;
+
+
     public int getTourneyId() {
         return tourneyId;
     }
@@ -120,4 +129,35 @@ public class Tournament {
         this.winningTeamName = winningTeamName;
     }
 
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean aPrivate) {
+        isPrivate = aPrivate;
+    }
+
+    public boolean isSinglesEvent() {
+        return singlesEvent;
+    }
+
+    public void setSinglesEvent(boolean singlesEvent) {
+        this.singlesEvent = singlesEvent;
+    }
+
+    public int getWinningUserId() {
+        return winningUserId;
+    }
+
+    public void setWinningUserId(int winningUserId) {
+        this.winningUserId = winningUserId;
+    }
+
+    public String getWinningUserName() {
+        return winningUserName;
+    }
+
+    public void setWinningUserName(String winningUserName) {
+        this.winningUserName = winningUserName;
+    }
 }

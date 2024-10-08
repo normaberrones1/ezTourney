@@ -1,31 +1,32 @@
 <template>
     <div>
-        <div id="team-container">
-            <h1>Teams</h1>
-            <table id="team-list">
+        <div id="user-container">
+            <h1>Users</h1>
+            <table id="user-list">
                 <thead>
                     <tr>
-                        <th v-if="isTourneyDirector">Status</th>
-                        <th>Team name</th>
+                        <th>Status</th>
+                        <th>User name</th>
                         <th>Eliminated</th>
                         <th>Round eliminated</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="team in this.displayableTeams" :key="team.teamId" >
-                        <td v-if="isTourneyDirector && team.accepted">Accepted</td>
-                        <td v-if="isTourneyDirector && !team.accepted">
-                            <button class="acceptBtn" v-on:click="handleAccept(team.teamId, true)">Accept</button>
+                    <tr v-for="user in this.displayableUsers" :key="user.userId" >
+                        <td v-if="isTourneyDirector && user.accepted">Accepted</td>
+                        <td v-if="isTourneyDirector && !user.accepted">
+                            <button class="acceptBtn" v-on:click="handleAccept(user.userId, true)">Accept</button>
                         </td>                       
-                        <td>{{ team.teamName }}</td>
-                        <td>{{ team.isEliminated ? 'Yes': 'No'}}</td>
-                        <td>{{ team.roundEliminated === 0 ?'': team.roundEliminated  }}</td>
+                        <td>{{ user.userName }}</td>
+                        <td>{{ user.isEliminated ? 'Yes': 'No'}}</td>
+                        <td>{{ user.roundEliminated === 0 ?'': user.roundEliminated  }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </template>
+
 
 <script>
 import TourneyService from '../services/TourneyService'
@@ -34,23 +35,23 @@ import TourneyService from '../services/TourneyService'
 export default {
     data() {
         return{
-                teams: [],
+                users: [],
                 isTourneyDirector: false
         }  
     },
     computed: {
-        displayableTeams(){
-            return this.isTourneyDirector ? this.teams: this.teams.filter(team => team.accepted);
+        displayableUsers(){
+            return this.isTourneyDirector ? this.users: this.users.filter(user => user.accepted);
         }
     },
     created(){
         this.setIsTourneyDirector();
-        this.getTournamentTeams(this.$route.params.id);
+        this.getTournamentUsers(this.$route.params.id);
     },
     methods:{
-        getTournamentTeams(tourneyId){
-            TourneyService.getTournamentTeams(tourneyId).then((response) => {
-                this.teams = response.data;
+        getTournamentUsers(tourneyId){
+            TourneyService.getTournamentUsers(tourneyId).then((response) => {
+                this.users = response.data;
             });
         },
         setIsTourneyDirector() {
@@ -59,24 +60,26 @@ export default {
                 console.log(this.isTourneyDirector);
             });
         },
-        handleAccept(teamId){
-            TourneyService.acceptTeam(teamId,this.$route.params.id).then((response) => {
+        handleAccept(userId){
+            TourneyService.acceptUser(userId,this.$route.params.id).then((response) => {
                     if(response.data){
-                        this.getTournamentTeams(this.$route.params.id);
+                        this.getTournamentUsers(this.$route.params.id);
                     }    
             });
         }
     }
 
 }
+
 </script>
 
 <style scoped>
-#team-container h1{
+
+#user-container h1{
     text-align: center;
     color: #010708;
 }
-#team-container {
+#user-container {
     color:white;
     text-align: center;
     margin-top: 2em;
@@ -84,20 +87,20 @@ export default {
     border: 1px solid rgb(124, 124, 124);
     background-color: rgba(255, 255, 255, 0.5);
 }
-#team-list {
+#user-list {
     width: 100%;
     border-collapse: collapse;
     border: 1px solid rgb(124, 124, 124);
 }
 
-#team-list th {
+#user-list th {
     background-color: #94dcee93;
     color: black;
     font-weight: bold;
     font-size: 20px;
 }
 
-#team-list td {
+#user-list td {
     background-color: rgba(255, 255, 255, 0.5);
     color: black;
     font-size: 20px;
@@ -111,5 +114,5 @@ export default {
     width: auto;
     font-size: 1em;
 }
-
 </style>
+

@@ -2,10 +2,7 @@ package com.techelevator.dao;
 
 
 import com.techelevator.exception.DaoException;
-import com.techelevator.model.Tournament;
-import com.techelevator.model.TournamentDto;
-import com.techelevator.model.TourneyTeamDto;
-import com.techelevator.model.WinLossDto;
+import com.techelevator.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -42,7 +39,7 @@ public class JdbcTournamentDao implements TournamentDao {
     // PAST AND PRESENT
     public List<TournamentDto> getAllTournamentHistory() {
         List<TournamentDto> tournaments = new ArrayList<>();
-        String sql = dtoSelect + " FROM TOURNAMENT;";
+        String sql = dtoSelect + " FROM TOURNAMENT WHERE is_private = false;";
 
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql);
@@ -59,7 +56,7 @@ public class JdbcTournamentDao implements TournamentDao {
 
     public List<TournamentDto> getAllActiveTournaments() {
         List<TournamentDto> tournaments = new ArrayList<>();
-        String sql = dtoSelect + " FROM TOURNAMENT WHERE current_timestamp < start_date;";
+        String sql = dtoSelect + " FROM TOURNAMENT WHERE is_private = false AND current_timestamp < start_date;";
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql);
             while (rowSet.next()) {
@@ -76,7 +73,7 @@ public class JdbcTournamentDao implements TournamentDao {
     public List<TournamentDto> getTournamentsByFilters(String status, Date startDate, Date endDate) {
         List<TournamentDto> tournaments = new ArrayList<>();
 
-        StringBuilder sql = new StringBuilder("SELECT * FROM tournament WHERE 1=1");
+        StringBuilder sql = new StringBuilder("SELECT * FROM tournament WHERE is_private = false");
 
         if(status != null && !status.equalsIgnoreCase("All")) {
             if(status.equalsIgnoreCase("Current")) {
@@ -114,7 +111,7 @@ public class JdbcTournamentDao implements TournamentDao {
         return null;
     }
 
-    public boolean acceptTeam(int teamId, int tourneyId) {
+    public boolean acceptTourneyTeam(int teamId, int tourneyId) {
         String sql = "UPDATE team_tourney SET isaccepted = true WHERE team_id = ? AND tourney_id = ?;";
         try {
             int numOfRows = template.update(sql, teamId, tourneyId);
@@ -132,15 +129,16 @@ public class JdbcTournamentDao implements TournamentDao {
 
     public Tournament createTournament(Tournament newTournament, Principal principal) {
         int newTournamentId = 0;
-        String sql = "INSERT INTO tournament(tourney_name, start_date, end_date, location, entry_fee, prize_desc, tourney_desc, game_id, round) "
-                +
-                "VALUES (?,?,?,?,?,?,?,?,1) RETURNING tourney_id;";
+        String sql = "INSERT INTO tournament(tourney_name, start_date, end_date, location, entry_fee," +
+                " prize_desc, tourney_desc, game_id, round, is_private, is_singles_event) " +
+                "VALUES (?,?,?,?,?,?,?,?,1,?,?) RETURNING tourney_id;";
         String sql2 = "INSERT INTO tourney_directors (tourney_id, director_id) VALUES (?,?);";
         try {
             newTournamentId = template.queryForObject(sql, Integer.class, newTournament.getTourneyName(),
                     newTournament.getStartDate(), newTournament.getEndDate(),
                     newTournament.getLocation(), newTournament.getEntry_fee(), newTournament.getPrizeDesc(),
-                    newTournament.getTourneyDesc(), newTournament.getGameId());
+                    newTournament.getTourneyDesc(), newTournament.getGameId(), newTournament.isPrivate(),
+                    newTournament.isSinglesEvent());
             template.update(sql2, newTournamentId, memberDao.getUserIdByName(principal.getName()));
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
@@ -153,13 +151,15 @@ public class JdbcTournamentDao implements TournamentDao {
     public Tournament updateTournament(Tournament tournament) {
         String sql = "UPDATE tournament SET " +
                 " tourney_name = ?, start_date = ? , end_date = ?, location = ?, entry_fee = ?, prize_desc = ?, " +
-                "tourney_desc= ? , round = ?, winner_id = ? WHERE tourney_id=?";
+                "tourney_desc= ? , round = ?, winner_id = ?, winning_user_id = ?, is_private = ? , is_singles_event = ?" +
+                " WHERE tourney_id = ?";
         try {
             int numOfRows = template.update(sql, tournament.getTourneyName(), tournament.getStartDate(),
                     tournament.getEndDate(), tournament.getLocation(), tournament.getEntry_fee(),
                     tournament.getPrizeDesc(),
                     tournament.getTourneyDesc(),
-                    tournament.getRound(), tournament.getWinner(), tournament.getTourneyId());
+                    tournament.getRound(), tournament.getWinner(),tournament.getWinningUserId(), tournament.isPrivate(),
+                    tournament.isSinglesEvent(), tournament.getTourneyId());
 
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
@@ -287,9 +287,11 @@ public class JdbcTournamentDao implements TournamentDao {
     
     public Tournament getTourneyDetailsViewById(int tourneyId){
         String sql = "SELECT tr.tourney_id,tr.tourney_name,tr.start_date,tr.end_date,tr.location,tr.entry_fee,tr.prize_desc," +
-                "tr.tourney_desc,tr.game_id, tr.winner_id,tr.round, g.game_name,t.team_name FROM tournament tr JOIN games g ON " +
+                "tr.tourney_desc,tr.game_id, tr.winner_id,tr.is_singles_event, tr.winning_user_id, u.username, tr.round," +
+                " tr.is_private, g.game_name,t.team_name FROM tournament tr JOIN games g ON " +
                 "tr.game_id = g.game_id " +
                 "LEFT JOIN teams t ON tr.winner_id = t.team_id " +
+                "LEFT JOIN users u ON tr.winning_user_id = u.user_id " +
                 "WHERE tr.tourney_id=?;";
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql, tourneyId);
@@ -302,6 +304,49 @@ public class JdbcTournamentDao implements TournamentDao {
             throw new DaoException("Data integrity violation", e);
         }
         return null;
+    }
+
+    public boolean acceptTourneyUser(int userId, int tourneyId) {
+        String sql = "UPDATE tourney_user SET isaccepted = true WHERE user_id = ? AND tourney_id = ?;";
+        try {
+            int numOfRows = template.update(sql, userId, tourneyId);
+            if (numOfRows > 0) {
+                return true;
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return false;
+
+    }
+
+    public List<TourneyUserDto> getTourneyUsers(int tourneyId) {
+        List<TourneyUserDto> tourneyUsers = new ArrayList<>();
+        String sql = "SELECT tourney_user.user_id, username, isaccepted, eliminated," +
+                "round_eliminated FROM tourney_user " +
+                "JOIN users ON users.user_id = tourney_user.user_id " +
+                "WHERE tourney_id = ?; ";
+        try {
+            SqlRowSet rowSet = template.queryForRowSet(sql, tourneyId);
+            while (rowSet.next()) {
+                TourneyUserDto dto = mapRowToTourneyUserDto(rowSet);
+                tourneyUsers.add(dto);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+        }
+        return tourneyUsers;
+    }
+
+    private TourneyUserDto mapRowToTourneyUserDto(SqlRowSet rowSet) {
+        TourneyUserDto tourneyUserDto = new TourneyUserDto();
+        tourneyUserDto.setUserId(rowSet.getInt("user_id"));
+        tourneyUserDto.setUserName(rowSet.getString("username"));
+        tourneyUserDto.setAccepted(rowSet.getBoolean("isaccepted"));
+        tourneyUserDto.setEliminated(rowSet.getBoolean("eliminated"));
+        tourneyUserDto.setRoundEliminated(rowSet.getInt("round_eliminated"));
+        return tourneyUserDto;
     }
 
     private TourneyTeamDto mapRowToTourneyTeamDto(SqlRowSet rowSet) {
@@ -338,6 +383,9 @@ public class JdbcTournamentDao implements TournamentDao {
         tournament.setTourneyDesc(rowSet.getString("tourney_desc"));
         tournament.setRound(rowSet.getInt("round"));
         tournament.setWinner(rowSet.getInt("winner_id"));
+        tournament.setPrivate(rowSet.getBoolean("is_private"));
+        tournament.setSinglesEvent(rowSet.getBoolean("is_singles_event"));
+        tournament.setWinningUserId(rowSet.getInt("winning_user_id"));
 
         return tournament;
     }
@@ -356,6 +404,11 @@ public class JdbcTournamentDao implements TournamentDao {
         tournament.setWinner(rowSet.getInt("winner_id"));
         tournament.setGameName(rowSet.getString("game_name"));
         tournament.setWinningTeamName(rowSet.getString("team_name"));
+        tournament.setPrivate(rowSet.getBoolean("is_private"));
+        tournament.setSinglesEvent(rowSet.getBoolean("is_singles_event"));
+        tournament.setWinningUserId(rowSet.getInt("winning_user_id"));
+        tournament.setWinningUserName(rowSet.getString("username"));
+
         return tournament;
     }
 }

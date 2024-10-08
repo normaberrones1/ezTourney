@@ -1,16 +1,12 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.TournamentDao;
-import com.techelevator.model.Tournament;
-import com.techelevator.model.TournamentDto;
-import com.techelevator.model.TourneyTeamDto;
-import com.techelevator.model.WinLossDto;
+import com.techelevator.model.*;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -70,9 +66,9 @@ public class TournamentController {
     }
 
     @RequestMapping(path = "/tournaments/{tourneyId}/accept-team/{teamId}", method = RequestMethod.PATCH)
-    public boolean acceptTeam( @PathVariable int tourneyId,@PathVariable int teamId,Principal principal) {
+    public boolean acceptTourneyTeam( @PathVariable int tourneyId,@PathVariable int teamId,Principal principal) {
         if (dao.isUserDirector(principal, tourneyId)) {
-            return dao.acceptTeam(teamId, tourneyId);
+            return dao.acceptTourneyTeam(teamId, tourneyId);
         } else {
             throw new AccessDeniedException("Only tourney director can accept a team");
         }
@@ -97,6 +93,20 @@ public class TournamentController {
     @RequestMapping(path="/tournaments/join/{tourneyId}/{teamId}", method=RequestMethod.POST)
     public boolean requestToJoinTourney(@PathVariable int tourneyId, @PathVariable int teamId){
         return dao.requestToJoinTourney(tourneyId,teamId);
+    }
+
+    @RequestMapping(path = "/tournaments/{tourneyId}/users", method = RequestMethod.GET )
+    public List<TourneyUserDto> getTourneyUsers(@PathVariable int tourneyId){
+        return dao.getTourneyUsers(tourneyId);
+    }
+
+    @RequestMapping(path = "/tournaments/{tourneyId}/accept-user/{userId}", method = RequestMethod.PATCH)
+    public boolean acceptTourneyUser( @PathVariable int tourneyId,@PathVariable int userId,Principal principal) {
+        if (dao.isUserDirector(principal, tourneyId)) {
+            return dao.acceptTourneyUser(userId, tourneyId);
+        } else {
+            throw new AccessDeniedException("Only tourney director can accept a team");
+        }
     }
 
 }

@@ -1,14 +1,16 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS team_users;
+DROP TABLE IF EXISTS tourney_directors;
+DROP TABLE IF EXISTS team_tourney;
+DROP TABLE IF EXISTS tourney_user;
+DROP TABLE IF EXISTS tourney_matches;
+DROP TABLE IF EXISTS tournament;
 DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS game_category;
-DROP TABLE IF EXISTS tournament;
-DROP TABLE IF EXISTS team_tourney;
-DROP TABLE IF EXISTS tourney_matches;
-DROP TABLE IF EXISTS tourney_matches;
+DROP TABLE IF EXISTS teams;
+DROP TABLE IF EXISTS users;
+
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -65,6 +67,9 @@ CREATE TABLE tournament (
     game_id int NOT NULL,
     round int NOT NULL,
     winner_id int,
+    winning_user_id int,
+    is_private boolean NOT NULL,
+    is_singles_event boolean NOT NULL,
     CONSTRAINT PK_tourney PRIMARY KEY (tourney_id),
     CONSTRAINT FK_game FOREIGN KEY (game_id) REFERENCES games(game_id)
 );
@@ -100,6 +105,17 @@ CREATE TABLE tourney_matches (
     CONSTRAINT PK_tourney_matches PRIMARY KEY (tourney_id, team_1_id, team_2_id),
     CONSTRAINT FK_team_1 FOREIGN KEY (team_1_id) REFERENCES teams(team_id),
     CONSTRAINT FK_team_2 FOREIGN KEY (team_2_id) REFERENCES teams(team_id),
+    CONSTRAINT FK_tourney FOREIGN KEY (tourney_id) REFERENCES tournament(tourney_id)
+);
+
+CREATE TABLE tourney_user (
+    user_id int NOT NULL,
+    tourney_id int NOT NULL,
+    isAccepted boolean NOT NULL,
+    eliminated boolean NOT NULL,
+    round_eliminated int,
+    CONSTRAINT PK_tourney_users PRIMARY KEY (user_id, tourney_id),
+    CONSTRAINT FK_users FOREIGN KEY (user_id) REFERENCES users(user_id),
     CONSTRAINT FK_tourney FOREIGN KEY (tourney_id) REFERENCES tournament(tourney_id)
 );
 

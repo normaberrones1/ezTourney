@@ -72,4 +72,12 @@ export default {
     getTournamentViewById(id) {
         return axios.get(`/tournaments/${id}/view`);
     },
+
+    getTournamentUsers(id) {
+        return axios.get(`/tournaments/${id}/users`);
+    },
+
+    acceptUser(userId, tourneyId) {
+        return axios.patch(`/tournaments/${tourneyId}/accept-user/${userId}`);
+    },
 }
