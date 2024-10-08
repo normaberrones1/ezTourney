@@ -108,22 +108,22 @@ INSERT INTO team_users (user_id, team_id, accepted) VALUES (10,1,true);
 INSERT INTO team_users (user_id, team_id, accepted) VALUES (11,1,true);
 
 INSERT INTO tournament (tourney_name, start_date, end_date, location, entry_fee,
-prize_desc, tourney_desc, game_id, round)
+prize_desc, tourney_desc, game_id, round, is_private, is_singles_event)
 VALUES ('Tournament TITLE WOOOO', '2024-10-4', '2024-10-6', 'Columbus OH', 200,
 '500 V-Bucks', 'Win v-bucks in this exciting matchup, coming to you over the first weekend of october',
-18, 1);
+18, 1, false, false);
 
 INSERT INTO tournament (tourney_name, start_date, end_date, location, entry_fee,
-prize_desc, tourney_desc, game_id, round, winner_id)
+prize_desc, tourney_desc, game_id, round, winner_id, is_private, is_singles_event)
 VALUES ('Ultimate Face off', '2024-10-18', '2024-10-18', 'Columbus OH', 200,
 'My Catalytic Converter', 'I will rip my catalytic converter out of my car for whomever wins this tournament',
-13, 1, 3);
+13, 1, 3, false, false);
 
 INSERT INTO tournament (tourney_name, start_date, end_date, location, entry_fee,
-prize_desc, tourney_desc, game_id, round)
+prize_desc, tourney_desc, game_id, round, is_private, is_singles_event)
 VALUES ('Tournament Past due', '2024-7-12', '2024-7-15', 'Columbus OH', 200,
 '200 Fleas', 'This tournament has gained so much dust that its grown fleas',
-25, 2);
+25, 2, false, false);
 
 INSERT INTO tourney_directors (tourney_id, director_id) VALUES (1,9);
 INSERT INTO tourney_directors (tourney_id, director_id) VALUES (2,2);

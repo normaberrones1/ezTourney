@@ -1,10 +1,14 @@
 <template>
     <div>
-    <h1 id="teams-title">CURRENT TEAMS</h1>
-    <p v-if="isAuthenticated" id="click-team">Click a team to view details!</p>
     
     <div id="teamContainer">    
         <div class="teamsDiv" >
+            <h1 id="teams-title">CURRENT TEAMS</h1>
+            
+            <p v-if="isAuthenticated" id="click-team">Click a team to view details!</p>
+
+
+
             <div v-for="team in teams" :key="team.teamId">
                 <div v-if="isAuthenticated">
 
@@ -33,7 +37,7 @@
 
 
         <div v-else>
-            <router-link to="/login" id="home-login">Log in to create a Team!</router-link>
+            <router-link to="/login" id="home-login-team">Log in to create a team!</router-link>
         </div>
 
 
@@ -67,18 +71,27 @@ export default {
 </script>
 <style>
 
+#home-login-team {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+    color: #6ce7fd;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 10%;
+}
+
+
+
 #click-team {
-    position: relative;
-    right: 12.3%;
-    margin-top: 2%;
+    margin-top: 0.1%;
     margin-bottom: 2%;
     font-size: 1.5em;
-    text-align: center;
-    color: #000000;
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 10px;
-    margin-left: 305px;
-    margin-right: 300px;
+    color: #6ce7fd;
+    width: 100%;
+
 }
 h1 {
     text-align: center;
@@ -87,6 +100,7 @@ h1 {
 }
 #teamContainer {
     display: flex;
+    
     gap: 10px;
     margin: 0 0px;
 }
@@ -102,24 +116,23 @@ h1 {
     align-items: center;
     background-color: rgba(255, 255, 255, 0.6);
     padding: 20px;
-    border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
     margin-bottom: 20px;
     justify-content: center;
     width: 100%;    
     gap: 0px;
+    margin-left: 20px;
 }
+
+
 #teams-title {
-    position: relative;
-    right: 12.3%;
+    text-align: center;
     margin-top: 2%;
-    margin-bottom: 2%;
     font-size: 2em;
     color: #000000;
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 10px;
-    margin-left: 245px;
-    margin-right: 260px;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 100%;
 }
 
 #display-name {
@@ -141,10 +154,11 @@ h1 {
     display: flex;
     justify-content: center;
     padding: 10px;
-    margin: -60px;
+    margin: -70px;
+    margin-right: 20px;
+
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgb(124, 124, 124);
     font-weight: bold;
 }
 

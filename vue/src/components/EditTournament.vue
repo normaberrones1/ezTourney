@@ -30,15 +30,28 @@
                 </select>
                 
                 <label for="rounds">Rounds</label>
-                <input v-model="tournament.round" type="number" id="round" name="round" min="1" required>   
+                <input v-model="tournament.round" type="number" id="round" name="round" min="1" required>
+
+                <label for="isPrivate">Is Private</label>
+                <input type="checkbox" id="isPrivate" v-model="tournament.private">
+
+                <label for="singlesEvent">Singles Event</label>
+                <input type="checkbox" id="singlesEvent" v-model="tournament.singlesEvent">
                
                 <label for="winner">Winner</label>
-                <select v-model="tournament.winner" id="winner" name="winner">
+                <select v-if="!tournament.singlesEvent" v-model="tournament.winner" id="winner" name="winner">
                     <option key="" value=""></option>
                     <option v-bind:value="team.teamId" v-for="team in this.teams" 
                     :key="team.teamId">{{ team.teamName }}
                     </option>
                 </select>
+                <select v-if="tournament.singlesEvent" v-model="tournament.winningUserId" id="winningUserId" name="winningUserId">
+                    <option key="" value=""></option>
+                    <option v-bind:value="user.userId" v-for="user in this.users" 
+                    :key="user.userId">{{ user.userName }}
+                    </option>
+                </select>
+
         </div>
         <input class="updateBtn" type="submit" value="Save"/>
         
@@ -55,7 +68,8 @@
             return{
                 tournament: {},
                 games: [],
-                teams: []
+                teams: [],
+                users: []
 
             }
         },
@@ -64,6 +78,7 @@
            this.getTournamentById(this.$route.params.tourneyId);
            this.getAllGames();
            this.getAllAcceptedTeams(this.$route.params.tourneyId);
+           this.getAllAcceptedUsers(this.$route.params.tourneyId);
         },
 
         methods: {
@@ -94,6 +109,12 @@
             getAllAcceptedTeams(tourneyId){
                 TourneyService.getTournamentTeams(tourneyId).then((response) => {
                     this.teams = response.data.filter(team => team.accepted);
+                });
+            },
+
+            getAllAcceptedUsers(tourneyId){
+                TourneyService.getTournamentUsers(tourneyId).then((response) => {
+                    this.users = response.data.filter(user => user.accepted);
                 });
             }
             

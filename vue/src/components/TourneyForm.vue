@@ -49,6 +49,16 @@
                 <input type="text" id="tourney-description" v-model="tourney.tourneyDesc" required>
             </div>
 
+            <div>
+                <label for="isPrivate">Is Private ? </label>
+                <input type="checkbox" id="isPrivate" v-model="tourney.private">
+            </div>
+
+            <div>
+                <label for="singlesEvent">Is Single Event ? </label>
+                <input type="checkbox" id="singlesEvent" v-model="tourney.singlesEvent">
+            </div>
+
             <button type="submit" id="form-submit">CREATE TOURNAMENT!</button>
 
         </form>
@@ -72,7 +82,9 @@ export default {
                 entry_fee: '',
                 prizeDesc: '',
                 tourneyDesc: '', 
-                gameId: ''
+                gameId: '',
+                private: false,
+                singlesEvent: false
             },
             games: [],
             selectedGameName: '',

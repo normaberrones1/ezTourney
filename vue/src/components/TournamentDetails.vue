@@ -29,9 +29,16 @@
             <div class="fieldLabel">Rounds</div>
             <div class="fieldValue">{{ tournament.round }}</div>
 
-           <div class="fieldLabel">Winner</div>
-           <div class="fieldValue">{{ tournament.winningTeamName }}</div>
+            <div class="fieldLabel">Singles Event</div>
+            <div class="fieldValue">{{ tournament.singlesEvent ? 'Yes' : 'No' }}</div>
 
+            <div class="fieldLabel">Private</div>
+            <div class="fieldValue">{{ tournament.private ? 'Yes' : 'No' }}</div>
+
+            <div class="fieldLabel">Winner</div>
+            <div class="fieldValue" v-if="tournament.singlesEvent">{{ tournament.winningUserName }}</div>
+            <div class="fieldValue" v-if="!tournament.singlesEvent">{{ tournament.winningTeamName }}</div>
+           
         </div>
         <div class="tourney-button" >
             <label for="teamsList">Which of Your Teams Should Join?</label>
@@ -44,6 +51,8 @@
         </div>
 
         <TourneyRequestForm v-if="showModal" @close="showModal = false"/>
+        <tourney-team-list v-if="!tournament.singlesEvent" />
+        <tourney-users-list v-if="tournament.singlesEvent" />
     </div>
 </template>
 
@@ -53,6 +62,9 @@
 import TourneyService from '../services/TourneyService';
 import TourneyRequestForm from './TournamentRequestForm.vue';
 import TeamService from '../services/TeamService';
+import TourneyTeamList from './TourneyTeamList.vue';
+import TourneyUsersList from './TourneyUsersList.vue';  
+
 
 
 export default {
@@ -86,7 +98,7 @@ export default {
             });
         }
     },
-    components: {TourneyRequestForm},
+    components: {TourneyRequestForm, TourneyTeamList, TourneyUsersList},
     created() {
         this.getTournament(); 
         this.setEditBtnVisible();
@@ -153,7 +165,8 @@ export default {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 10px 50px;
     margin: 10px;
-    padding: 0px 20px 20px 20px;
+    padding: 0px 0px 20px 150px;
+    text-align: left;
 }
 
 .fieldLabel{

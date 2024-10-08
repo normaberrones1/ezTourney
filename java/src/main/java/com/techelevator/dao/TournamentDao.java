@@ -1,14 +1,8 @@
 package com.techelevator.dao;
 
-import com.techelevator.exception.DaoException;
-import com.techelevator.model.Tournament;
-import com.techelevator.model.TournamentDto;
-import com.techelevator.model.TourneyTeamDto;
-import com.techelevator.model.WinLossDto;
-import org.apache.tomcat.jni.Local;
+import com.techelevator.model.*;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -57,7 +51,7 @@ public interface TournamentDao {
     return true if successful or false if not
     Give it a proper path on TournamentController.java
      */
-    boolean acceptTeam(int teamId, int tourneyId);
+    boolean acceptTourneyTeam(int teamId, int tourneyId);
 
     /*
     Update the tournament table to go to the next round.
@@ -80,6 +74,10 @@ public interface TournamentDao {
     Tournament getTourneyDetailsViewById(int tourneyId);
 
     boolean requestToJoinTourney(int tourneyId, int teamId);
+
+    boolean acceptTourneyUser(int userId, int tourneyId);
+
+    List<TourneyUserDto> getTourneyUsers(int tourneyId);
 
 }
 
