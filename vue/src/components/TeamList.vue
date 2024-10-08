@@ -89,8 +89,9 @@ export default {
     margin-top: 0.1%;
     margin-bottom: 2%;
     font-size: 1.5em;
-    color: #6ce7fd;
+    color: #0502c2;
     width: 100%;
+    font-weight: bold;
 
 }
 h1 {

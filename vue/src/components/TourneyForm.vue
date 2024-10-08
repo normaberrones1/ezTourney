@@ -76,8 +76,8 @@ export default {
         return {
             tourney: {
                 tourneyName: '',
-                startDate: '',
-                endDate: '',
+                startDate: null,
+                endDate: null,
                 location: '',
                 entry_fee: '',
                 prizeDesc: '',
@@ -102,6 +102,8 @@ export default {
 
     methods: {
         submitTourney() {
+
+
             TourneyService.createTournament(this.tourney)
                 .then(response => {
                     console.log("Tournament created successfully", response);

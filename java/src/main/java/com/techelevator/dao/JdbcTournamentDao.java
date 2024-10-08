@@ -135,6 +135,7 @@ public class JdbcTournamentDao implements TournamentDao {
 
     public Tournament createTournament(Tournament newTournament, Principal principal) {
         int newTournamentId = 0;
+
         String sql = "INSERT INTO tournament(tourney_name, start_date, end_date, location, entry_fee," +
                 " prize_desc, tourney_desc, game_id, round, is_private, is_singles_event) " +
                 "VALUES (?,?,?,?,?,?,?,?,1,?,?) RETURNING tourney_id;";
@@ -380,8 +381,8 @@ public class JdbcTournamentDao implements TournamentDao {
         Tournament tournament = new Tournament();
         tournament.setTourneyId(rowSet.getInt("tourney_id"));
         tournament.setTourneyName(rowSet.getString("tourney_name"));
-        tournament.setStartDate(rowSet.getDate("start_Date"));
-        tournament.setEndDate(rowSet.getDate("end_date"));
+        tournament.setStartDate(rowSet.getDate("start_Date").toLocalDate());
+        tournament.setEndDate(rowSet.getDate("end_date").toLocalDate());
         tournament.setLocation(rowSet.getString("location"));
         tournament.setEntry_fee(rowSet.getInt("entry_fee"));
         tournament.setPrizeDesc(rowSet.getString("prize_desc"));
@@ -399,8 +400,8 @@ public class JdbcTournamentDao implements TournamentDao {
         Tournament tournament = new Tournament();
         tournament.setTourneyId(rowSet.getInt("tourney_id"));
         tournament.setTourneyName(rowSet.getString("tourney_name"));
-        tournament.setStartDate(rowSet.getDate("start_Date"));
-        tournament.setEndDate(rowSet.getDate("end_date"));
+        tournament.setStartDate(rowSet.getDate("start_Date").toLocalDate());
+        tournament.setEndDate(rowSet.getDate("end_date").toLocalDate());
         tournament.setLocation(rowSet.getString("location"));
         tournament.setEntry_fee(rowSet.getInt("entry_fee"));
         tournament.setPrizeDesc(rowSet.getString("prize_desc"));
