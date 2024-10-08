@@ -117,6 +117,10 @@ export default {
     computed: {
         ...mapState(['bracketData']),
 
+        numberOfTeams() {
+            return this.bracketData || 0;
+        },
+
         numTeamsInRound(currentRound) {
             if (currentRound === 0) {
                 return this.numTeams

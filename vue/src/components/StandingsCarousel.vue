@@ -16,7 +16,7 @@
       <h1 class="moveInMoveOut">Current Tourneys</h1>
       <div  v-if="currentSlide === 2">
           <ul>
-            <li v-for="tourney in Tournaments" :key="tourney.id">
+            <li v-for="tourney in Tournaments" :key="tourney.teamName">
               {{ tourney.tourneyName }}
             </li>
           </ul>

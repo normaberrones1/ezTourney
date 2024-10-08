@@ -45,7 +45,7 @@
 
 <style>
 #nav {
-  background-color: #58deff;
+  background-color: #7ee5ff;
   color: rgb(81, 0, 212);
   text-align: center;
   padding: 10px;
@@ -86,6 +86,6 @@ body {
   justify-content: center;
   text-align: center;
   font-family:'Arial Narrow', sans-serif;
-  color: #58deff;
+  color: rgb(81, 0, 212);
 }
 </style>
