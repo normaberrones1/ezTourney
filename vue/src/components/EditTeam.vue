@@ -5,7 +5,7 @@
         <h1>Update Team</h1>
         <div class="nameInput">
             <label for="teamName">Team Name</label>
-            <input class="update-team-name" v-model="team.teamName" type="text" id="teamName" name="teamName" required>
+            <input class="update-team-name" v-model="team.teamName" required>
         </div>
 
         <div class="maxPlayersInput">
@@ -26,6 +26,7 @@
 
         <div>
             <label for="gameInput">Game of choice</label>
+            <p></p>
             <select id="gameInput" v-model="selectedGameName" @change="handleGameChange">
                 <option disabled value="">Please select one</option>
                 <option v-for="game in games" :key="game.gameId" :value="game.gameName">{{ game.gameName }}</option>
@@ -93,7 +94,8 @@ export default {
         rejectJoin(userId){
             TeamService.rejectJoin({
                 teamId: this.team.teamId,
-                userId: userId            });
+                userId: userId
+            });
         },
     }
 }
@@ -134,6 +136,17 @@ export default {
     flex-direction: column;
 }
 
+.nameInput {
+    margin: 10px;
+
+}
+
+.checkbox{
+    display: flex;
+
+    align-content: center;
+    margin: 10px;
+}
 
 
 </style>

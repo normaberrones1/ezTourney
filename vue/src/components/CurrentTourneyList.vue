@@ -7,7 +7,12 @@
         <h2 id="click-tourney">Click a tournament to view details</h2>
 
         
+        
         <div id="tournament-container">
+            
+            
+
+
         <div class="tourneyDiv">
             <input 
                 id="search-bar" type="text" 

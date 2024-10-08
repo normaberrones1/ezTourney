@@ -65,7 +65,7 @@ export default {
 }
 
 .teamName {
-    color: #58deff;
+    color: #7a0e88;
     
 }
 </style>
