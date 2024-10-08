@@ -25,10 +25,14 @@ export function createStore(currentToken, currentUser) {
         state.user = {};
         axios.defaults.headers.common = {};
       },
-      SET_BRACKETS(state, newBracket) {
-        console.log('Mutation SET_BRACKETS called with:', newBracket);
-        state.bracketData = [...state.bracketData, ...newBracket];
-        console.log('New state after mutation:', state.bracketData);
+      SET_BRACKETS(state, payload) {
+        console.log('Mutation SET_BRACKETS called with:', payload.numberOfTeams);
+        state.bracketData = Array.from({ length: payload.numberOfTeams }, (_, index) => ({
+          teamName: '',
+          isWon: false,
+          id: `team-${index}`
+      }));
+        console.log('New state after mutation:', payload.numberOfTeams);
       },
     },
     actions: {
@@ -39,7 +43,7 @@ export function createStore(currentToken, currentUser) {
         commit('SET_USER', user);
       },
       setBrackets({ commit }, newBracket) {
-        console.log('Action setBrackets called with:', newBracket);
+        console.log('Action setBrackets called with:', newBracket.numberOfTeams);
         commit('SET_BRACKETS', newBracket);
       },
     },

@@ -8,18 +8,6 @@
             <button @click="handleSaveBracket" id="saveBtn">Save Bracket</button>
         </div>
 
-        <form @submit.prevent="calculateRounds">
-
-            <div class="form-group">
-                <label for="numTeams" class="titleCard"><strong>Number of Teams:</strong></label>
-                <input type="number" id="numTeams" v-model="numTeams" min="2" max="64" required />
-            </div>
-
-            <div class="submitBtn">
-                <button type="submit" id="createBracketBtn">Create</button>
-            </div>
-
-        </form>
 
         <div class="brackets-title">
 
@@ -56,7 +44,7 @@ export default {
             teamName: '',
             teamCaptain: '',
             bracketsPerRound: [],
-
+            
             isWon: false,
             teams: [],
             selectedTeam: [],
@@ -117,6 +105,10 @@ export default {
     computed: {
         ...mapState(['bracketData']),
 
+        numberOfTeams() {
+            return this.bracketData.length || 0;
+        },
+
         numTeamsInRound(currentRound) {
             if (currentRound === 0) {
                 return this.numTeams
@@ -127,6 +119,8 @@ export default {
         }
     },
     created() {
+        this.numTeams = this.numberOfTeams
+        this.calculateRounds();
         TeamService.getAllTeams().then((response) => {
             this.teams = response.data;
         }).catch((error) => {
