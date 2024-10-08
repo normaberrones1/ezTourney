@@ -7,6 +7,7 @@ export function createStore(currentToken, currentUser) {
       token: currentToken || '',
       user: currentUser || {},
       bracketData: [],
+      rounds: [],
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
@@ -30,9 +31,25 @@ export function createStore(currentToken, currentUser) {
         state.bracketData = Array.from({ length: payload.numberOfTeams }, (_, index) => ({
           teamName: '',
           isWon: false,
-          id: `team-${index}`
+          id: `team-${index}`,
+          score: 0,
       }));
         console.log('New state after mutation:', payload.numberOfTeams);
+      },
+      SET_ROUNDS(state, rounds) {
+        state.rounds = rounds;
+      },
+      UPDATE_TEAM_SCORE(state, { teamId, score }) {
+        const team = state.bracketData.find(t => t.id === teamId);
+        if (team) {
+            team.score = score; // Update the score
+        }
+      },
+      UPDATE_TEAM_NAME(state, { teamId, teamName }) {
+        const team = state.bracketData.find(t => t.id === teamId);
+        if (team) {
+            team.teamName = teamName; // Update the team name
+        }
       },
     },
     actions: {
@@ -45,6 +62,15 @@ export function createStore(currentToken, currentUser) {
       setBrackets({ commit }, newBracket) {
         console.log('Action setBrackets called with:', newBracket.numberOfTeams);
         commit('SET_BRACKETS', newBracket);
+      },
+      setRounds({ commit }, rounds) {
+        commit('SET_ROUNDS', rounds);
+      },
+      updateTeamScore({ commit }, payload) {
+        commit('UPDATE_TEAM_SCORE', payload);
+      },
+      updateTeamName({ commit }, payload) {
+        commit('UPDATE_TEAM_NAME', payload);
       },
     },
   });

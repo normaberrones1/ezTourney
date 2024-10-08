@@ -31,7 +31,7 @@
                 <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex"
                     class="match" :id="'round-' + round + '-match-' + matchIndex">
                     Teams Remaining: {{ numItems }}
-                    <Match v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems" v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
+                    <Match  :numTeams="numTeams" v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems" v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
                 matchIndex === Math.ceil(numItems / 2) ? 1 : 2" 
                 v-bind:matchNumber="matchIndex"></Match>
                 </div>
@@ -56,7 +56,6 @@ export default {
             teamName: '',
             teamCaptain: '',
             bracketsPerRound: [],
-
             isWon: false,
             teams: [],
             selectedTeam: [],
@@ -68,17 +67,21 @@ export default {
             this.bracketsPerRound = [];
             this.selectedTeam = new Array(this.numTeams).fill('');
 
-
+            
 
             for (let round = 0; round <= rounds; round++) {
                 if (round === 0) {
                     this.bracketsPerRound.push(this.numTeams);  // First round is just the teams
-
+                    
                 } else {
                     const currentTeams = Math.ceil(this.numTeams / Math.pow(2, round));
                     this.bracketsPerRound.push(currentTeams);
-
+                    
                 }
+
+                
+
+
             }
             for (let i = 0; i < this.bracketsPerRound.length; i++) {
                 for (let j = 0; j < this.bracketsPerRound[i]; j++) {
@@ -112,7 +115,7 @@ export default {
     watch: {
         bracketData(newValue) {
             console.log('Bracket data in store updated:', newValue);
-        }
+        },
     },
     computed: {
         ...mapState(['bracketData']),
