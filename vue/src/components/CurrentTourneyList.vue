@@ -1,21 +1,16 @@
 <template>
 
     <div>
-    
-        <h1 id="tournaments-title">CURRENT TOURNAMENTS</h1>
-
-        <h2 id="click-tourney">Click a tournament to view details</h2>
-
-        
-        
         <div id="tournament-container">
-            
-            
-
 
         <div class="tourneyDiv">
+
+    
+            <h1 id="tournaments-title">CURRENT TOURNAMENTS</h1>
+            <h2 id="click-tourney">Click a tournament to view details!</h2>
+           
             <div class="home-image">
-      <img src="/public/trophy.jpg" alt="trophy">
+                <img src="/public/trophy.jpg" alt="trophy">
             </div>
 
             <input 
@@ -53,7 +48,7 @@
         </div>
 
         <div v-else>
-            <router-link to="/login" id="home-login">Log in to create a tournament!</router-link>
+            <router-link to="/login" id="home-login-tourney">Log in to create a tournament!</router-link>
         </div>
 
 </div>
@@ -143,6 +138,18 @@ export default {
 
 <style>
 
+#home-login-tourney {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+    color: #6ce7fd;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 10%;
+}
+
 
 
 
@@ -196,7 +203,6 @@ h1 {
     grid-area: tourney;
     background-color: rgba(255, 255, 255, 0.6);
     padding: 25px;
-    border: 1px solid rgb(124, 124, 124);
     border-radius: 10px;
     margin-bottom: 20px;
     
@@ -204,31 +210,20 @@ h1 {
 }
 
 #tournaments-title {
-    position: relative;
-    right: 12.3%;
     margin-top: 2%;
-    margin-bottom: 2%;
     font-size: 2em;
     color: #000000;
-    background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
-    margin-left: 150px;
-    margin-right: 220px;
 
 }
 
 #click-tourney {
-    position: relative;
-    right: 12.3%;
-    margin-top: 2%;
+    margin-top: 0.1%;
     margin-bottom: 2%;
     font-size: 1.5em;
     text-align: center;
-    color: #000000;
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 10px;
-    margin-left: 180px;
-    margin-right: 250px;
+
+    color: #6ce7fd;
     
 }
 

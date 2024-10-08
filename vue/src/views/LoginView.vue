@@ -93,7 +93,7 @@ label {
 
 #sign-in {
   font-size: 17px;
-  color: #B130FC;
+  color: #8522be;
   font-weight: bold;
   cursor: pointer;
 }

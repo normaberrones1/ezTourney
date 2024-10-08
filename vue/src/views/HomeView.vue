@@ -3,12 +3,18 @@
     <!-- remember to make this page only visible if authenticated -->
     <div v-if="isAuthenticated">
     <h2 >Welcome to ezTourney!</h2>
+    
+    
+
+  <div class="carousel-container">
+    <StandingsCarousel />
+    </div>
     <div id="ez-desc">
       <p>
       At ezTourney, we make organizing and joining tournaments a breeze! Whether you're a seasoned competitor or
       just starting out, we have something for you. Our platform provides a simple and intuitive way to create, manage,
       and join exciting tournaments for your favorite games. With user-friendly features, real-time updates and a 
-      supportive community, hosting and participating in tournaments has never been easier. Sign up today and start!
+      supportive community, hosting and participating in tournaments has never been easier. Sign up your team today and start!
     </p>
 
     
@@ -21,10 +27,6 @@
       <img src="/public/IMG_3573.jpg" alt="trophy">
   </div>
 
-
-  <div class="carousel-container">
-    <StandingsCarousel />
-    </div>
 </div>
     <div v-else>
       <router-link to="/login" id="home-login">Log in to unlock full experience!</router-link>
@@ -65,7 +67,7 @@ export default {
     border-radius: 10px;
     margin-left: 32px;
     margin-right: 30px;
-    height: 85vh;
+    height: auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -86,6 +88,12 @@ export default {
   transform: scale(1.1);
   }
 
+  .carousel-container {
+    justify-content: center;
+    margin-top: 20px;
+    margin-left: 15%;
+  }
+
 
   .trophy-image {
     position: absolute;
@@ -95,7 +103,7 @@ export default {
     width: 90px;
     height: 90px;
     margin-left: 50px;
-    margin-top: -150px;
+    margin-top: -800px;
     justify-content: flex-end;
     
     
@@ -116,6 +124,7 @@ export default {
     border: 5px double #790a79;
     border-radius: 10px;
     color: #000000;
+    margin-left: 27%;
   }
 
 

@@ -147,10 +147,9 @@ ul {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 60vh;
-    width: 50%;
+    height: 80vh;
+    width: 80%;
     padding: 20px;
-    margin-top: 30px;
     background-color: rgba(255, 255, 255, 0.6);
     border: 5px double #790a79;
     border-radius: 10px;
@@ -161,7 +160,6 @@ ul {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 50vh;
     width: 97%;
     padding: 20px;
   }
