@@ -33,7 +33,7 @@
                     Teams Remaining: {{ numItems }}
                     <Match v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems" v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
                 matchIndex === Math.ceil(numItems / 2) ? 1 : 2" 
-                v-bind:matchNumber="matchIndex"></Match>
+                v-bind:matchNumber="matchIndex" v-bind:roundNum="round"></Match>
                 </div>
             </div>
         </div>
