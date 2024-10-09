@@ -92,8 +92,8 @@ public class JdbcTeamBracketDao implements TeamBracketDao{
 
     @Override
     public boolean saveScore(ScoreDto scores, int tourneyId) {
-        String sql = "UPDATE tourney_matches SET team_1_score = ?, team_2_score = ?, set_winner = ? " +
-                "WHERE tourney_id = ?, team_1_id = ?, team_2_id = ?";
+        String sql = "UPDATE tourney_matches SET team_1_points = ?, team_2_points = ?, set_winner = ? " +
+                "WHERE tourney_id = ? AND team_1_id = ? AND team_2_id = ?";
         String loserSql = "UPDATE team_tourney SET eliminated = TRUE WHERE team_id = ?";
         if(scores.getTeam1Score() > scores.getTeam2Score()) {
             template.update(sql, scores.getTeam1Score(), scores.getTeam2Score(),

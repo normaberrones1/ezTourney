@@ -63,6 +63,9 @@ export function createStore(currentToken, currentUser) {
       },
       SET_MATCH_ROUND(state, team){
         state.bracketData[team.storeIndex].round = team.round;
+      },
+      SET_SEAT(state, team){
+        state.bracketData[team.storeIndex].seat = team.seat;
       }
     },
     actions: {

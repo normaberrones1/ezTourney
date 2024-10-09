@@ -91,7 +91,7 @@ export default {
             for (let i = 0; i < this.bracketsPerRound.length; i++) {
                 for (let j = 0; j < this.bracketsPerRound[i]; j++) {
                     let boxId = 'round-' + i + '-seat-' + j;
-                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: -1, round: 0, matchNumber: 0 });
+                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: -1, round: 0, seat: 0 });
                 }
             }
         },
