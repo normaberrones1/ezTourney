@@ -40,17 +40,17 @@
             <div class="fieldValue" v-if="!tournament.singlesEvent">{{ tournament.winningTeamName }}</div>
            
         </div>
-        <div class="tourney-button" >
-            <label for="teamsList">Which of Your Teams Should Join?</label>
-            <p></p>
-            <select id="input-team" placeholder="Choose Team" type="list" name="teamsList" list="teamInput" required v-model="teamChoice">
-                <option v-for="team in myTeamsList" :key="team.teamID" v-bind:value="team.teamId" >{{ team.teamName }}</option>
-            </select>
-
-            <button id="tourney-request" v-on:click="requestTournamentJoin()">Request to Join Tournament!</button>
+        <div class="tourneyJoinReq" >
+            <div  v-if="!tournament.singlesEvent">
+                <label for="teamsList">Which of your teams should join?</label>
+                <br/>
+                <select id="selectTeam" v-model="teamChoice" required>
+                    <option value="" disabled selected>Select your team</option>
+                    <option v-for="myTeam in myTeamsList" :key="myTeam.teamId" v-bind:value="myTeam.teamId" >{{ myTeam.teamName }}</option>
+                </select>
+            </div>
+            <button id="tourney-request" v-on:click="this.requestTournamentJoin()">Join Tournament</button>
         </div>
-
-        <TourneyRequestForm v-if="showModal" @close="showModal = false"/>
         <tourney-team-list v-if="!tournament.singlesEvent" />
         <tourney-users-list v-if="tournament.singlesEvent" />
 
@@ -62,10 +62,9 @@
 
 <script>
 import TourneyService from '../services/TourneyService';
-import TourneyRequestForm from './TournamentRequestForm.vue';
 import TeamService from '../services/TeamService';
 import TourneyTeamList from './TourneyTeamList.vue';
-import TourneyUsersList from './TourneyUsersList.vue';  
+import TourneyUsersList from './TourneyUsersList.vue';
 import BuildBracket from './BuildBracket.vue';
 
 
@@ -87,32 +86,53 @@ export default {
             });
         },
         requestTournamentJoin() {
-            TourneyService.requestTournamentJoin(this.$route.params.id,this.teamChoice).then((response) => {
-                if(response.data) {
-                    alert("Request to join tournament sent!");
-                } else {
-                    alert("Request to join tournament failed!");
-                }
-            })
+
+            if(this.tournament.singlesEvent) {
+                TourneyService.requestUserJoinTourney(this.$route.params.id).then((response) => {
+                    if(response.data) {
+                        alert("Request to join tournament sent!");
+                    } else {
+                        alert("Request to join tournament failed!");
+                    }
+                });
+                return;
+            }
+
+            if(!this.tournament.singlesEvent && this.teamChoice === '') {
+                alert("Please select a team to join the tournament!");
+                return;
+            } else {
+                TourneyService.requestTeamJoinTourney(this.$route.params.id,this.teamChoice).then((response) => {
+                    if(response.data) {
+                        alert("Request to join tournament sent!");
+                    } else {
+                        alert("Request to join tournament failed!");
+                    }
+                });
+            }
         },
         setEditBtnVisible() {
             TourneyService.isUserDirector(this.$route.params.id).then((response) => {
                 this.displayEditButton = response.data;
             });
-        }
+        },
+        getAllMyTeams(){
+            TeamService.teamsImCaptain().then((response) => {
+                this.myTeamsList = response.data;
+            })
+        } 
     },
-    components: {TourneyRequestForm, TourneyTeamList, TourneyUsersList, BuildBracket},
+    components: { TourneyTeamList, TourneyUsersList, BuildBracket},
     created() {
         this.getTournament(); 
         this.setEditBtnVisible();
-        TeamService.teamsImCaptain().then((response) => {
-            this.myTeamsList = response.data;
-        });
+        this.getAllMyTeams();
+        
         TourneyService.getTournamentTeams(this.$route.params.id).then((response) => {
                 this.teams = response.data;
             });
-    },
 
+    },
     computed: {
         acceptedTeams(){
             return this.teams.filter((team) => {
@@ -126,10 +146,8 @@ export default {
 
 <style scoped>
 
-#tourney-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.tourneyJoinReq {
+    margin-top: 30px;
 }
 
 #tourney-request {
@@ -148,18 +166,18 @@ export default {
 .tourneyDetails {
     color:black;
     text-align: center;
-    margin-top: 2em;
     padding: auto;
     border: 1px solid rgb(124, 124, 124);
     background-color: rgba(255, 255, 255, 0.6);
-    margin-left: 20%;
-    margin-right: 20%;
     border-radius: 10px;
 }
 
 .tourneyDetails h1 {
     text-align: center;
     color: #010708;
+    border: 1px solid rgb(124, 124, 124);
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
 }
 
 .tourneyEditBtn{
@@ -168,7 +186,7 @@ export default {
     font-weight: bold;
     font-size: 30px;
     border-radius: 10px;
-    margin: 10px auto;
+    margin: 15px auto;
     cursor: pointer;
     text-align: center;
     font-size: 20px;
@@ -177,23 +195,35 @@ export default {
 .tourneyDetailsGrid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 10px 50px;
+    grid-gap: 10px;
     margin: 10px;
-    padding: 0px 0px 20px 150px;
-    text-align: left;
 }
 
 .fieldLabel{
+  padding-left: 30px;
   grid-column-start: 2;
   font-weight: bold;
+  text-align: right;
+  padding-right: 20px;
 }
 
 .fieldValue{
-  grid-column-end: 4;
+  grid-column-start: 3;
+  text-align: left;
+  padding-left: 20px;
 }
 
 .tourneyTitle{
     font-weight: bold;
+}
+
+#selectTeam{
+    width: 40%;
+    margin: 10px;
+    border: 1px solid rgb(124, 124, 124);
+    text-align: center;
+    height: 30px;
+    border-radius: 10px;
 }
 
 </style>

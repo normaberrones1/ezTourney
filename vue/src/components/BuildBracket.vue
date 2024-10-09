@@ -15,7 +15,7 @@
                 <input type="number" id="numTeams" v-model="numTeams" min="2" max="64" required />
             </div> -->
 
-            <div class="submitBtn">
+            <div class="submitBtn" v-if="showBracketButton">
                 <button type="submit" id="createBracketBtn">Show Bracket</button>
             </div>
 
@@ -33,7 +33,7 @@
                     Teams Remaining: {{ numItems }}
                     <Match  :numTeams="numTeams" v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems" v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
                 matchIndex === Math.ceil(numItems / 2) ? 1 : 2" 
-                v-bind:matchNumber="matchIndex" v-bind:roundNum="round"></Match>
+                v-bind:matchNumber="matchIndex" v-bind:roundNum="round" ></Match>
                 </div>
             </div>
         </div>
@@ -61,7 +61,11 @@ export default {
             bracketsPerRound: [],
             isWon: false,
             selectedTeam: [],
+<<<<<<< HEAD
             
+=======
+            showBracketButton: true,
+>>>>>>> 5dabc9c145ed740151505ad69cd061ea8c65b870
         };
     },
     methods: {
@@ -89,7 +93,7 @@ export default {
             for (let i = 0; i < this.bracketsPerRound.length; i++) {
                 for (let j = 0; j < this.bracketsPerRound[i]; j++) {
                     let boxId = 'round-' + i + '-seat-' + j;
-                    this.bracketData.push({ teamName: '', isWon: false, id: boxId });
+                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: Number });
                 }
             }
         },
@@ -136,7 +140,17 @@ export default {
             }
         }
     },
+<<<<<<< HEAD
     
+=======
+    // created() {
+    //     TeamService.getAllTeams().then((response) => {
+    //         this.teams = response.data;
+    //     }).catch((error) => {
+    //         console.error(error);
+    //     });
+    // },
+>>>>>>> 5dabc9c145ed740151505ad69cd061ea8c65b870
 }
 
 </script>

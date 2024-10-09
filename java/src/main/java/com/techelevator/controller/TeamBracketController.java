@@ -4,6 +4,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.JdbcTeamBracketDao;
 import com.techelevator.dao.TeamBracketDao;
 import com.techelevator.model.BracketDto;
+import com.techelevator.model.LoadingBracketData;
 import com.techelevator.model.MatchDto;
 import com.techelevator.model.ScoreDto;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +34,10 @@ public class TeamBracketController {
     @RequestMapping(path="/tournaments/{tourneyId}/brackets/save-score", method=RequestMethod.POST)
     public boolean saveScores(@RequestBody ScoreDto scores, @PathVariable int tourneyId){
         return teamBracketDao.saveScore(scores, tourneyId);
+    }
+
+    @RequestMapping(path="/tournaments/{tourneyId}/brackets-load", method=RequestMethod.GET)
+    public List<LoadingBracketData> getBracketData(@PathVariable int tourneyId){
+        return teamBracketDao.getTourneyMatches(tourneyId);
     }
 }

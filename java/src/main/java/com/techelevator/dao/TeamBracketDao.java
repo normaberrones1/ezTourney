@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.BracketDto;
+import com.techelevator.model.LoadingBracketData;
 import com.techelevator.model.MatchDto;
 import com.techelevator.model.ScoreDto;
 
@@ -13,4 +14,6 @@ public interface TeamBracketDao {
     List<MatchDto> advanceNextRound(int tourneyId);
 
     boolean saveScore(ScoreDto scores, int tourneyId);
+
+    List<LoadingBracketData> getTourneyMatches(int tourneyId);
 }

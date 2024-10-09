@@ -64,7 +64,7 @@ export default {
     getFilteredTournaments(filter) {
         return axios.get(`/tournaments/filter`, {
             params: {
-                status: filter
+                status: filter,
             }
         });
 
@@ -81,6 +81,14 @@ export default {
         return axios.patch(`/tournaments/${tourneyId}/accept-user/${userId}`);
     },
 
+    requestTeamJoinTourney(tourneyId, teamId) {
+        return axios.post(`/tournaments/${tourneyId}/join/${teamId}`);
+    },
+
+    requestUserJoinTourney(tourneyId) {
+        return axios.post(`/tournaments/${tourneyId}/join`);
+    },
+
     getCurrentFilteredTournaments() {
         return this.getFilteredTournaments('current');
     },
@@ -89,21 +97,25 @@ export default {
         return this.getFilteredTournaments('upcoming');
     },
 
-    getMyCurrentTournaments() {
-        return axios.get(`/tournaments/my-current`);
+    getDirectorFilteredTournaments(filter, directorId) {
+        return axios.get(`/tournaments/is-director/${directorId}/filter`, {
+            params: {
+                status: filter,
+                directorId: directorId
+            }
+        });
+
     },
 
-    getMyUpcomingTournaments() {
-        return axios.get(`/tournaments/my-upcoming`);
+    getMyCurrentTournaments(directorId) {
+        return this.getDirectorFilteredTournaments('my-current');
     },
 
-    getMyPastTournaments() {
-        return axios.get(`/tournaments/my-past`);
+    getMyUpcomingTournaments(directorId) {
+        return this.getDirectorFilteredTournaments('my-upcoming');
     },
 
-    getMyTournaments() {
-        return axios.get(`/tournaments/my-all`);
-    },
+
 
 
 

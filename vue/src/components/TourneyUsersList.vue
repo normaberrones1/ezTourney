@@ -2,10 +2,10 @@
     <div>
         <div id="user-container">
             <h1>Users</h1>
-            <table id="user-list">
+            <table id="user-table">
                 <thead>
                     <tr>
-                        <th>Status</th>
+                        <th v-if="isTourneyDirector">Status</th>
                         <th>User name</th>
                         <th>Eliminated</th>
                         <th>Round eliminated</th>
@@ -77,7 +77,7 @@ export default {
 
 #user-container h1{
     text-align: center;
-    color: #010708;
+    color: #010708;  
 }
 #user-container {
     color:white;
@@ -86,33 +86,38 @@ export default {
     padding: auto;
     border: 1px solid rgb(124, 124, 124);
     background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    margin-bottom: 2em;
 }
-#user-list {
+#user-table{
     width: 100%;
     border-collapse: collapse;
     border: 1px solid rgb(124, 124, 124);
+    color: black;
+    border-radius: 10px;
 }
 
-#user-list th {
-    background-color: #94dcee93;
-    color: black;
+#user-table th {
+    background-color: rgb(67, 123, 244);
     font-weight: bold;
-    font-size: 20px;
+    font-size: 1.5em;
+    border: 1px solid rgb(124, 124, 124);
 }
 
-#user-list td {
-    background-color: rgba(255, 255, 255, 0.5);
-    color: black;
+#user-table td {
     font-size: 20px;
+    border: 1px solid rgb(124, 124, 124);
 }
 .acceptBtn {
-    display: block;
-    background-color: #58deff;
-    color: black;
-    border: solid 1px black;
+    background-color:rgba(255, 255, 255, 0.6);
+    color: #b130fc;
     cursor: pointer;
-    width: auto;
+    width: 150px;
     font-size: 1em;
+    font-weight: bold;
+    height: 2em;
+    text-align: center;
+    margin: 2px;
 }
 </style>
 
