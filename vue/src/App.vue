@@ -63,6 +63,7 @@
   color: rgb(81, 0, 212);
 }
 
+
 .greeting {
   display: flex;
   color: rgb(81, 0, 212);

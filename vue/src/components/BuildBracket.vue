@@ -61,6 +61,7 @@ export default {
             bracketsPerRound: [],
             isWon: false,
             selectedTeam: [],
+            
         };
     },
     methods: {
@@ -135,13 +136,7 @@ export default {
             }
         }
     },
-    created() {
-        TeamService.getAllTeams().then((response) => {
-            this.teams = response.data;
-        }).catch((error) => {
-            console.error(error);
-        });
-    },
+    
 }
 
 </script>
