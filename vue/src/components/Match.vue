@@ -1,7 +1,7 @@
 <template>
     <h2 class="matchTitle">Match {{ matchNumber }}</h2>
-    <TeamSelector v-if="!isFinalRound" v-bind:roundNum="roundNum"
-    v-bind:teams="teams" v-for="number in numOfTeams" :key="number" ></TeamSelector>
+    <TeamSelector v-if="!isFinalRound" v-bind:roundNum="roundNum" v-bind:teams="teams" v-for="number in numOfTeams"
+        :key="number"></TeamSelector>
     <TeamSelector v-if="isFinalRound" v-bind:roundNum="roundNum"></TeamSelector>
 </template>
 
@@ -9,7 +9,11 @@
 import TeamSelector from './TournamentTeamSelector.vue';
 
 export default {
-     
+    data() {
+        return {
+            matchIndex: Number,
+        }
+    },
     props: {
         numTeams: Number,
         teams: Array,
@@ -17,9 +21,14 @@ export default {
         isFinalRound: Boolean,
         matchNumber: Number,
         roundNum: Number,
+
     },
-   
-    
+    methods: {
+
+    },
+    created() {
+        this.matchIndex = this.$store.getters.getTeamIndex;
+    },
 
     components: { TeamSelector }
 }

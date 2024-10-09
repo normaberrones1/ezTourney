@@ -10,7 +10,8 @@ public interface TournamentDao {
 
     List<TournamentDto> getAllTournamentHistory();
 
-    List<TournamentDto> getTournamentsForDirectors(int directorId, String status, Date startDate, Date endDate);
+    List<TournamentDto> getTournamentsForDirectors(Integer directorId, String status, Date startDate, Date endDate);
+
 
     Tournament getTournamentById(int id);
 

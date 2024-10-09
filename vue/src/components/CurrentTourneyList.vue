@@ -3,10 +3,11 @@
     <div>
         <div id="tournament-container">
             
-
+            
         <div class="tourneyDiv">
-            <div  class="navMy">
+            <div class="navMy">
                 <router-link to="/my-tournaments" id="my-tournaments">My Tournaments</router-link>
+
             </div>
     
             <h1 id="tournaments-title">TOURNAMENTS</h1>
@@ -86,7 +87,6 @@ export default {
             searchTerm: '',
             dropdown: false,
             currentFilter: 'current',
-            directorTournaments: []
         }
     },
     props: {
