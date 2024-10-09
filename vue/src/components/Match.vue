@@ -1,5 +1,5 @@
 <template>
-    <h2 class="matchTitle">Match {{ matchNumber }}</h2>
+    <h2 class="matchTitle"></h2>
     <TeamSelector v-if="!isFinalRound" v-bind:roundNum="roundNum"
     v-bind:teams="teams" v-for="number in numOfTeams" :key="number" ></TeamSelector>
     <TeamSelector v-if="isFinalRound" v-bind:roundNum="roundNum"></TeamSelector>

@@ -1,39 +1,20 @@
 <template>
-    <div class="tournament-container"></div>
-    <BuildBracket />
-
-    <button class="showBtn" @click="showBracket">Generate Bracket From Store</button>
-
-    <BracketFromStore v-if="showBracketFromStore" :numberOfTeams="numberOfTeams" />
+    <div class="tournament-container">
+        <BracketBuilder />
+    </div>
+    
     
 </template>
 
 <script>
-import BuildBracket from '../components/BuildBracket.vue';
-import BracketFromStore from '../components/BracketFromStore.vue';
+import BracketBuilder from '../components/BracketBuilder.vue';
 
 
 export default {
     components: {
-        BuildBracket,
-        BracketFromStore
+        BracketBuilder
     },
-    data() {
-        return {
-            showBracketFromStore: false,
-            
-        }
-    },
-    methods: {
-        showBracket() {
-            this.showBracketFromStore = !this.showBracketFromStore;
-        }
-    },
-    computed: {
-        numberOfTeams() {
-            return this.$store.state.bracketData.numberOfTeams;
-        }
-    },
+   
 }
 </script>
 

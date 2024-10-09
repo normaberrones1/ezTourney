@@ -1,14 +1,13 @@
 <template>
     <div class="flex-item">
         <label for="teamSelect"></label>
-        <div class="dropDown" v-if="roundNum === 0">
-            <select id="teamSelect" v-model="selectedTeam" @change="onTeamChange">
+        <div  v-if="roundNum === 0">
+            <select class="dropDown" id="teamSelect" v-model="selectedTeam" @change="onTeamChange">
                 <option value="">Select a team</option>
                 <option v-for="team in teams" :key="team.id" :value="team.teamName">{{ team.teamName }} </option>
             </select>
         </div>
-        Team
-        <div>
+        <div class="scoreContainer">
             <label for="score" class="scoreLabel">Score: </label>
             <input type="number" id="score" class="scoreInput" v-model="score" @input="onScoreChange">
         </div>

@@ -1,13 +1,6 @@
 <template>
-    <div>
-
-        <div class="bracketBuilderTitle">
-            <h1>Bracket Builder</h1>
+    <div class="pageContainer">
         </div>
-        <div class="saveBtn">
-            <button @click="handleSaveBracket" id="saveBtn">Save Bracket</button>
-        </div>
-
         <form @submit.prevent="calculateRounds">
 
             <div class="form-group">
@@ -16,7 +9,7 @@
             </div>
 
             <div class="submitBtn">
-                <button type="submit" id="createBracketBtn">Show Bracket</button>
+                <button type="submit" id="createBracketBtn">Build Bracket</button>
             </div>
 
         </form>
@@ -24,20 +17,21 @@
         <div class="brackets-title">
 
         </div>
-        <div class="flex-container">
-            <div v-for="(numItems, round) in bracketsPerRound" :key="'round-' + round" class="flex-column">
+        <div class="grid-container">
+            <div class="grid-column">
+                <div v-for="(numItems, round) in bracketsPerRound" :key="'round-' + round" class="flex-column">
 
-                <!-- Add a match div for every two teams -->
-                <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex"
-                    class="match" :id="'round-' + round + '-match-' + matchIndex">
-                    Teams Remaining: {{ numItems }}
-                    <Match  :numTeams="numTeams" v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems" v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
-                matchIndex === Math.ceil(numItems / 2) ? 1 : 2" 
-                v-bind:matchNumber="matchIndex" v-bind:roundNum="round"></Match>
+                    <!-- Add a match div for every two teams -->
+                    <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex"
+                        class="match" :id="'round-' + round + '-match-' + matchIndex">
+                        <Match  :numTeams="numTeams" v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems" v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
+                    matchIndex === Math.ceil(numItems / 2) ? 1 : 2" 
+                    v-bind:matchNumber="matchIndex" v-bind:roundNum="round"></Match>
+                    </div>
                 </div>
-            </div>
+            </div>  
         </div>
-    </div>
+    
 </template>
 
 <script>
@@ -48,10 +42,7 @@ import { createStore } from '../store/index.js';
 const store = createStore();
 
 export default {
-    props: {
-        
-        numTeams: Number,
-    },
+    
     components: { Match },
     data() {
         return {
@@ -62,6 +53,8 @@ export default {
             isWon: false,
             selectedTeam: [],
             teams: [],
+            numTeams: 2,
+            bracketData: [],
             
             
         };
@@ -144,20 +137,6 @@ export default {
 </script>
 
 <style>
-.bracketBuilderTitle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: cyan;
-    background-color: darkmagenta;
-    border-radius: 8px;
-    width: 500px;
-    height: 20px;
-    margin: 10px auto;
-    padding: 20px;
-    box-shadow: 2px 2px 5px darkblue;
-}
 
 h1 {
     margin: 0;
@@ -190,7 +169,7 @@ h1 {
     border-radius: 8px;
     background-color: darkmagenta;
     border-radius: 8px;
-    width: 450px;
+    width: 200px;
     box-shadow: 2px 2px 5px darkblue;
 }
 
@@ -199,30 +178,15 @@ h1 {
     background-color: purple;
     color: white;
     width: auto;
-    height: 40px;
+    height: 35px;
     padding: 10px 20px;
-    margin: 8px 0;
+    margin: -10px 0;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     box-shadow: 2px 2px 5px blue;
     font-size: 16px;
     white-space: nowrap;
-}
-#saveBtn {
-
-background-color: purple;
-color: white;
-width: auto;
-height: 40px;
-padding: 10px 20px;
-margin: 8px 0;
-border: none;
-border-radius: 8px;
-cursor: pointer;
-box-shadow: 2px 2px 5px blue;
-font-size: 16px;
-white-space: nowrap;
 }
 
 .form-container {
@@ -238,37 +202,57 @@ white-space: nowrap;
     margin-bottom: 10px;
 }
 
-.flex-container {
+.grid-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    margin: 0;
+}
 
+.pageContainer {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    
+}
+
+.grid-column {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 20px;
+   
+    
 }
 
 .flex-column {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Center items in this column */
     position: relative;
     margin: 0 20px;
-    /* Adjust spacing between rounds */
 }
 
 .matches {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Center matches */
     position: relative;
+    
 }
 
-.flex-item {
-    padding: 10px;
+.flex-item { /* this is a team within the match */
+    padding: 10px 10px;
     background-color: rgb(208, 99, 212);
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-bottom: 5px;
-    width: 80%;
+    width: 60%;
+    height: 20%;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .submitBtn {
@@ -276,50 +260,73 @@ white-space: nowrap;
     justify-content: center;
     align-items: center;
 }
-.match {
-    width: 150px;
-    /* Set width of match boxes */
-    margin: 10px 0;
-    /* Space between matches */
+
+.dropDown { /* this is the actual drop down menu */
+    width: 100%;
+    height: 20px;
+    border-radius: 8px;
+    border: 10px;
+    margin-right: 10px;
     padding: 10px;
+}
+.match { /* this is the whole match box */
+    width: 200px;
+    margin: 10px 0;
+    padding: 10px;
+    padding-right: 0;
     border: 2px solid beige;
     background-color: royalblue;
+    border-radius: 8px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.scoreContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+    padding: 0px;
+}
+
+.scoreLabel {
+    margin-right: 10px;
+}
+
+.scoreInput {
+    width: 30px;
+    height: 20px;
     border-radius: 8px;
 }
 
 .flex-column:nth-child(n+2) {
     margin-top: 40px;
-    /* Adjust this value as needed */
 }
 
 .flex-column:nth-child(3) {
     margin-top: 70px;
-    /* Adjust this value as needed */
 }
 
 .flex-column:nth-child(4) {
     margin-top: 100px;
-    /* Adjust this value as needed */
 }
 
 .flex-column:nth-child(5) {
     margin-top: 130px;
-    /* Adjust this value as needed */
 }
 
 .flex-column:nth-child(6) {
     margin-top: 150px;
-    /* Adjust this value as needed */
 }
 
 .flex-column:nth-child(7) {
     margin-top: 170px;
-    /* Adjust this value as needed */
 }
 
 .flex-column:nth-child(8) {
     margin-top: 200px;
-    /* Adjust this value as needed */
 }
 
 .matchTitle {
