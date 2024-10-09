@@ -60,6 +60,9 @@ export function createStore(currentToken, currentUser) {
       },
       SET_TEAM_SCORE(state, team){
         state.bracketData[team.storeIndex].score = team.score;
+      },
+      SET_MATCH_ROUND(state, team){
+        state.bracketData[team.storeIndex].round = team.round;
       }
     },
     actions: {

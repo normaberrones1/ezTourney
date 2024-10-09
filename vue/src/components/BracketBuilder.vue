@@ -57,7 +57,6 @@ export default {
             numTeams: 2,
             bracketData: [],
             
-            
         };
     },
     methods: {
