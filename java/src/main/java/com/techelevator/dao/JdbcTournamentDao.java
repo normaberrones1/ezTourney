@@ -390,6 +390,26 @@ public class JdbcTournamentDao implements TournamentDao {
         return tourneyUsers;
     }
 
+    @Override
+    public List<UserDto> getTourneyDirectors(int tourneyId) {
+        List<UserDto> directors = new ArrayList<>();
+        String sql = "SELECT user_id, username FROM users " +
+                "JOIN tourney_directors ON user_id = director_id " +
+                "WHERE tourney_id = ?;";
+        try {
+            SqlRowSet rowSet = template.queryForRowSet(sql, tourneyId);
+            while (rowSet.next()) {
+                UserDto dto = new UserDto();
+                dto.setUserId(rowSet.getInt("user_id"));
+                dto.setUsername(rowSet.getString("username"));
+                directors.add(dto);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return directors;
+    }
+
     private TourneyUserDto mapRowToTourneyUserDto(SqlRowSet rowSet) {
         TourneyUserDto tourneyUserDto = new TourneyUserDto();
         tourneyUserDto.setUserId(rowSet.getInt("user_id"));

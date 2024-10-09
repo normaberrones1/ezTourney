@@ -84,5 +84,6 @@ public interface TournamentDao {
 
     List<TourneyUserDto> getTourneyUsers(int tourneyId);
 
+    List<UserDto> getTourneyDirectors(int tourneyId);
 }
 

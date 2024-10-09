@@ -63,6 +63,7 @@ export default {
             isWon: false,
             selectedTeam: [],
             showBracketButton: true,
+
         };
     },
     methods: {
@@ -128,7 +129,7 @@ export default {
             }
         }
     },
-    
+
 }
 
 </script>
