@@ -14,6 +14,6 @@ export default {
     },
 
     saveScore(tourneyId, teamsScores){
-        axios.post(`/tournaments/${tourneyId}/brackets/save-score`);
+        axios.post(`/tournaments/${tourneyId}/brackets/save-score`, teamsScores);
     }
 }

@@ -13,12 +13,12 @@
 
 
       <router-link v-bind:to="{ name: 'tournament' }">Tournaments</router-link>
-      <span v-if="!this.$store.state.token != ''">&nbsp;|&nbsp;</span>        
+      <span v-if="!this.$store.state.token != ''"></span>        
       <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
 
 
-      <router-link v-bind:to="{ name: 'tournamentBracketBuilder' }">Brackets</router-link>
-      <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
+      <!-- <router-link v-bind:to="{ name: 'tournamentBracketBuilder' }">Brackets</router-link>
+      <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span> -->
 
     
       
