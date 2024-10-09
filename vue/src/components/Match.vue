@@ -32,7 +32,7 @@ export default {
             storeIndex: '',
             round: ''
         };
-        team.round=this.roundNum;
+        team.round=this.roundNum+1;
         team.storeIndex=this.matchIndex;
         this.$store.commit("SET_MATCH_ROUND", team);
         if(this.numOfTeams==2){

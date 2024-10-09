@@ -62,11 +62,7 @@ export default {
             bracketsPerRound: [],
             isWon: false,
             selectedTeam: [],
-<<<<<<< HEAD
-            
-=======
             showBracketButton: true,
->>>>>>> 5dabc9c145ed740151505ad69cd061ea8c65b870
         };
     },
     methods: {
@@ -125,17 +121,7 @@ export default {
             }
         }
     },
-<<<<<<< HEAD
     
-=======
-    // created() {
-    //     TeamService.getAllTeams().then((response) => {
-    //         this.teams = response.data;
-    //     }).catch((error) => {
-    //         console.error(error);
-    //     });
-    // },
->>>>>>> 5dabc9c145ed740151505ad69cd061ea8c65b870
 }
 
 </script>
