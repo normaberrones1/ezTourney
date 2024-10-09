@@ -115,9 +115,8 @@ export default {
         return this.getDirectorFilteredTournaments('my-upcoming');
     },
 
+    getTourneyDirectors(tourneyId) {
+        return axios.get(`/tournaments/${tourneyId}/directors`);
+    }
 
-
-
-
-    
 }

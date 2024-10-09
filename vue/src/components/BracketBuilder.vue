@@ -1,4 +1,5 @@
 <template>
+    <div>
     <div class="pageContainer">
         </div>
         <form @submit.prevent="calculateRounds">
@@ -31,7 +32,7 @@
                 </div>
             </div>  
         </div>
-    
+    </div>
 </template>
 
 <script>

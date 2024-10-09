@@ -5,7 +5,7 @@
             <h1>Bracket Builder</h1>
         </div>
         <div class="saveBtn">
-            <button @click="handleSaveBracket" id="saveBtn">Save Bracket</button>
+            <button @click="handleSaveBracket()" id="saveBtn">Save Bracket</button>
         </div>
 
         <form @submit.prevent="calculateRounds">
@@ -63,6 +63,7 @@ export default {
             isWon: false,
             selectedTeam: [],
             showBracketButton: true,
+
         };
     },
     methods: {
@@ -90,14 +91,21 @@ export default {
             for (let i = 0; i < this.bracketsPerRound.length; i++) {
                 for (let j = 0; j < this.bracketsPerRound[i]; j++) {
                     let boxId = 'round-' + i + '-seat-' + j;
-                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: -1, round: 0 });
+                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: -1, round: 0, matchNumber: 0 });
                 }
             }
         },
         ...mapActions(['setAuthToken', 'setUser', 'setBrackets']),
 
         handleSaveBracket() {
-            
+            let brackets = this.$store.getters.getBracketData;
+            let teamsList = []
+            brackets.forEach((item) => {
+                if(item.round == 1){
+                    teamsList.push(item.teamName);
+                }
+            })
+            BracketService.createRoundOne(this.$route.params.id, teamsList);
         },
     },
     watch: {
@@ -121,7 +129,7 @@ export default {
             }
         }
     },
-    
+
 }
 
 </script>
