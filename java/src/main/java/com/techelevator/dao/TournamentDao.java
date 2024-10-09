@@ -10,7 +10,8 @@ public interface TournamentDao {
 
     List<TournamentDto> getAllTournamentHistory();
 
-    List<TournamentDto> getTournamentsForDirectors(int directorId, String status, Date startDate, Date endDate);
+    List<TournamentDto> getTournamentsForDirectors(Integer directorId, String status, Date startDate, Date endDate);
+
 
     Tournament getTournamentById(int id);
 
@@ -75,7 +76,9 @@ public interface TournamentDao {
 
     Tournament getTourneyDetailsViewById(int tourneyId);
 
-    boolean requestToJoinTourney(int tourneyId, int teamId);
+    boolean teamRequestToJoinTourney(int tourneyId, int teamId);
+
+    boolean userRequestToJoinTourney(int tourneyId, Principal principal);
 
     boolean acceptTourneyUser(int userId, int tourneyId);
 
