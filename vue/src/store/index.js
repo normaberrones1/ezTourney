@@ -8,6 +8,7 @@ export function createStore(currentToken, currentUser) {
       user: currentUser || {},
       bracketData: [],
       rounds: [],
+      teamIndex: 0,
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
@@ -33,7 +34,7 @@ export function createStore(currentToken, currentUser) {
           isWon: false,
           id: `team-${index}`,
           score: 0,
-      }));
+        }));
         console.log('New state after mutation:', payload.numberOfTeams);
       },
       SET_ROUNDS(state, rounds) {
@@ -42,15 +43,24 @@ export function createStore(currentToken, currentUser) {
       UPDATE_TEAM_SCORE(state, { teamId, score }) {
         const team = state.bracketData.find(t => t.id === teamId);
         if (team) {
-            team.score = score; // Update the score
+          team.score = score; // Update the score
         }
       },
       UPDATE_TEAM_NAME(state, { teamId, teamName }) {
         const team = state.bracketData.find(t => t.id === teamId);
         if (team) {
-            team.teamName = teamName; // Update the team name
+          team.teamName = teamName; // Update the team name
         }
       },
+      SET_TEAM_NAME(state, team) {
+        state.bracketData[team.storeIndex].teamName = team.selectedTeam;
+      },
+      ADD_1_TO_TEAM_INDEX(state){
+        state.teamIndex++;
+      },
+      SET_TEAM_SCORE(state, team){
+        state.bracketData[team.storeIndex].score = team.score;
+      }
     },
     actions: {
       setAuthToken({ commit }, token) {
@@ -72,6 +82,12 @@ export function createStore(currentToken, currentUser) {
       updateTeamName({ commit }, payload) {
         commit('UPDATE_TEAM_NAME', payload);
       },
+    },
+    getters: {
+      getTeamIndex(state){
+        let result = state.teamIndex;
+        return result;
+      }
     },
   });
   return store;

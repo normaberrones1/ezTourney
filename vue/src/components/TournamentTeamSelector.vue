@@ -2,16 +2,17 @@
     <div class="flex-item">
         <label for="teamSelect"></label>
         <div class="dropDown" v-if="roundNum === 0">
-            <select id="teamSelect" v-model="selectedTeam" @change="onTeamChange">
+            <select id="teamSelect" v-model="selectedTeam" @change="onTeamChange()">
                 <option value="">Select a team</option>
                 <option v-for="team in teams" :key="team.id" :value="team.teamName">{{ team.teamName }} </option>
             </select>
         </div>
-        Team
+        {{teamBracketData.teamName}}
         <div>
             <label for="score" class="scoreLabel">Score: </label>
             <input type="number" id="score" class="scoreInput" v-model="score" @input="onScoreChange">
         </div>
+        {{teamBracketData.score}}
     </div>
 </template>
 
@@ -23,34 +24,47 @@ export default {
         return {
             score: 0,
             selectedTeam: "",
+            storeIndex: 0,
         }
     },
     props: {
         teams: Array,
         numOfTeams: Number,
         numTeams: Number,
-        roundNum: Number
+        roundNum: Number,
     },
     methods: {
         ...mapActions(['updateTeamScore', 'updateTeamName']),
 
         onScoreChange() {
-            if (this.selectedTeam) {
-                this.updateTeamScore({ teamId: this.selectedTeam, score: this.score });
-            }
+            let team = {storeIndex: "", score: ""};
+            team.storeIndex = this.storeIndex;
+            team.score = this.score;
+            this.$store.commit("SET_TEAM_SCORE", team);
+
         },
         onTeamChange() {
-            const selectedTeamData = this.teams.find(team => team.id === this.selectedTeam);
-            if (selectedTeamData) {
-                // Update the team name in the store
-                this.updateTeamName({ teamId: this.selectedTeam, teamName: selectedTeamData.teamName });
-            }
-            this.score = 0; // Reset score when team changes
-        }
+            // const selectedTeamData = this.teams.find(team => team.id === this.selectedTeam);
+            // if (selectedTeamData) {
+            //     // Update the team name in the store
+            //     this.updateTeamName({ teamId: this.selectedTeam, teamName: selectedTeamData.teamName });
+            // }
+            // this.score = 0; // Reset score when team changes
+            let team = {storeIndex: "", selectedTeam: ""};
+            team.storeIndex = this.storeIndex;
+            team.selectedTeam = this.selectedTeam;
+            this.$store.commit("SET_TEAM_NAME", team)
+        },
+    },
+    computed: {
+        teamBracketData() {
+            return this.$store.state.bracketData[this.storeIndex];
+        },
     },
     created() {
-
-    }
+        this.storeIndex = this.$store.getters.getTeamIndex;
+        this.$store.commit("ADD_1_TO_TEAM_INDEX");
+    },
 }
 </script>
 
