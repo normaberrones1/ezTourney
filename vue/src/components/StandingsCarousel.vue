@@ -7,7 +7,13 @@
 
 
       <div v-if="currentSlide === 0" class="slides">
-      <h1 class="moveInMoveOut">Standings</h1>
+      <h1 id="slide-1-title">STANDINGS</h1>
+      
+        <ul>
+          <li>
+            <p>NEEDS UPDATING</p>
+          </li>
+        </ul>
 
         
       </div>
@@ -15,11 +21,11 @@
 
 
       <div  v-if="currentSlide === 1" class="slides">
-      <h1 class="moveInMoveOut">Current Tourneys</h1>
+      <h1 id="slide-2-title">CURRENT TOURNAMENTS</h1>
       
         <ul>
           <li v-for="tourney in Tournaments" :key="tourney.id">
-            <p>{{ tourney.tourneyName }}</p>
+            <p>{{ tourney.tourneyName }} | Ends On: {{tourney.endDate }}</p>
           </li>
         </ul>
 
@@ -28,7 +34,7 @@
 
 
       <div v-if="currentSlide === 2" class="slides">
-      <h1 class="moveInMoveOut">Teams Competing</h1>
+      <h1 id="slide-3-title">TEAMS COMPETING</h1>
       
         <ul>
           <li v-for="team in Teams" :key="team.id">
@@ -37,6 +43,9 @@
         </ul>
 
       </div>
+
+
+      
 
 
 
@@ -101,6 +110,7 @@ export default {
       Tournaments: [],
       Teams: [],
       currentSlide: 0,
+
       
     }
   },
@@ -127,6 +137,21 @@ export default {
 
 <style>
 
+#slide-1-title,
+#slide-2-title,
+#slide-3-title {
+  
+  color: #B130FC;
+}
+
+.slides {
+  position:relative;
+  width: 100%;
+  height: 100%;
+  margin-top: 22px;
+}
+  
+
 
 ul {
   list-style-type: none;
@@ -134,12 +159,17 @@ ul {
   padding: 0;
   font-weight: bold;
   color: #790a79;
+  font-size: 25px;
 }
 
-  .slides {
-    position: relative;
-    width: 100%;
-    
+
+
+  .slides h1 {
+    font-size: 2em;
+    color: #790a79;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .standings {
@@ -151,7 +181,7 @@ ul {
     width: 80%;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.6);
-    border: 5px double #790a79;
+    border: 15px double #790a79;
     border-radius: 10px;
   }
 
@@ -164,13 +194,7 @@ ul {
     padding: 20px;
   }
 
-  .moveInMoveOut {
-    animation: move 9s ease-in-out infinite;
-    justify-content: center;
-    opacity: 0;
-    z-index: 1;
-    
-  }
+
 
   .carousel-controls {
     justify-content: center;

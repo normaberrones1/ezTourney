@@ -45,7 +45,7 @@
 
 <style>
 #nav {
-  background-color: #7ee5ff;
+  background-color: #58deff;
   color: rgb(81, 0, 212);
   text-align: center;
   padding: 10px;
@@ -55,6 +55,7 @@
   width: 100%;
   margin-bottom: 40px;
   font-size: 19px;
+  
 }
 
 .nav-links {
@@ -90,4 +91,6 @@ body {
   font-family:'Arial Narrow', sans-serif;
   color: #790a79;
 }
+
+
 </style>

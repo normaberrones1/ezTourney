@@ -2,7 +2,7 @@
   <div class="home">
     <!-- remember to make this page only visible if authenticated -->
     <div v-if="isAuthenticated">
-    <h2 >Welcome to ezTourney!</h2>
+    <h2 id="welcome-title">Welcome to ezTourney!</h2>
     
     
 
@@ -103,7 +103,7 @@ export default {
     width: 90px;
     height: 90px;
     margin-left: 50px;
-    margin-top: -800px;
+    margin-top: -830px;
     justify-content: flex-end;
     
     
@@ -121,13 +121,18 @@ export default {
     margin: 0 auto;
     background-color: rgba(255, 255, 255, 0.6);
     padding: 10px;
-    border: 5px double #790a79;
+    border: 15px double #790a79;
     border-radius: 10px;
     color: #000000;
     margin-left: 27%;
   }
 
-
+  #welcome-title {
+    margin-top: 2%;
+    font-size: 35px;
+    color: #000000;
+    border-radius: 10px;
+  }
 
 
 
