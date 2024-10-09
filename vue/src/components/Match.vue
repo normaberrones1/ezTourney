@@ -2,6 +2,7 @@
     <h2 class="matchTitle">Match {{ matchNumber }}</h2>
     <TeamSelector v-if="!isFinalRound" v-bind:roundNum="roundNum" v-bind:teams="teams" v-for="number in numOfTeams"
         :key="number"></TeamSelector>
+        <button v-if="!isFinalRound" v-on:click="saveScores">Save Scores</button>
     <TeamSelector v-if="isFinalRound" v-bind:roundNum="roundNum"></TeamSelector>
 </template>
 
@@ -24,7 +25,16 @@ export default {
 
     },
     methods: {
+        // saveScores(){
+        //     let brackets = this.$store.getters.getBracketData;
+        //     let scoresDto = []
+        //     brackets.forEach((item) => {
+        //         if(item.round == this.roundNum && item.matchNum == matchNumber){
+                    
+        //         }
+        //     })
 
+        // }
     },
     created() {
         this.matchIndex = this.$store.getters.getTeamIndex;
@@ -39,6 +49,9 @@ export default {
         team.storeIndex=this.matchIndex+1;
         this.$store.commit("SET_MATCH_ROUND", team);
         }
+    },
+    computed: {
+
     },
 
     components: { TeamSelector }

@@ -90,6 +90,9 @@ export function createStore(currentToken, currentUser) {
       getTeamIndex(state){
         let result = state.teamIndex;
         return result;
+      },
+      getBracketData(state){
+        return state.bracketData;
       }
     },
   });
