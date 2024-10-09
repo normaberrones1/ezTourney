@@ -80,4 +80,12 @@ export default {
     acceptUser(userId, tourneyId) {
         return axios.patch(`/tournaments/${tourneyId}/accept-user/${userId}`);
     },
+
+    requestTeamJoinTourney(tourneyId, teamId) {
+        return axios.post(`/tournaments/${tourneyId}/join/${teamId}`);
+    },
+
+    requestUserJoinTourney(tourneyId) {
+        return axios.post(`/tournaments/${tourneyId}/join`);
+    }
 }

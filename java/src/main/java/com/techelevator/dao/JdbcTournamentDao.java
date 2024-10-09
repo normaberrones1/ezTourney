@@ -157,15 +157,15 @@ public class JdbcTournamentDao implements TournamentDao {
     public Tournament updateTournament(Tournament tournament) {
         String sql = "UPDATE tournament SET " +
                 " tourney_name = ?, start_date = ? , end_date = ?, location = ?, entry_fee = ?, prize_desc = ?, " +
-                "tourney_desc= ? , round = ?, winner_id = ?, winning_user_id = ?, is_private = ? , is_singles_event = ?" +
-                " WHERE tourney_id = ?";
+                "tourney_desc= ? , round = ?, winner_id = ?, winning_user_id = ?, is_private = ? , is_singles_event = ?," +
+                " game_id=? WHERE tourney_id = ?";
         try {
             int numOfRows = template.update(sql, tournament.getTourneyName(), tournament.getStartDate(),
                     tournament.getEndDate(), tournament.getLocation(), tournament.getEntry_fee(),
                     tournament.getPrizeDesc(),
                     tournament.getTourneyDesc(),
                     tournament.getRound(), tournament.getWinner(),tournament.getWinningUserId(), tournament.isPrivate(),
-                    tournament.isSinglesEvent(), tournament.getTourneyId());
+                    tournament.isSinglesEvent(), tournament.getGameId(),tournament.getTourneyId());
 
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
@@ -245,11 +245,24 @@ public class JdbcTournamentDao implements TournamentDao {
         return winLoss;
     }
 
-    public boolean requestToJoinTourney(int tourneyId, int teamId){
+    public boolean teamRequestToJoinTourney(int tourneyId, int teamId){
         String sql = "INSERT INTO team_tourney(team_id, tourney_id, isAccepted, eliminated) " +
-                "VALUES (?,?, 'false', 'false')";
+                "VALUES (?,?, false, false)";
         try {
             template.update(sql, teamId, tourneyId);
+            return true;
+        }catch(CannotGetJdbcConnectionException e){
+            return false;
+        }catch(DataIntegrityViolationException e){
+            return false;
+        }
+    }
+
+    public boolean userRequestToJoinTourney(int tourneyId, Principal principal){
+        String sql = "INSERT INTO tourney_user(user_id, tourney_id, isAccepted, eliminated) " +
+                "VALUES (?,?, 'false', 'false')";
+        try {
+            template.update(sql, memberDao.getUserIdByName(principal.getName()), tourneyId);
             return true;
         }catch(CannotGetJdbcConnectionException e){
             return false;

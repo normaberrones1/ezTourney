@@ -73,7 +73,9 @@ public interface TournamentDao {
 
     Tournament getTourneyDetailsViewById(int tourneyId);
 
-    boolean requestToJoinTourney(int tourneyId, int teamId);
+    boolean teamRequestToJoinTourney(int tourneyId, int teamId);
+
+    boolean userRequestToJoinTourney(int tourneyId, Principal principal);
 
     boolean acceptTourneyUser(int userId, int tourneyId);
 

@@ -90,9 +90,14 @@ public class TournamentController {
     }
 
 
-    @RequestMapping(path="/tournaments/join/{tourneyId}/{teamId}", method=RequestMethod.POST)
-    public boolean requestToJoinTourney(@PathVariable int tourneyId, @PathVariable int teamId){
-        return dao.requestToJoinTourney(tourneyId,teamId);
+    @RequestMapping(path="/tournaments/{tourneyId}/join/{teamId}", method=RequestMethod.POST)
+    public boolean teamRequestToJoinTourney(@PathVariable int tourneyId, @PathVariable int teamId){
+        return dao.teamRequestToJoinTourney(tourneyId,teamId);
+    }
+
+    @RequestMapping(path="/tournaments/{tourneyId}/join", method=RequestMethod.POST)
+    public boolean userRequestToJoinTourney(@PathVariable int tourneyId, Principal principal){
+        return dao.userRequestToJoinTourney(tourneyId,principal);
     }
 
     @RequestMapping(path = "/tournaments/{tourneyId}/users", method = RequestMethod.GET )
