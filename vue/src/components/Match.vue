@@ -1,13 +1,7 @@
 <template>
-<<<<<<< HEAD
-    <h2 class="matchTitle"></h2>
-    <TeamSelector v-if="!isFinalRound" v-bind:roundNum="roundNum"
-    v-bind:teams="teams" v-for="number in numOfTeams" :key="number" ></TeamSelector>
-=======
     <h2 class="matchTitle">Match {{ matchNumber }}</h2>
     <TeamSelector v-if="!isFinalRound" v-bind:roundNum="roundNum" v-bind:teams="teams" v-for="number in numOfTeams"
         :key="number"></TeamSelector>
->>>>>>> 5dabc9c145ed740151505ad69cd061ea8c65b870
     <TeamSelector v-if="isFinalRound" v-bind:roundNum="roundNum"></TeamSelector>
 </template>
 
