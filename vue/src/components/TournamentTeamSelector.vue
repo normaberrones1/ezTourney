@@ -63,6 +63,7 @@ export default {
     },
     created() {
         this.storeIndex = this.$store.getters.getTeamIndex;
+        this.$store.commit("SET_INDEX", this.storeIndex);
         this.$store.commit("ADD_1_TO_TEAM_INDEX");
     },
 }

@@ -81,7 +81,7 @@ public class JdbcTeamBracketDao implements TeamBracketDao{
         }
 
         List<MatchDto> matchupList = new ArrayList<>();
-        String getNewMatchupsSql = "SELECT team_1_id, team_2_id, seat FROM tourney_matches " +
+        String getNewMatchupsSql = "SELECT team_1_id, team_2_id, seat, round FROM tourney_matches " +
                 "WHERE tourney_id = ? AND round = ?";
         SqlRowSet resultRowSet = template.queryForRowSet(getNewMatchupsSql, tourneyId, round+1);
         while(resultRowSet.next()){
@@ -158,6 +158,7 @@ public class JdbcTeamBracketDao implements TeamBracketDao{
         match.setTeam1Name(teamDao.getTeamById(rowSet.getInt("team_1_id")).getTeamName());
         match.setTeam2Name(teamDao.getTeamById(rowSet.getInt("team_2_id")).getTeamName());
         match.setMatchNumber(rowSet.getInt("seat"));
+        match.setRound(rowSet.getInt("round"));
         return match;
     }
 }

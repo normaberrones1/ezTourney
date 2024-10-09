@@ -8,6 +8,10 @@
             <button @click="handleSaveBracket()" id="saveBtn">Save Bracket</button>
         </div>
 
+        <div class="nextRoundBtn">
+            <button @click="moveToNextRound">Next Round!</button>
+        </div>
+
         <form @submit.prevent="calculateRounds">
 
             <!-- <div class="form-group">
@@ -25,15 +29,17 @@
 
         </div>
         <div class="flex-container">
-            <div v-for="(numItems, round) in bracketsPerRound" :key="'round-' + round" class="flex-column">
+            <div v-for="(numItems, round) in bracketsPerRound" :key="'round-' + round" class="flex-column"
+                v-bind:currentRound="round">
 
                 <!-- Add a match div for every two teams -->
                 <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex"
                     class="match" :id="'round-' + round + '-match-' + matchIndex">
                     Teams Remaining: {{ numItems }}
-                    <Match  :numTeams="numTeams" v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems" v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
-                matchIndex === Math.ceil(numItems / 2) ? 1 : 2" 
-                v-bind:matchNumber="matchIndex" v-bind:roundNum="round" ></Match>
+                    <Match :numTeams="numTeams" v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems"
+                        v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
+                matchIndex === Math.ceil(numItems / 2) ? 1 : 2" v-bind:matchNumber="matchIndex"
+                        v-bind:roundNum="round"></Match>
                 </div>
             </div>
         </div>
@@ -63,35 +69,65 @@ export default {
             isWon: false,
             selectedTeam: [],
             showBracketButton: true,
-
+            currentRound: 0,
         };
     },
     methods: {
+        moveToNextRound() {
+            let tourneyData = []
+            BracketService.startNextRound(this.$route.params.id).then((response) => {
+                response.data.forEach((item) => {
+                    tourneyData.push(item);
+                });
+                console.log(tourneyData);
+                let currentBrackets = this.$store.getters.getBracketData;
+                let filteredBrackets = currentBrackets.filter((item) => {
+                    return item.round == tourneyData[0].round;
+                });
+                let teamChoice = 1;
+                let index = 0;
+                filteredBrackets.forEach((item) => {
+                    let team = {
+                        storeIndex: '',
+                        selectedTeam:''
+                    }
+                    team.storeIndex = item.index;
+                    if(teamChoice === 1){
+                        team.selectedTeam = tourneyData[index].team1Name;
+                        teamChoice = 2;
+                        this.$store.commit('SET_TEAM_NAME', team)
+                    }else{
+                        team.selectedTeam = tourneyData[index].team2Name;
+                        teamChoice = 1;
+                        this.$store.commit('SET_TEAM_NAME', team)
+                        index++;
+                    }
+                })
+            });
+
+        },
+
         calculateRounds() {
             const rounds = Math.ceil(Math.log2(this.numTeams)); // Calculate number of rounds
             this.bracketsPerRound = [];
             this.selectedTeam = new Array(this.numTeams).fill('');
 
-            
+
 
             for (let round = 0; round <= rounds; round++) {
                 if (round === 0) {
                     this.bracketsPerRound.push(this.numTeams);  // First round is just the teams
-                    
+
                 } else {
                     const currentTeams = Math.ceil(this.numTeams / Math.pow(2, round));
                     this.bracketsPerRound.push(currentTeams);
-                    
+
                 }
-
-                
-
-
             }
             for (let i = 0; i < this.bracketsPerRound.length; i++) {
                 for (let j = 0; j < this.bracketsPerRound[i]; j++) {
                     let boxId = 'round-' + i + '-seat-' + j;
-                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: -1, round: 0, seat: 0 });
+                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: -1, round: 0, seat: 0, arrayIndex: 0, });
                 }
             }
         },
@@ -101,7 +137,7 @@ export default {
             let brackets = this.$store.getters.getBracketData;
             let teamsList = []
             brackets.forEach((item) => {
-                if(item.round == 1){
+                if (item.round == 1) {
                     teamsList.push(item.teamName);
                 }
             })
@@ -200,20 +236,21 @@ h1 {
     font-size: 16px;
     white-space: nowrap;
 }
+
 #saveBtn {
 
-background-color: purple;
-color: white;
-width: auto;
-height: 40px;
-padding: 10px 20px;
-margin: 8px 0;
-border: none;
-border-radius: 8px;
-cursor: pointer;
-box-shadow: 2px 2px 5px blue;
-font-size: 16px;
-white-space: nowrap;
+    background-color: purple;
+    color: white;
+    width: auto;
+    height: 40px;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px blue;
+    font-size: 16px;
+    white-space: nowrap;
 }
 
 .form-container {
@@ -267,6 +304,7 @@ white-space: nowrap;
     justify-content: center;
     align-items: center;
 }
+
 .match {
     width: 150px;
     /* Set width of match boxes */

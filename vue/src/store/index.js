@@ -66,6 +66,9 @@ export function createStore(currentToken, currentUser) {
       },
       SET_SEAT(state, team){
         state.bracketData[team.storeIndex].seat = team.seat;
+      },
+      SET_INDEX(state, index){
+        state.bracketData[index].index = index;
       }
     },
     actions: {

@@ -4,6 +4,7 @@ public class MatchDto {
     private String team1Name;
     private String team2Name;
     private int matchNumber;
+    private int round;
 
     public String getTeam1Name() {
         return team1Name;
@@ -27,5 +28,13 @@ public class MatchDto {
 
     public void setMatchNumber(int matchNumber) {
         this.matchNumber = matchNumber;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
     }
 }

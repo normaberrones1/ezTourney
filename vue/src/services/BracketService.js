@@ -2,18 +2,18 @@ import axios from 'axios';
 
 export default {
     getBracketData(tourneyId){
-        axios.get(`/tournaments/${tourneyId}/brackets-load`);
+       return axios.get(`/tournaments/${tourneyId}/brackets-load`);
     },
 
     createRoundOne(tourneyId, teamsList){
-        axios.post(`/tournaments/${tourneyId}/brackets/create`, teamsList);
+       return axios.post(`/tournaments/${tourneyId}/brackets/create`, teamsList);
     },
 
     startNextRound(tourneyId){
-        axios.get(`/tournaments/${tourneyId}/nextRound`);
+        return axios.get(`/tournaments/${tourneyId}/nextRound`);
     },
 
     saveScore(tourneyId, teamsScores){
-        axios.post(`/tournaments/${tourneyId}/brackets/save-score`, teamsScores);
+        return axios.post(`/tournaments/${tourneyId}/brackets/save-score`, teamsScores);
     }
 }
