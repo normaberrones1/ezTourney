@@ -12,10 +12,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.lang.reflect.Member;
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -101,6 +99,37 @@ public class JdbcTournamentDao implements TournamentDao {
 
         return tournaments;
     }
+
+    @Override
+    public List<TournamentDto> getTournamentsForDirectors(int directorId, String status, Date startDate, Date endDate) {
+        List<TournamentDto> tournaments = new ArrayList<>();
+
+        StringBuilder sql = new StringBuilder("SELECT * FROM tournament JOIN tourney_directors ON tournament.tournament_id = tourney_directors.tourney_id WHERE tourney_directors = ?");
+
+        if(status != null && !status.equalsIgnoreCase("All")) {
+            if(status.equalsIgnoreCase("Current")) {
+                sql.append(" AND start_date <= CURRENT_DATE AND end_date >= CURRENT_DATE");
+            } else if (status.equalsIgnoreCase("Upcoming")) {
+                sql.append(" AND start_date > CURRENT_DATE");
+            } else if (status.equalsIgnoreCase("Past")) {
+                sql.append(" AND end_date < CURRENT_DATE");
+            }
+        }
+        sql.append(" ORDER BY start_date DESC;");
+
+        SqlRowSet rowSet = template.queryForRowSet(sql.toString());
+
+        while (rowSet.next()) {
+            TournamentDto dto = mapRowToTournamentDto(rowSet);
+            tournaments.add(dto);
+        }
+
+
+        return tournaments;
+    }
+
+
+
 
     public Tournament getTournamentById(int id){
         String sql = "SELECT * FROM tournament WHERE tourney_id = ?;";

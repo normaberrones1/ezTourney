@@ -89,6 +89,16 @@ public class TournamentController {
         return dao.getTournamentsByFilters(status, startDate, endDate);
     }
 
+    @RequestMapping(path="tournaments/is-director/filter", method=RequestMethod.GET)
+    public List<TournamentDto> getTournamentsForDirectors(
+            @RequestParam(required = false) int directorId,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) Date startDate,
+            @RequestParam(required = false) Date endDate) {
+
+        return dao.getTournamentsForDirectors(directorId, status, startDate, endDate);
+    }
+
 
     @RequestMapping(path="/tournaments/join/{tourneyId}/{teamId}", method=RequestMethod.POST)
     public boolean requestToJoinTourney(@PathVariable int tourneyId, @PathVariable int teamId){
