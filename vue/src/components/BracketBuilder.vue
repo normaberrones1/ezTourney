@@ -5,7 +5,7 @@
 
             <div class="form-group">
                 <label for="numTeams" class="titleCard"><strong>Number of Teams:</strong></label>
-                <input type="number" id="numTeams" v-model="numTeams" min="2" max="64" required/>
+                <input type="number" id="numTeams" v-model="numTeams" min="2" max="64" required />
             </div>
 
             <div class="submitBtn">
