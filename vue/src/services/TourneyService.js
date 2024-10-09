@@ -112,4 +112,8 @@ export default {
     getMyTournaments() {
         return axios.get(`/tournaments/my-all`);
     },
+
+    getTourneyDirectors(tourneyId) {
+        return axios.get(`/tournaments/${tourneyId}/directors`);
+    }
 }

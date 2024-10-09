@@ -124,4 +124,8 @@ public class TournamentController {
         }
     }
 
+    @RequestMapping(path = "/tournaments/{tourneyId}/directors", method = RequestMethod.GET )
+    public List<UserDto> getTourneyDirectors(@PathVariable int tourneyId){
+        return dao.getTourneyDirectors(tourneyId);
+    }
 }

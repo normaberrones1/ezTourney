@@ -1,7 +1,7 @@
 <template>
     <div class="tourneyCardContainer">
         <h2 id="tourney-title-card">{{ tourney.tourneyName }}</h2>
-        <h4>Hosted By: {{tourney.directorNames}}</h4>
+        <h4>Hosted By: {{this.directorNames}}</h4>
         <section class="tourneyNotes">
             <span>Entry Cost: ${{ tourney.entryFee }}</span>
             <p><span> Start Date: {{ tourney.startDate }}</span></p>
@@ -19,6 +19,7 @@ export default {
     data() {
         return {
             localTourney: null,
+            directorNames: ''
         };    
            
     },    
@@ -28,6 +29,11 @@ export default {
     created() {
         TourneyService.getCurrentTournaments().then((response) => {
             this.localTourney = response.data;
+        });
+
+        TourneyService.getTourneyDirectors(this.tourney.tourneyId).then((response) => {
+            const directors  = response.data;
+            this.directorNames = directors.map(director => director.username).join(', ');
         });
     },
 }
@@ -40,7 +46,6 @@ export default {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-
     grid-area: tournaments;
 
 }
