@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.BracketDto;
 import com.techelevator.model.MatchDto;
+import com.techelevator.model.ScoreDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -86,6 +87,16 @@ public class JdbcTeamBracketDao implements TeamBracketDao{
             matchupList.add(mapRowToMatchDto(resultRowSet));
         }
         return matchupList;
+    }
+
+    @Override
+    public boolean saveScore(ScoreDto scores, int tourneyId) {
+        String sql = "UPDATE tourney_matches SET team_1_score = ?, team_2_score = ? " +
+                "WHERE tourney_id = ?, team_1_id = ?, team_2_id = ?";
+        template.update(sql,scores.getTeam1Score(), scores.getTeam2Score(),
+                tourneyId, teamDao.getTeamByTeamName(scores.getTeam1Name()).getTeamId(),
+                teamDao.getTeamByTeamName(scores.getTeam2Name()).getTeamId());
+        return true;
     }
 
     private int getWinnerId(int matchNumber, int roundNumber, int tourneyId){
