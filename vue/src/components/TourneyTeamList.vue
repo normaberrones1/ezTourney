@@ -83,13 +83,15 @@ export default {
     padding: auto;
     border: 1px solid rgb(124, 124, 124);
     background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-    margin-bottom: 2em;
 }
 #team-table {
     width: 100%;
     border-collapse: collapse;
     border: 1px solid rgb(124, 124, 124);
+}
+
+#team-list th {
+    background-color: #94dcee93;
     color: black;
     border-radius: 10px;
 }

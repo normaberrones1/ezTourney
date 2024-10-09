@@ -10,13 +10,13 @@
 
         <form @submit.prevent="calculateRounds">
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="numTeams" class="titleCard"><strong>Number of Teams:</strong></label>
                 <input type="number" id="numTeams" v-model="numTeams" min="2" max="64" required />
-            </div>
+            </div> -->
 
             <div class="submitBtn">
-                <button type="submit" id="createBracketBtn">Create</button>
+                <button type="submit" id="createBracketBtn">Show Bracket</button>
             </div>
 
         </form>
@@ -31,9 +31,9 @@
                 <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex"
                     class="match" :id="'round-' + round + '-match-' + matchIndex">
                     Teams Remaining: {{ numItems }}
-                    <Match v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems" v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
+                    <Match  :numTeams="numTeams" v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems" v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
                 matchIndex === Math.ceil(numItems / 2) ? 1 : 2" 
-                v-bind:matchNumber="matchIndex"></Match>
+                v-bind:matchNumber="matchIndex" v-bind:roundNum="round"></Match>
                 </div>
             </div>
         </div>
@@ -48,17 +48,18 @@ import { createStore } from '../store/index.js';
 const store = createStore();
 
 export default {
+    props: {
+        teams: Array,
+        numTeams: Number,
+    },
     components: { Match },
     data() {
         return {
-            numTeams: 2,
             rounds: 0,
             teamName: '',
             teamCaptain: '',
             bracketsPerRound: [],
-
             isWon: false,
-            teams: [],
             selectedTeam: [],
         };
     },
@@ -68,17 +69,21 @@ export default {
             this.bracketsPerRound = [];
             this.selectedTeam = new Array(this.numTeams).fill('');
 
-
+            
 
             for (let round = 0; round <= rounds; round++) {
                 if (round === 0) {
                     this.bracketsPerRound.push(this.numTeams);  // First round is just the teams
-
+                    
                 } else {
                     const currentTeams = Math.ceil(this.numTeams / Math.pow(2, round));
                     this.bracketsPerRound.push(currentTeams);
-
+                    
                 }
+
+                
+
+
             }
             for (let i = 0; i < this.bracketsPerRound.length; i++) {
                 for (let j = 0; j < this.bracketsPerRound[i]; j++) {
@@ -112,7 +117,7 @@ export default {
     watch: {
         bracketData(newValue) {
             console.log('Bracket data in store updated:', newValue);
-        }
+        },
     },
     computed: {
         ...mapState(['bracketData']),

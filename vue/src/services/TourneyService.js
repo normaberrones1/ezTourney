@@ -87,5 +87,29 @@ export default {
 
     requestUserJoinTourney(tourneyId) {
         return axios.post(`/tournaments/${tourneyId}/join`);
-    }
+    },
+
+    getCurrentFilteredTournaments() {
+        return this.getFilteredTournaments('current');
+    },
+
+    getUpcomingFilteredTournaments() {
+        return this.getFilteredTournaments('upcoming');
+    },
+
+    getMyCurrentTournaments() {
+        return axios.get(`/tournaments/my-current`);
+    },
+
+    getMyUpcomingTournaments() {
+        return axios.get(`/tournaments/my-upcoming`);
+    },
+
+    getMyPastTournaments() {
+        return axios.get(`/tournaments/my-past`);
+    },
+
+    getMyTournaments() {
+        return axios.get(`/tournaments/my-all`);
+    },
 }

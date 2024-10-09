@@ -1,4 +1,8 @@
 <template>
+      <div v-if="!isAuthenticated">
+      <H1>Log in now to unlock the full experience!</H1>      
+    </div>
+
   <div id="login">
     <form v-on:submit.prevent="login">
       <h1 >Please Sign In</h1>
@@ -93,7 +97,7 @@ label {
 
 #sign-in {
   font-size: 17px;
-  color: #B130FC;
+  color: #8522be;
   font-weight: bold;
   cursor: pointer;
 }

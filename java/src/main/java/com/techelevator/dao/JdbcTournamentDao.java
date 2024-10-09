@@ -12,10 +12,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.lang.reflect.Member;
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -102,6 +100,37 @@ public class JdbcTournamentDao implements TournamentDao {
         return tournaments;
     }
 
+    @Override
+    public List<TournamentDto> getTournamentsForDirectors(int directorId, String status, Date startDate, Date endDate) {
+        List<TournamentDto> tournaments = new ArrayList<>();
+
+        StringBuilder sql = new StringBuilder("SELECT * FROM tournament JOIN tourney_directors ON tournament.tournament_id = tourney_directors.tourney_id WHERE tourney_directors = ?");
+
+        if(status != null && !status.equalsIgnoreCase("All")) {
+            if(status.equalsIgnoreCase("Current")) {
+                sql.append(" AND start_date <= CURRENT_DATE AND end_date >= CURRENT_DATE");
+            } else if (status.equalsIgnoreCase("Upcoming")) {
+                sql.append(" AND start_date > CURRENT_DATE");
+            } else if (status.equalsIgnoreCase("Past")) {
+                sql.append(" AND end_date < CURRENT_DATE");
+            }
+        }
+        sql.append(" ORDER BY start_date DESC;");
+
+        SqlRowSet rowSet = template.queryForRowSet(sql.toString());
+
+        while (rowSet.next()) {
+            TournamentDto dto = mapRowToTournamentDto(rowSet);
+            tournaments.add(dto);
+        }
+
+
+        return tournaments;
+    }
+
+
+
+
     public Tournament getTournamentById(int id){
         String sql = "SELECT * FROM tournament WHERE tourney_id = ?;";
         try {
@@ -135,6 +164,7 @@ public class JdbcTournamentDao implements TournamentDao {
 
     public Tournament createTournament(Tournament newTournament, Principal principal) {
         int newTournamentId = 0;
+
         String sql = "INSERT INTO tournament(tourney_name, start_date, end_date, location, entry_fee," +
                 " prize_desc, tourney_desc, game_id, round, is_private, is_singles_event) " +
                 "VALUES (?,?,?,?,?,?,?,?,1,?,?) RETURNING tourney_id;";
@@ -292,7 +322,7 @@ public class JdbcTournamentDao implements TournamentDao {
         String sql = "SELECT team_tourney.team_id, team_name, isaccepted, eliminated," +
                 "round_eliminated FROM team_tourney " +
                 "JOIN teams ON teams.team_id = team_tourney.team_id " +
-                "WHERE tourney_id = ?; ";
+                "WHERE tourney_id = ?;";
         try {
             SqlRowSet rowSet = template.queryForRowSet(sql, tourneyId);
             while (rowSet.next()) {
@@ -393,8 +423,8 @@ public class JdbcTournamentDao implements TournamentDao {
         Tournament tournament = new Tournament();
         tournament.setTourneyId(rowSet.getInt("tourney_id"));
         tournament.setTourneyName(rowSet.getString("tourney_name"));
-        tournament.setStartDate(rowSet.getDate("start_Date"));
-        tournament.setEndDate(rowSet.getDate("end_date"));
+        tournament.setStartDate(rowSet.getDate("start_Date").toLocalDate());
+        tournament.setEndDate(rowSet.getDate("end_date").toLocalDate());
         tournament.setLocation(rowSet.getString("location"));
         tournament.setEntry_fee(rowSet.getInt("entry_fee"));
         tournament.setPrizeDesc(rowSet.getString("prize_desc"));
@@ -412,8 +442,8 @@ public class JdbcTournamentDao implements TournamentDao {
         Tournament tournament = new Tournament();
         tournament.setTourneyId(rowSet.getInt("tourney_id"));
         tournament.setTourneyName(rowSet.getString("tourney_name"));
-        tournament.setStartDate(rowSet.getDate("start_Date"));
-        tournament.setEndDate(rowSet.getDate("end_date"));
+        tournament.setStartDate(rowSet.getDate("start_Date").toLocalDate());
+        tournament.setEndDate(rowSet.getDate("end_date").toLocalDate());
         tournament.setLocation(rowSet.getString("location"));
         tournament.setEntry_fee(rowSet.getInt("entry_fee"));
         tournament.setPrizeDesc(rowSet.getString("prize_desc"));

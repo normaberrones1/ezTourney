@@ -5,11 +5,11 @@
             
 
         <div class="tourneyDiv">
-            <div  class="navMy">
-                <router-link to="/my-tournaments" id="my-tournaments">My Tournaments</router-link>
+            <div class="navMy">
+                <router-link to="/tournaments" id="my-tournaments">All Tournaments</router-link>
             </div>
     
-            <h1 id="tournaments-title">TOURNAMENTS</h1>
+            <h1 id="tournaments-title">MY TOURNAMENTS</h1>
             <h2 id="click-tourney">Click a tournament to view details!</h2>
            
             <div class="home-image">
@@ -29,13 +29,13 @@
                 <select id="select-filter" v-model="currentFilter" @change="fetchFilteredTournaments">
 
 
-                    <option value="current">Current Tournaments</option>
+                    <option value="my-current">Current Tournaments</option>
 
-                    <option value="upcoming">Upcoming Tournaments</option>
+                    <option value="my-upcoming">Upcoming Tournaments</option>
 
-                    <option value="past">Past Tournaments</option>
+                    <option value="my-past">Past Tournaments</option>
 
-                    <option value="all">All</option>
+                    <option value="my-all">All</option>
                 </select>
             
             
@@ -54,7 +54,6 @@
 
         </div>
 
-        
 
         <div id="tourneyForm" v-if="isAuthenticated">
             <TourneyForm></TourneyForm>
@@ -76,81 +75,72 @@ import TournamentCard from './TournamentCard.vue';
 import TourneyService from '../services/TourneyService';
 import TourneyForm from './TourneyForm.vue';
 
-
-export default {
-
+export default  {
 
     data() {
         return {
             tournaments: [],
             searchTerm: '',
-            dropdown: false,
-            currentFilter: 'current',
-            directorTournaments: []
+            currentFilter: 'my-current'
         }
     },
-    props: {
-        tourney: {
-            type: Object,
-            required: true
-        }
-    },
-    
-    components: { TournamentCard, TourneyForm },
 
-    created() {
-        this.fetchFilteredTournaments();
+    components: {
+        TournamentCard,
+        TourneyForm
     },
+
     computed: {
+        isAuthenticated() {
+            return this.$store.getters.isAuthenticated;
+        },
         filteredTournaments() {
-            const today = new Date();
-
-            return this.tournaments.filter((tourney) => {
+            return this.tournaments.filter(tourney => {
                 return tourney.tourneyName.toLowerCase().includes(this.searchTerm.toLowerCase());
             });
-
-
-        },
-
-        isAuthenticated() {
-            return this.$store.state.token != '';
         }
     },
 
     methods: {
-        toggleDropdown() {
-            this.dropdown = !this.dropdown;
-        },
-        tourneyFilter(filter) {
-            this.currentFilter = filter;
-            this.fetchFilteredTournaments();
-
-        },
-
         fetchFilteredTournaments() {
-            TourneyService.getFilteredTournaments(this.currentFilter).then(response => {
-                this.tournaments = response.data;
-
-                if(this.currentFilter === 'current' && this.tournaments.length === 0) {
-                    
-                    this.currentFilter = 'upcoming';
-                    this.fetchFilteredTournaments();
-                }
-
-            }).catch((error) => {
-                console.log("Error finding tournaments", error);
-            });
-        },
+            if (this.currentFilter === 'my-current') {
+                TourneyService.getMyCurrentTournaments()
+                    .then(response => {
+                        this.tournaments = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } else if (this.currentFilter === 'my-upcoming') {
+                TourneyService.getMyUpcomingTournaments()
+                    .then(response => {
+                        this.tournaments = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } else if (this.currentFilter === 'my-past') {
+                TourneyService.getMyPastTournaments()
+                    .then(response => {
+                        this.tournaments = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } else if (this.currentFilter === 'my-all') {
+                TourneyService.getMyTournaments()
+                    .then(response => {
+                        this.tournaments = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+        }
     },
 
-
-    watch: {
-        currentFilter(newFilter) {
-            this.searchTerm = '';
-        }
-    }
-
 }
+
 </script>
 
 <style>
@@ -167,19 +157,7 @@ export default {
     margin-left: 10%;
 }
 
-.navMy {
-    display: flex;
-    justify-content: left;
-    color: #000000;    
-}
 
-#my-tournaments {
-    font-size: 17px;
-    color: #790a79;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: bold;
-}
 
 
 #select-filter {
