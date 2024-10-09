@@ -6,7 +6,7 @@
 
         <div class="tourneyDiv">
             <div class="navMy">
-                <router-link to="/tournaments" id="my-tournaments">All Tournaments</router-link>
+                <router-link to="/tournaments" id="my-tournaments">View Tournaments</router-link>
             </div>
     
             <h1 id="tournaments-title">MY TOURNAMENTS</h1>
@@ -16,6 +16,8 @@
                 <img src="/public/trophy.jpg" alt="trophy">
             </div>
 
+
+            <div class="searchMineBy">
             <input 
                 id="search-bar" type="text" 
                 v-model="searchTerm" placeholder="Search Tournaments"
@@ -40,7 +42,7 @@
             
             
             
-            
+            </div>
             </div>
 
 
@@ -155,6 +157,22 @@ export default  {
 
 <style>
 
+
+.searchMineBy {
+    justify-content: center;
+    width: 100%;    
+}
+
+#my-tournaments {
+    display: flex;
+    font-size: 1.5em;
+    color: #B130FC;
+    text-decoration: none;
+    background-color: rgb(243, 243, 243);
+    padding: 1px;
+    border-radius: 5px;
+}
+
 #home-login-tourney {
     display: flex;
     justify-content: center;
@@ -222,6 +240,7 @@ h1 {
     padding: 25px;
     border-radius: 10px;
     margin-bottom: 20px;
+    justify-content: center;
     
     
 }

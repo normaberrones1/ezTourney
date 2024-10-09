@@ -17,13 +17,11 @@
                 <img src="/public/trophy.jpg" alt="trophy">
             </div>
 
+            <div class="searchBy">
             <input 
                 id="search-bar" type="text" 
                 v-model="searchTerm" placeholder="Search Tournaments"
             />
-
-
-
 
             <div id="tourney-filter">
                 <label for="select-filter"></label>
@@ -39,7 +37,7 @@
                     <option value="all">All</option>
                 </select>
             
-            
+            </div>
             
             
             </div>
@@ -87,6 +85,7 @@ export default {
             searchTerm: '',
             dropdown: false,
             currentFilter: 'current',
+            directorTournaments: []
         }
     },
     props: {
@@ -155,6 +154,11 @@ export default {
 
 <style>
 
+.searchBy {
+    justify-content: center;
+    width: 100%;    
+}
+
 #home-login-tourney {
     display: flex;
     justify-content: center;
@@ -168,9 +172,6 @@ export default {
 }
 
 .navMy {
-    display: flex;
-    justify-content: left;
-    color: #000000;    
 }
 
 #my-tournaments {
@@ -182,27 +183,13 @@ export default {
 }
 
 
+
 #select-filter {
-    position: relative;
-    width: 40%;
-    height: 15%;
-    border-radius: 5px;
-    border: 1px solid rgb(124, 124, 124);
-    text-align: center;
-    cursor: pointer;
+
 }
 
 #search-bar {
-    position: relative;
-    justify-content: center;
-    cursor: pointer;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    width: 39%;
-    height: 15px;
-    border-radius: 5px;
-    border: 1px solid rgb(124, 124, 124);
-    text-align: center;
+
 }
 
 
@@ -212,37 +199,42 @@ h1 {
 }
 
 #tournament-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-areas:
-        "tourney tourney tourney tourneyForm"
-        "tourney tourney tourney tourneyForm";
-    margin-left: 32px;
-    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     
 }
 
 #tourneyForm {
     display: flex;
     justify-content: center;
+    flex: 300px;
 }
 
 
 .tourneyDiv {
-    grid-area: tourney;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     background-color: rgba(255, 255, 255, 0.6);
     padding: 25px;
     border-radius: 10px;
-    margin-bottom: 20px;
+    justify-content: center;
     
+    width: 95%;
+    height: auto;
     
 }
 
 #tournaments-title {
+    text-align: center;
     margin-top: 2%;
     font-size: 2em;
     color: #000000;
-    border-radius: 10px;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 100%;
 
 }
 
@@ -250,19 +242,21 @@ h1 {
     margin-top: 0.1%;
     margin-bottom: 2%;
     font-size: 1.5em;
-    text-align: center;
-
     color: #0502c2;
+    width: 100%;
+    font-weight: bold;
     
 }
 
 #tourney-list {
     margin-bottom: 20px;
+    margin:35px;
+    
 }
 
 .tourney-link {
     text-decoration: none;
-    text-align: center;
+    margin-bottom: 20px;
 }
 
 .home-image {
@@ -277,6 +271,8 @@ h1 {
     height: auto;
     border-radius: 10px;
 }
+
+
 
 
 </style>
