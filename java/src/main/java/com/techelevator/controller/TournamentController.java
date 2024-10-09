@@ -2,8 +2,10 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.TournamentDao;
 import com.techelevator.model.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.security.Principal;
@@ -89,12 +91,13 @@ public class TournamentController {
         return dao.getTournamentsByFilters(status, startDate, endDate);
     }
 
-    @RequestMapping(path="tournaments/is-director/filter", method=RequestMethod.GET)
+    @RequestMapping(path="tournaments/is-director/{directorId}/filter", method=RequestMethod.GET)
     public List<TournamentDto> getTournamentsForDirectors(
-            @RequestParam(required = false) int directorId,
+            @PathVariable Integer directorId,
             @RequestParam(required = false) String status,
             @RequestParam(required = false) Date startDate,
             @RequestParam(required = false) Date endDate) {
+
 
         return dao.getTournamentsForDirectors(directorId, status, startDate, endDate);
     }

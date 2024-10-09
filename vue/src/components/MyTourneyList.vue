@@ -26,7 +26,7 @@
 
             <div id="tourney-filter">
                 <label for="select-filter"></label>
-                <select id="select-filter" v-model="currentFilter" @change="fetchFilteredTournaments">
+                <select id="select-filter" v-model="currentFilter" @change="fetchDirectorFilteredTournaments">
 
 
                     <option value="my-current">Current Tournaments</option>
@@ -81,63 +81,73 @@ export default  {
         return {
             tournaments: [],
             searchTerm: '',
-            currentFilter: 'my-current'
+            dropdown: false,
+            currentFilter: 'my-current',
+            directorId: this.$store.state.user.id
+            
         }
     },
 
     components: {
-        TournamentCard,
-        TourneyForm
+        TournamentCard, TourneyForm},
+
+    props: {
+        tourney: {
+            type: Object,
+            required: true
+        }
+    },
+
+    created() {
+        this.fetchDirectorFilteredTournaments();
     },
 
     computed: {
-        isAuthenticated() {
-            return this.$store.getters.isAuthenticated;
-        },
+
         filteredTournaments() {
+            const today = new Date();
+
             return this.tournaments.filter(tourney => {
                 return tourney.tourneyName.toLowerCase().includes(this.searchTerm.toLowerCase());
             });
+        },
+        isAuthenticated() {
+            return this.$store.state.token != '';
         }
     },
 
     methods: {
-        fetchFilteredTournaments() {
-            if (this.currentFilter === 'my-current') {
-                TourneyService.getMyCurrentTournaments()
-                    .then(response => {
-                        this.tournaments = response.data;
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-            } else if (this.currentFilter === 'my-upcoming') {
-                TourneyService.getMyUpcomingTournaments()
-                    .then(response => {
-                        this.tournaments = response.data;
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-            } else if (this.currentFilter === 'my-past') {
-                TourneyService.getMyPastTournaments()
-                    .then(response => {
-                        this.tournaments = response.data;
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-            } else if (this.currentFilter === 'my-all') {
-                TourneyService.getMyTournaments()
-                    .then(response => {
-                        this.tournaments = response.data;
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-            }
+
+        toggleDropdown() {
+            this.dropdown = !this.dropdown;
+        },
+
+        tourneyFilter(filter) {
+            this.currentFilter = filter;
+            this.fetchDirectorFilteredTournaments();
+        },
+
+        fetchDirectorFilteredTournaments(userId) {
+            TourneyService.getDirectorFilteredTournaments(this.currentFilter, this.directorId).then((response) => {
+                this.tournaments = response.data;
+                
+                if(this.currentFilter ==='my-current' && this.tournaments.length === 0) {
+                    this.currentFilter = 'my-upcoming';
+                    this.fetchDirectorFilteredTournaments();
+                }
+
+            }).catch((error) => {
+                console.log("Error finding tournaments", error);
+            });
         }
     },
+
+    watch: {
+        currentFilter(newFilter) {
+            this.searchTerm = '';
+            this.fetchDirectorFilteredTournaments();
+        }
+    }
 
 }
 

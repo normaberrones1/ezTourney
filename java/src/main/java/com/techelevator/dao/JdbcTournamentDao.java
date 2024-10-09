@@ -101,23 +101,25 @@ public class JdbcTournamentDao implements TournamentDao {
     }
 
     @Override
-    public List<TournamentDto> getTournamentsForDirectors(int directorId, String status, Date startDate, Date endDate) {
+    public List<TournamentDto> getTournamentsForDirectors(Integer directorId, String status, Date startDate, Date endDate) {
         List<TournamentDto> tournaments = new ArrayList<>();
 
-        StringBuilder sql = new StringBuilder("SELECT * FROM tournament JOIN tourney_directors ON tournament.tournament_id = tourney_directors.tourney_id WHERE tourney_directors = ?");
+        StringBuilder sql = new StringBuilder("SELECT * FROM tournament JOIN tourney_directors ON " +
+                "tournament.tourney_id = tourney_directors.tourney_id WHERE " +
+                "tourney_directors.director_id = ?");
 
-        if(status != null && !status.equalsIgnoreCase("All")) {
-            if(status.equalsIgnoreCase("Current")) {
+        if(status != null && !status.equalsIgnoreCase("My-All")) {
+            if(status.equalsIgnoreCase("My-Current")) {
                 sql.append(" AND start_date <= CURRENT_DATE AND end_date >= CURRENT_DATE");
-            } else if (status.equalsIgnoreCase("Upcoming")) {
+            } else if (status.equalsIgnoreCase("My-Upcoming")) {
                 sql.append(" AND start_date > CURRENT_DATE");
-            } else if (status.equalsIgnoreCase("Past")) {
+            } else if (status.equalsIgnoreCase("My-Past")) {
                 sql.append(" AND end_date < CURRENT_DATE");
             }
         }
-        sql.append(" ORDER BY start_date DESC;");
+        sql.append(" ORDER BY tournament.start_date DESC;");
 
-        SqlRowSet rowSet = template.queryForRowSet(sql.toString());
+        SqlRowSet rowSet = template.queryForRowSet(sql.toString(), directorId);
 
         while (rowSet.next()) {
             TournamentDto dto = mapRowToTournamentDto(rowSet);
