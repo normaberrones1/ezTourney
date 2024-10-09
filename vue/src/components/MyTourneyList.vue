@@ -231,6 +231,8 @@ h1 {
 #tourneyForm {
     display: flex;
     justify-content: center;
+    margin-top: 5px;
+
 }
 
 
@@ -241,7 +243,8 @@ h1 {
     border-radius: 10px;
     margin-bottom: 20px;
     justify-content: center;
-    
+    height: 100%;
+    margin-top: 80px;
     
 }
 
