@@ -1,7 +1,6 @@
 <template>
-    <div>
+    <div class="tourney-details-view">
         <tournament-details />
-       
     </div>
 </template>
 
@@ -17,3 +16,10 @@ export default{
 }
 
 </script>
+
+<style scoped>
+.tourney-details-view {
+    height: 100%;
+    width: 100%;
+}
+</style>
