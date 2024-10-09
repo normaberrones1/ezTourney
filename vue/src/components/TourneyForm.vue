@@ -1,7 +1,7 @@
 <template>
     <div class="tourney-form">
 
-        <form v-on:submit="submitTourney()">
+        <form v-on:submit.prevent="submitTourney()">
             <h1 id="tourney-form-title">Create Tournament</h1>
 
             <div>
@@ -55,7 +55,7 @@
             </div>
 
             <div>
-                <label for="singlesEvent">Is Single Event ? </label>
+                <label for="singlesEvent">Is Singles Event ? </label>
                 <input type="checkbox" id="singlesEvent" v-model="tourney.singlesEvent">
             </div>
 
@@ -102,12 +102,16 @@ export default {
 
     methods: {
         submitTourney() {
-
-
-            TourneyService.createTournament(this.tourney)
+          TourneyService.createTournament(this.tourney)
                 .then(response => {
-                    console.log("Tournament created successfully", response);
-                })
+                    if(this.tourney.private){
+                        let newTourneyId = response.data.tourneyId;
+                        alert("Tournament created successfully with id: "+ newTourneyId +"\n"+ 
+                        "Tournament URL: "+window.location.origin + "/tournaments/" + newTourneyId);
+                    }else{
+                        console.log("Tournament created successfully with Id "+ response.data.tourneyId);
+                    }   
+                });
         },
 
         handleGameChange() {
