@@ -7,6 +7,23 @@
             <p><span> Start Date: {{ tourney.startDate }}</span></p>
         </section>
         <p>{{ tourney.tourneyDesc }}</p>
+
+        <div>
+            <button @click.stop="popUp = true" id="viewLeaderboard">View Tournament Leaderboard</button>
+        
+            <div>
+                <div v-if="popUp" class="popUp">
+                    <div class="popUpData">
+                        <span class="close" @click.self="closePopUp">&times;</span>
+                        <h3>Leaderboard</h3>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti quia consectetur excepturi sapiente aliquid pariatur vitae blanditiis exercitationem. Voluptate saepe blanditiis, voluptatem nam excepturi ad tempore tenetur reprehenderit nostrum eum.</p>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti quia consectetur excepturi sapiente aliquid pariatur vitae blanditiis exercitationem. Voluptate saepe blanditiis, voluptatem nam excepturi ad tempore tenetur reprehenderit nostrum eum.</p>
+                        <button @click="closePopUp">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <p>--------------------------------------------</p>
     </div>
 </template>
