@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.BracketDto;
+import com.techelevator.model.LoadingBracketData;
 import com.techelevator.model.MatchDto;
 import com.techelevator.model.ScoreDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,12 +92,46 @@ public class JdbcTeamBracketDao implements TeamBracketDao{
 
     @Override
     public boolean saveScore(ScoreDto scores, int tourneyId) {
-        String sql = "UPDATE tourney_matches SET team_1_score = ?, team_2_score = ? " +
+        String sql = "UPDATE tourney_matches SET team_1_score = ?, team_2_score = ?, set_winner = ? " +
                 "WHERE tourney_id = ?, team_1_id = ?, team_2_id = ?";
-        template.update(sql,scores.getTeam1Score(), scores.getTeam2Score(),
-                tourneyId, teamDao.getTeamByTeamName(scores.getTeam1Name()).getTeamId(),
-                teamDao.getTeamByTeamName(scores.getTeam2Name()).getTeamId());
+        String loserSql = "UPDATE team_tourney SET eliminated = TRUE WHERE team_id = ?";
+        if(scores.getTeam1Score() > scores.getTeam2Score()) {
+            template.update(sql, scores.getTeam1Score(), scores.getTeam2Score(),
+                    teamDao.getTeamByTeamName(scores.getTeam1Name()).getTeamId(),
+                    tourneyId, teamDao.getTeamByTeamName(scores.getTeam1Name()).getTeamId(),
+                    teamDao.getTeamByTeamName(scores.getTeam2Name()).getTeamId());
+            template.update(loserSql, teamDao.getTeamByTeamName(scores.getTeam2Name()).getTeamId());
+        }else{
+            template.update(sql, scores.getTeam1Score(), scores.getTeam2Score(),
+                    teamDao.getTeamByTeamName(scores.getTeam2Name()).getTeamId(),
+                    tourneyId, teamDao.getTeamByTeamName(scores.getTeam1Name()).getTeamId(),
+                    teamDao.getTeamByTeamName(scores.getTeam2Name()).getTeamId());
+            template.update(loserSql, teamDao.getTeamByTeamName(scores.getTeam1Name()).getTeamId());
+        }
         return true;
+    }
+
+
+    public List<LoadingBracketData> getTourneyMatches(int tourneyId){
+        List<LoadingBracketData> brackets = new ArrayList<>();
+        String sql = "SELECT team_1_id, team_2_id, team_1_points, team_2_points, seat, round " +
+                "FROM tourney_matches WHERE tourney_id = ?";
+        SqlRowSet rowSet = template.queryForRowSet(sql,tourneyId);
+        while(rowSet.next()){
+            brackets.add(mapToBracketData(rowSet));
+        }
+        return brackets;
+    }
+
+    private LoadingBracketData mapToBracketData(SqlRowSet rowSet){
+        LoadingBracketData data = new LoadingBracketData();
+        data.setTeam1Name(teamDao.getTeamById(rowSet.getInt("team_1_id")).getTeamName());
+        data.setTeam2Name(teamDao.getTeamById(rowSet.getInt("team_2_id")).getTeamName());
+        data.setTeam1Score(rowSet.getInt("team_1_points"));
+        data.setTeam2Score(rowSet.getInt("team_2_points"));
+        data.setRound(rowSet.getInt("round"));
+        data.setSeat(rowSet.getInt("seat"));
+        return data;
     }
 
     private int getWinnerId(int matchNumber, int roundNumber, int tourneyId){
