@@ -12,7 +12,7 @@ import TeamDetailView from '../views/TeamDetailView.vue';
 import TournamentDetailsView from '../views/TournamentDetailsView.vue';
 import EditTournamentView from '../views/EditTournamentView.vue';
 import BuildBracket from '../components/BuildBracket.vue';
-
+import MyTourneyList from '../components/MyTourneyList.vue';
 // I understand that this should probably be a View in views but its just 
 //easier for demo purposes to do this
 import EditTeam from '../components/EditTeam.vue';
@@ -70,6 +70,12 @@ const routes = [
     component: TournamentView,
   },
   {
+    path: "/my-tournaments",
+    name: "MyTourneyList",
+    component: MyTourneyList, 
+      
+  },
+  {
     path: "/tournaments/:id",
     name: "tournamentDetails",
     component: TournamentDetailsView,
@@ -120,6 +126,8 @@ const router = createRouter({
 
 router.beforeEach((to) => {
 
+  
+
   // Get the Vuex store
   const store = useStore();
 
@@ -132,5 +140,6 @@ router.beforeEach((to) => {
   }
   // Otherwise, do nothing and they'll go to their next destination
 });
+
 
 export default router;
