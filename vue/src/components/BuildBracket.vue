@@ -45,6 +45,7 @@ import TeamService from '../services/TeamService.js';
 import Match from './Match.vue';
 import { mapState, mapActions } from 'vuex';
 import { createStore } from '../store/index.js';
+import BracketService from '../services/BracketService.js';
 const store = createStore();
 
 export default {
@@ -89,30 +90,14 @@ export default {
             for (let i = 0; i < this.bracketsPerRound.length; i++) {
                 for (let j = 0; j < this.bracketsPerRound[i]; j++) {
                     let boxId = 'round-' + i + '-seat-' + j;
-                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: Number });
+                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: -1, round: 0 });
                 }
             }
         },
         ...mapActions(['setAuthToken', 'setUser', 'setBrackets']),
 
         handleSaveBracket() {
-            console.log('Handle Save Bracket called. Bracket Data:', this.bracketData);
-
-            // Dispatch actions to save token and user if they exist
-            const token = localStorage.getItem('token');
-            const user = JSON.parse(localStorage.getItem('user'));
-
-            if (token) {
-                this.setAuthToken(token);
-            }
-
-            if (user) {
-                this.setUser(user);
-            }
-
-            // Now save the bracket data
-            this.setBrackets({ numberOfTeams: this.numTeams });
-
+            
         },
     },
     watch: {

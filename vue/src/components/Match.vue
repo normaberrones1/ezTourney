@@ -28,6 +28,17 @@ export default {
     },
     created() {
         this.matchIndex = this.$store.getters.getTeamIndex;
+        let team = {
+            storeIndex: '',
+            round: ''
+        };
+        team.round=this.roundNum;
+        team.storeIndex=this.matchIndex;
+        this.$store.commit("SET_MATCH_ROUND", team);
+        if(this.numOfTeams==2){
+        team.storeIndex=this.matchIndex+1;
+        this.$store.commit("SET_MATCH_ROUND", team);
+        }
     },
 
     components: { TeamSelector }

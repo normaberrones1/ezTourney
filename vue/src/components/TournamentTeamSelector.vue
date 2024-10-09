@@ -12,7 +12,7 @@
             <label for="score" class="scoreLabel">Score: </label>
             <input type="number" id="score" class="scoreInput" v-model="score" @input="onScoreChange">
         </div>
-        {{teamBracketData.score}}
+        <span v-if="teamBracketData.score != -1"> {{teamBracketData.score}} </span>
     </div>
 </template>
 
