@@ -68,7 +68,7 @@ export function createStore(currentToken, currentUser) {
         state.bracketData[team.storeIndex].seat = team.seat;
       },
       SET_INDEX(state, index){
-        state.bracketData[index].index = index;
+        state.bracketData[index].index = index
       }
     },
     actions: {
@@ -99,7 +99,7 @@ export function createStore(currentToken, currentUser) {
       },
       getBracketData(state){
         return state.bracketData;
-      }
+      },
     },
   });
   return store;

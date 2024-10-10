@@ -73,10 +73,12 @@ public class JdbcTeamBracketDao implements TeamBracketDao{
             totalMatches = totalMatches - 2;
         }
 
+        System.out.println(round);
+        System.out.println(setMatchId);
         if(totalMatches == 1){
             int byeTeamId = getWinnerId(findMatchId, round, tourneyId);
             String nextRoundSql = "INSERT INTO tourney_matches (tourney_id, team_1_id, team_2_id, team_1_points, team_2_points, round, seat) " +
-                    "VALUES (?,?,?,0,0,?,?)";
+                    "VALUES (?,?,?,0,0,?,?);";
             template.update(nextRoundSql, tourneyId, byeTeamId, byeTeamId, round+1, setMatchId++);
         }
 
@@ -87,6 +89,10 @@ public class JdbcTeamBracketDao implements TeamBracketDao{
         while(resultRowSet.next()){
             matchupList.add(mapRowToMatchDto(resultRowSet));
         }
+
+        String updateTourney = "UPDATE tournament SET round = ? WHERE tourney_id = ?";
+        template.update(updateTourney, round+1, tourneyId);
+
         return matchupList;
     }
 
@@ -115,7 +121,8 @@ public class JdbcTeamBracketDao implements TeamBracketDao{
     public List<LoadingBracketData> getTourneyMatches(int tourneyId){
         List<LoadingBracketData> brackets = new ArrayList<>();
         String sql = "SELECT team_1_id, team_2_id, team_1_points, team_2_points, seat, round " +
-                "FROM tourney_matches WHERE tourney_id = ?";
+                "FROM tourney_matches WHERE tourney_id = ? " +
+                "ORDER BY round, seat";
         SqlRowSet rowSet = template.queryForRowSet(sql,tourneyId);
         while(rowSet.next()){
             brackets.add(mapToBracketData(rowSet));
@@ -139,11 +146,11 @@ public class JdbcTeamBracketDao implements TeamBracketDao{
         String sql = "SELECT set_winner FROM tourney_matches WHERE tourney_id = ? AND " +
                 "round = ? AND seat = ?";
         SqlRowSet rowSet = template.queryForRowSet(sql, tourneyId, roundNumber, matchNumber);
-        if(rowSet.next()){
+        if(rowSet.next() && (Integer.valueOf(rowSet.getInt("set_winner")) != null)){
             winnerId= rowSet.getInt("set_winner");
         }
         if(winnerId==0){
-            String sql2 = "SELECT team_1_id FROM tourney_matches WHERE tourney_id =? " +
+            String sql2 = "SELECT team_1_id FROM tourney_matches WHERE tourney_id = ? " +
                     "AND round = ? AND seat = ?";
             SqlRowSet rowSet1 = template.queryForRowSet(sql2, tourneyId, roundNumber, matchNumber);
             if(rowSet1.next()){
