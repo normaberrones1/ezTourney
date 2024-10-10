@@ -12,7 +12,7 @@
       <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
 
 
-      <router-link v-bind:to="{ name: 'tournament' }">Tournaments</router-link>
+      <router-link v-bind:to="{ name: 'myTournament' }">Tournaments</router-link>
       <span v-if="!this.$store.state.token != ''"></span>        
       <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
 
@@ -44,6 +44,17 @@
 </template>
 
 <style>
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:active,
+a:focus {
+  color: inherit;
+}
+
 #nav {
   background-color: #58deff;
   color: rgb(81, 0, 212);

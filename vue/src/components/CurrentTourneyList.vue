@@ -6,10 +6,20 @@
             
         <div class="tourneyDiv">
             <div class="navMy" v-if="isAuthenticated">
-                <router-link to="/my-tournaments" id="my-tournaments">My Tournaments</router-link>
+                <router-link to="/my-tournaments" id="my-tournaments">Back to My Tournaments</router-link>
+            
+                <div id="tourneyForm" v-if="isAuthenticated">
+            <TourneyForm></TourneyForm>
+        </div>
 
+        <div v-else>
+            <router-link to="/login" id="home-login-tourney">Log in to create a tournament!</router-link>
+        </div>
+            
+            
             </div>
     
+        <div>
             <h1 id="tournaments-title">TOURNAMENTS</h1>
             <h2 id="click-tourney">Click a tournament to view details!</h2>
            
@@ -36,33 +46,24 @@
 
                     <option value="all">All</option>
                 </select>
-            
             </div>
-            
-            
-            </div>
+        </div>
 
 
-
+        <div class="tournament-list">
             <router-link class="tourney-link" v-for="tourney in filteredTournaments" :key="tourney.tourneyId"
                 v-bind:to="{ name: 'tournamentDetails', params: { id: tourney.tourneyId } }">
                 <TournamentCard id="tourney-list" v-bind:tourney="tourney" />
             </router-link>
-        
+        </div>
 
 
         </div>
 
         
 
-        <div id="tourneyForm" v-if="isAuthenticated">
-            <TourneyForm></TourneyForm>
-        </div>
 
-        <div v-else>
-            <router-link to="/login" id="home-login-tourney">Log in to create a tournament!</router-link>
-        </div>
-
+    </div>    
 </div>
 
     </div>
@@ -154,124 +155,75 @@ export default {
 
 <style>
 
-.searchBy {
-    justify-content: center;
-    width: 100%;    
-}
-
-#home-login-tourney {
-    display: flex;
-    justify-content: center;
-    font-size: 1.5em;
-    color: #6ce7fd;
-    text-decoration: none;
+.tourneyDiv {
     background-color: rgba(255, 255, 255, 0.6);
-    padding: 10px;
     border-radius: 10px;
-    margin-left: 10%;
-}
+    margin-right: 20px;
+    display: grid;
 
-.navMy {
-}
-
-#all-tournaments {
-    font-size: 17px;
-    color: #790a79;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: bold;
-    margin-left: -550px;
-}
-
-
-
-#select-filter {
-
-}
-
-#search-bar {
-
-}
-
-
-h1 {
-    text-align: center;
-    color: #58deff;
 }
 
 #tournament-container {
+    margin-left: 20px;
+    display: flex;
+    align-items: flex-start;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+
+#tourneyForm {
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex: 1;
+}
+
+#my-tournaments {
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    flex: 1;
+    margin-bottom: 30px;
+    
+}
+
+.searchBy {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    
-}
-
-#tourneyForm {
-    display: flex;
-    justify-content: center;
-    flex: 300px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
 }
 
 
-.tourneyDiv {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.6);
-    padding: 25px;
-    border-radius: 10px;
-    justify-content: center;
-    
-    width: 95%;
-    height: auto;
-    
-}
-
-#tournaments-title {
+#search-bar {
+    width: 300px;
     text-align: center;
-    margin-top: 2%;
-    font-size: 2em;
-    color: #000000;
-    margin-left: 25%;
-    margin-right: 25%;
-    width: 100%;
-
-}
-
-#click-tourney {
-    margin-top: 0.1%;
-    margin-bottom: 2%;
-    font-size: 1.5em;
-    color: #0502c2;
-    width: 100%;
-    font-weight: bold;
     
-}
-
-#tourney-list {
-    margin-bottom: 20px;
-    margin:35px;
-    
-}
-
-.tourney-link {
-    text-decoration: none;
-    margin-bottom: 20px;
 }
 
 .home-image {
     display: flex;
     justify-content: center;
-    width: 100%;
-    height: auto;
+    margin-bottom: 30px;
+    height: 240px;
 }
 
-.home-image img {
-    width: 250px;
-    height: auto;
-    border-radius: 10px;
+.tournament-list {
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+
 }
+
+
 
 
 

@@ -131,36 +131,30 @@ export default {
 </script>
 
 <style>
-#tourney-form-title {
-    margin-bottom: 20px;
-    color: #000000
-}
-
 .tourney-form {
-    position: relative;
-    width: 50%;
-    text-align: center;
-    padding: 40px;
-    border: 1px solid rgb(124, 124, 124);
+    padding: 70px;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.6);
     color: #000000;
     font-weight: bold;
-    margin-bottom: 20px;
-}
-
-form {
+    margin-right: 70px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    
     
 }
 
 label,
 input {
-    width: 100%;
+    display: block;
     margin-bottom: 10px;
+    max-width: 400px;
+    box-sizing: border-box;
+    
+    
 }
+
+
 
 #form-submit {
     font-size: 17px;
@@ -169,6 +163,10 @@ input {
     cursor: pointer;
 }
 
+#tourney-form-title {
+    margin-bottom: 20px;
+    color: #000000;
+}
 
 #tourney-name {
     margin-bottom: 20px;
