@@ -69,7 +69,7 @@ export default {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    height: 100vh;
+    height: 115vh;
     width: 100vw;
     display: flex;
     
@@ -120,7 +120,7 @@ export default {
     width: 90px;
     height: 90px;
     margin-left: 50px;
-    margin-top: -725px;
+    margin-top: -1005px;
     justify-content: flex-end;
     
     
@@ -139,6 +139,7 @@ export default {
     background-color: rgba(255, 255, 255, 0.6);
     padding: 10px;
     border: 15px double #790a79;
+    box-shadow: 0 0 10px 5px #790a79;
     border-radius: 10px;
     color: #000000;
     margin-left: 27%;
@@ -146,10 +147,11 @@ export default {
 
   #welcome-title {
     margin-top: 2%;
-    margin-bottom: 7%;
+    margin-bottom: 5%;
     font-size: 35px;
     color: #000000;
     border-radius: 10px;
+    
   }
 
 

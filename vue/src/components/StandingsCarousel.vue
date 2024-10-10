@@ -31,7 +31,7 @@ export default {
       this.resetAutoSlide();
     },
     next() {
-      this.currentSlide = (this.currentSlide === this.images.length - 1) ? 0 : this.currentSlide + 1;
+      this.currentSlide = (this.currentSlide === this.images.length + 1) % this.images.length;
       this.resetAutoSlide();
     },
     autoSlide() {
@@ -46,7 +46,7 @@ export default {
     },
 
     startAutoSlide() {
-      this.interval = setInterval(this.autoSlide, 5000);
+      this.interval = setInterval(this.autoSlide, 3000);
     },
 
     stopAutoSlide() {
@@ -97,7 +97,7 @@ export default {
 }
 
 .slides{
-
+  display: none;
   animation: slide 1s;
 }
 
@@ -108,21 +108,24 @@ export default {
 
 .slides img {
   
-  width: 100%;
-  height: 100%;
+  width: 600px;
+  height: 500px;
   object-fit: cover;
   animation-fill-mode: forwards;
   animation-delay: 0s;
   border-radius: 10px;
   box-shadow: 0 0 10px 5px #790a79;
-  border: 5px solid #790a79;
+  border: 15px double #790a79;
   margin: 10px;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.6);
+  
   margin-right: 20px;
 }
 
-
+.slides img:hover{
+  transition: transform 0.2s;
+}
 
   .carousel-controls {
     justify-content: center;
@@ -139,6 +142,20 @@ export default {
     color: #790a79;
   
   }
+
+  button:hover {
+    color: #58deff;
+  }
+
+  @keyframes slide {
+    0% {
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+  }
+
 
   
 
