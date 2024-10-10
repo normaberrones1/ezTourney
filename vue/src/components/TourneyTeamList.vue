@@ -77,7 +77,6 @@ export default {
     color: #010708;  
 }
 #team-container {
-    color:rgb(33, 30, 219);
     text-align: center;
     margin-top: 2em;
     padding: auto;
