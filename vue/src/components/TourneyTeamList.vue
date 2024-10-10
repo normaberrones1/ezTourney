@@ -77,11 +77,10 @@ export default {
     color: #010708;  
 }
 #team-container {
-    color:white;
+    color:rgb(33, 30, 219);
     text-align: center;
     margin-top: 2em;
     padding: auto;
-    border: 1px solid rgb(124, 124, 124);
     background-color: rgba(255, 255, 255, 0.5);
 }
 #team-table {
@@ -97,15 +96,13 @@ export default {
 }
 
 #team-table th {
-    background-color: rgb(67, 123, 244);
+    background-color: rgb(255, 255, 255);
     font-weight: bold;
     font-size: 1.5em;
-    border: 1px solid rgb(124, 124, 124);
 }
 
 #team-table td {
     font-size: 20px;
-    border: 1px solid rgb(124, 124, 124);
 }
 .acceptBtn {
     background-color:rgba(255, 255, 255, 0.6);

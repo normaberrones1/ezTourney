@@ -42,7 +42,9 @@
         </div>
         <div class="tourneyJoinReq" >
             <div  v-if="!tournament.singlesEvent">
-                <label for="teamsList">Which of your teams should join?</label>
+                <div class="choose-team-joining">
+                <label  for="teamsList">Which of your teams should join this tournament?</label>
+                </div>
                 <br/>
                 <select id="selectTeam" v-model="teamChoice" required>
                     <option value="" disabled selected>Select your team</option>
@@ -218,13 +220,22 @@ export default {
 }
 
 #selectTeam{
-    width: 40%;
-    margin: 10px;
+    width: 30%;
     border: 1px solid rgb(124, 124, 124);
     text-align: center;
-    height: 30px;
+    height: 25px;
     border-radius: 10px;
 }
+
+.choose-team-joining{
+    position: reltive;
+    text-align: center;
+    margin-left: 30%;
+    margin-right: 30%;
+    
+    font-weight: bold;
+}
+
 
 </style>
 
