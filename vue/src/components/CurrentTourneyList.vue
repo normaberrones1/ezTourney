@@ -5,7 +5,7 @@
             
             
         <div class="tourneyDiv">
-            <div class="navMy">
+            <div class="navMy" v-if="isAuthenticated">
                 <router-link to="/my-tournaments" id="my-tournaments">My Tournaments</router-link>
 
             </div>

@@ -9,7 +9,7 @@
                 <router-link to="/tournaments" id="my-tournaments">View Tournaments</router-link>
             </div>
     
-            <h1 id="tournaments-title">MY TOURNAMENTS</h1>
+            <h1 v-if="isAuthenticated" id="tournaments-title">MY TOURNAMENTS</h1>
             <h2 id="click-tourney">Click a tournament to view details!</h2>
            
             <div class="home-image">

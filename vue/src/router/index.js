@@ -73,7 +73,7 @@ const routes = [
     path: "/my-tournaments",
     name: "MyTourneyList",
     component: MyTourneyList, 
-      
+
   },
   {
     path: "/tournaments/:id",
