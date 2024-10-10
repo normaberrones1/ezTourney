@@ -4,11 +4,8 @@
         <div class="bracketBuilderTitle">
             <h1>Bracket Builder</h1>
         </div>
-        <div class="saveBtn">
-            <button @click="handleSaveBracket()" id="saveBtn">Save Bracket</button>
-        </div>
 
-        <div class="nextRoundBtn">
+        <div class="nextRoundBtn" v-if="!showBracketButton">
             <button @click="moveToNextRound">Next Round!</button>
         </div>
 
@@ -35,7 +32,6 @@
                 <!-- Add a match div for every two teams -->
                 <div v-for="matchIndex in Math.ceil(numItems / 2)" :key="'match-' + round + '-' + matchIndex"
                     class="match" :id="'round-' + round + '-match-' + matchIndex">
-                    Teams Remaining: {{ numItems }}
                     <Match :numTeams="numTeams" v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems"
                         v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
                 matchIndex === Math.ceil(numItems / 2) ? 1 : 2" v-bind:matchNumber="matchIndex"
@@ -89,16 +85,16 @@ export default {
                 filteredBrackets.forEach((item) => {
                     let team = {
                         storeIndex: '',
-                        selectedTeam:''
+                        selectedTeam: '',
                     }
                     team.storeIndex = item.index;
-                    if(teamChoice === 1){
+                    if (teamChoice === 1) {
                         console.log(index);
                         console.log(tourneyData[index].team1Name);
                         team.selectedTeam = tourneyData[index].team1Name;
                         teamChoice = 2;
                         this.$store.commit('SET_TEAM_NAME', team)
-                    }else{
+                    } else {
                         console.log(index);
                         console.log(tourneyData[index].team2Name);
                         team.selectedTeam = tourneyData[index].team2Name;
@@ -136,8 +132,8 @@ export default {
             }
 
             let loadedData = [];
-            BracketService.getBracketData(this.$route.params.id).then((response)=> {
-            
+            BracketService.getBracketData(this.$route.params.id).then((response) => {
+
                 response.data.forEach((item) => {
                     loadedData.push(item);
                 });
@@ -152,27 +148,39 @@ export default {
                 storeData.forEach((bracket) => {
                     console.log(bracket.index)
                     let team = {
-                        selectedTeam:'',
-                        storeIndex:'',
+                        selectedTeam: '',
+                        storeIndex: '',
+                        score: '',
                     }
                     team.storeIndex = bracket.index;
                     console.log(team);
-                    if(tick===1){
+                    if (tick === 1) {
                         team.selectedTeam = loadedData[index].team1Name;
+                        if (loadedData[index].team1Score) {
+                            team.score = loadedData[index].team1Score;
+                            this.$store.commit('SET_TEAM_SCORE', team);
+                        }
                         console.log(team);
                         this.$store.commit('SET_TEAM_NAME', team);
-                        tick=2;
-                    }else{
-                        team.selectedTeam = loadedData[index].team2Name;
-                        console.log(team);
-                        this.$store.commit('SET_TEAM_NAME', team);
-                        tick=1;
-                        index++;
+                        tick = 2;
+                    } else {
+                        if (loadedData[index].team1Name !== loadedData[index].team2Name) {
+                            team.selectedTeam = loadedData[index].team2Name;
+                            if (loadedData[index].team2Score) {
+                                team.score = loadedData[index].team2Score;
+                                this.$store.commit('SET_TEAM_SCORE', team);
+                            }
+                            console.log(team);
+                            this.$store.commit('SET_TEAM_NAME', team);
+
+                            tick = 1;
+                            index++;
+                        }
                     }
                 });
                 //maybe more here
             });
-
+            this.showBracketButton = false;
 
         },
         ...mapActions(['setAuthToken', 'setUser', 'setBrackets']),
@@ -187,6 +195,7 @@ export default {
             })
             BracketService.createRoundOne(this.$route.params.id, teamsList);
         },
+
     },
     watch: {
         bracketData(newValue) {
@@ -207,7 +216,8 @@ export default {
                 return Math.ceil(this.numTeams / (currentRound * 2))
 
             }
-        }
+        },
+
     },
 
 }

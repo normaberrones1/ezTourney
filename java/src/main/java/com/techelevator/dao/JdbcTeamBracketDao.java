@@ -120,7 +120,7 @@ public class JdbcTeamBracketDao implements TeamBracketDao{
 
     public List<LoadingBracketData> getTourneyMatches(int tourneyId){
         List<LoadingBracketData> brackets = new ArrayList<>();
-        String sql = "SELECT team_1_id, team_2_id, team_1_points, team_2_points, seat, round " +
+        String sql = "SELECT * " +
                 "FROM tourney_matches WHERE tourney_id = ? " +
                 "ORDER BY round, seat";
         SqlRowSet rowSet = template.queryForRowSet(sql,tourneyId);
