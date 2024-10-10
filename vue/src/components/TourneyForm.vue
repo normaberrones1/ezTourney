@@ -1,7 +1,7 @@
 <template>
     <div class="tourney-form">
 
-        <form v-on:submit="submitTourney()">
+        <form v-on:submit="() => submitTourney()">
             <h1 id="tourney-form-title">Create Tournament</h1>
 
             <div>

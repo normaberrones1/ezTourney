@@ -228,11 +228,9 @@ export default {
 }
 
 .choose-team-joining{
-    position: reltive;
+    position: relative;
     text-align: center;
-    margin-left: 30%;
-    margin-right: 30%;
-    
+    margin-left: 38%;
     font-weight: bold;
 }
 
