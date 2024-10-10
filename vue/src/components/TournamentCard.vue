@@ -10,22 +10,16 @@
         <p>--------------------------------------------</p>
     </div>
 </template>
-
 <script>
 import TourneyService from '../services/TourneyService';
-
 export default {
-
     data() {
         return {
             localTourney: null,
             directorNames: ''
-        };    
-           
-    },    
-
+        };
+    },
     props: ["tourney"],
-
     created() {
         TourneyService.getCurrentTournaments().then((response) => {
             this.localTourney = response.data;
@@ -34,21 +28,14 @@ export default {
             const directors  = response.data;
             this.directorNames = directors.map(director => director.username).join(', ');
         });
-
     },
 }
 </script>
 
 <style>
 .tourneyCardContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
 
-    grid-area: tournaments;
-
+    align-content: center;
 }
 
 #tourney-title-card {

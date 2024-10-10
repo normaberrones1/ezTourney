@@ -6,44 +6,48 @@
 
         <div class="tourneyDiv">
             <div class="navMy">
-                <router-link to="/tournaments" id="all-tournaments">View Tournaments</router-link>
-            </div>
-    
-            <h1 v-if="isAuthenticated" id="tournaments-title">MY TOURNAMENTS</h1>
-            <h2 id="click-tourney">Click a tournament to view details!</h2>
-           
-            <div class="home-image">
-                <img src="/public/trophy.jpg" alt="trophy">
-            </div>
-
-
-            <div class="searchMineBy">
-            <input 
-                id="search-bar" type="text" 
-                v-model="searchTerm" placeholder="Search Tournaments"
-            />
-
-
-
-
-            <div id="tourney-filter">
-                <label for="select-filter"></label>
-                <select id="select-filter" v-model="currentFilter" @change="fetchDirectorFilteredTournaments">
-
-
-                    <option value="my-current">Current Tournaments</option>
-
-                    <option value="my-upcoming">Upcoming Tournaments</option>
-
-                    <option value="my-past">Past Tournaments</option>
-
-                    <option value="my-all">All</option>
-                </select>
+                <router-link to="/all-tournaments" id="all-tournaments"> Back to View All Tournaments</router-link>
             
+                <div id="tourneyForm" v-if="isAuthenticated">
+            <TourneyForm></TourneyForm>
+        </div>
+
+        <div v-else>
+            <router-link to="/login" id="home-login-tourney">Log in to create a tournament!</router-link>
+        </div>
             
             
             </div>
-            </div>
+
+            <div v-if="isAuthenticated">
+                <h1 id="tournaments-title">MY TOURNAMENTS</h1>
+                <h2 id="click-tourney">Click a tournament to view details!</h2>
+            
+                <div class="home-image">
+                    <img src="/public/trophy.jpg" alt="trophy">
+                </div>
+
+                <div class="searchMineBy">
+                <input 
+                    id="search-bar" type="text" 
+                    v-model="searchTerm" placeholder="Search Tournaments"
+                />
+
+                <div id="tourney-filter">
+                        <label for="select-filter"></label>
+                        <select id="select-filter" v-model="currentFilter" @change="fetchDirectorFilteredTournaments">
+
+
+                            <option value="my-current">Current Tournaments</option>
+
+                            <option value="my-upcoming">Upcoming Tournaments</option>
+
+                            <option value="my-past">Past Tournaments</option>
+
+                            <option value="my-all">All</option>
+                        </select>
+                    </div>
+                </div>
 
 
 
@@ -51,24 +55,15 @@
                 v-bind:to="{ name: 'tournamentDetails', params: { id: tourney.tourneyId } }">
                 <TournamentCard id="tourney-list" v-bind:tourney="tourney" />
             </router-link>
-        
-
-
         </div>
 
 
-        <div id="tourneyForm" v-if="isAuthenticated">
-            <TourneyForm></TourneyForm>
-        </div>
 
-        <div v-else>
-            <router-link to="/login" id="home-login-tourney">Log in to create a tournament!</router-link>
-        </div>
 
 </div>
 
     </div>
-
+</div>
 
 </template>
 
@@ -156,135 +151,61 @@ export default  {
 </script>
 
 <style>
-
-
-.searchMineBy {
-    justify-content: center;
-    width: 100%;    
-}
-
-#my-tournaments {
-    font-size: 17px;
-    color: #790a79;
-    text-decoration: none;
-    font-weight: bold;
-    margin-left: -550px;
-    
-}
-
-#home-login-tourney {
-    display: flex;
-    justify-content: center;
-    font-size: 1.5em;
-    color: #6ce7fd;
-    text-decoration: none;
+.tourneyDiv {
     background-color: rgba(255, 255, 255, 0.6);
-    padding: 10px;
     border-radius: 10px;
-    margin-left: 10%;
-}
-
-
-
-
-#select-filter {
-    position: relative;
-    width: 40%;
-    height: 15%;
-    border-radius: 5px;
-    border: 1px solid rgb(124, 124, 124);
-    text-align: center;
-    cursor: pointer;
-}
-
-#search-bar {
-    position: relative;
-    justify-content: center;
-    cursor: pointer;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    width: 39%;
-    height: 15px;
-    border-radius: 5px;
-    border: 1px solid rgb(124, 124, 124);
-    text-align: center;
-}
-
-
-h1 {
-    text-align: center;
-    color: #58deff;
+    margin-right: 20px;
+    padding: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex: 1;
 }
 
 #tournament-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-areas:
-        "tourney tourney tourney tourneyForm"
-        "tourney tourney tourney tourneyForm";
-    margin-left: 32px;
-    margin-right: 15px;
-    
+    margin-left: 20px;
+    display: flex;
+    align-items: flex-start;
 }
 
 #tourneyForm {
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
     display: flex;
-    justify-content: center;
-    margin-top: 5px;
-
+    flex: 1;
 }
 
-
-.tourneyDiv {
-    grid-area: tourney;
-    background-color: rgba(255, 255, 255, 0.6);
-    padding: 25px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    justify-content: center;
-    height: 100%;
-    margin-top: 80px;
-    
-}
-
-#tournaments-title {
-    margin-top: 2%;
-    font-size: 2em;
-    color: #000000;
-    border-radius: 10px;
-
-}
-
-#click-tourney {
-    margin-top: 0.1%;
-    margin-bottom: 2%;
-    font-size: 1.5em;
-    text-align: center;
-
-    color: #0502c2;
-    
-}
-
-#tourney-list {
-    margin-bottom: 20px;
-}
-
-.tourney-link {
+#all-tournaments {
     text-decoration: none;
-    text-align: center;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    flex: 1;
+    margin-bottom: 30px;
+
 }
 
 .home-image {
     display: flex;
     justify-content: center;
-    width: 100%;
-    height: auto;
+    margin-bottom: 30px;
+    height: 240px;
 }
 
-.home-image img {
-    width: 250px;
-    height: auto;
-    border-radius: 10px;
+.searchMineBy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+#search-bar {
+    width: 300px;
+    text-align: center;
+    
 }
 
 
