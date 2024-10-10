@@ -1,9 +1,9 @@
 <template>
-    <h2 class="matchTitle">Match {{ matchNumber }}</h2>
+    <h2 class="matchTitle"></h2>
     <TeamSelector v-if="!isFinalRound" v-bind:roundNum="roundNum" v-bind:teams="teams" v-for="number in numOfTeams"
-        :key="number"></TeamSelector>
-        <button v-if="numOfTeams == 2" v-on:click="saveScores">Save Scores</button>
-    <TeamSelector v-if="isFinalRound" v-bind:roundNum="roundNum"></TeamSelector>
+        :key="number" v-bind:showScoreBtn="showSaveScoreBtn" v-bind:clickedScoreBtn="clickedSaveScore"></TeamSelector>
+    <button v-if="showSaveScoreBtn" v-on:click="saveScores" class="saveBtn">Save Scores</button>
+    <TeamSelector v-if="isFinalRound" v-bind:roundNum="roundNum" v-bind:showScoreBtn="false"></TeamSelector>
 </template>
 
 <script>
@@ -14,6 +14,8 @@ export default {
     data() {
         return {
             matchIndex: Number,
+            clickedSaveScore: false,
+            showSaveScoreBtn: true,
         }
     },
     props: {
@@ -23,10 +25,10 @@ export default {
         isFinalRound: Boolean,
         matchNumber: Number,
         roundNum: Number,
-
+        gotLoadedPromise: Boolean,
     },
     methods: {
-        saveScores(){
+        saveScores() {
             let brackets = this.$store.getters.getBracketData;
             let scoresDto = {
                 team1Name: '',
@@ -36,7 +38,7 @@ export default {
             }
             let teams1And2 = [];
             brackets.forEach((item) => {
-                if(item.round == this.roundNum+1 && item.seat == this.matchNumber){
+                if (item.round == this.roundNum + 1 && item.seat == this.matchNumber) {
                     teams1And2.push(item);
                     console.log(item);
                 }
@@ -46,7 +48,8 @@ export default {
             scoresDto.team2Name = teams1And2[1].teamName;
             scoresDto.team2Score = teams1And2[1].score;
             console.log(scoresDto);
-            BracketService.saveScore(this.$route.params.id, scoresDto)
+            BracketService.saveScore(this.$route.params.id, scoresDto);
+            this.clickedSaveScore = true;
         }
     },
     created() {
@@ -56,21 +59,48 @@ export default {
             round: '',
             seat: '',
         };
-        team.round=this.roundNum+1;
-        team.storeIndex=this.matchIndex;
+        team.round = this.roundNum + 1;
+        team.storeIndex = this.matchIndex;
         team.seat = this.matchNumber;
         this.$store.commit("SET_MATCH_ROUND", team);
         this.$store.commit("SET_SEAT", team);
-        if(this.numOfTeams==2){
-        team.storeIndex=this.matchIndex+1;
-        this.$store.commit("SET_MATCH_ROUND", team);
-        this.$store.commit("SET_SEAT", team);
+        if (this.numOfTeams == 2) {
+            team.storeIndex = this.matchIndex + 1;
+            this.$store.commit("SET_MATCH_ROUND", team);
+            this.$store.commit("SET_SEAT", team);
+        }
+        if(this.numOfTeams == 1){
+            this.showSaveScoreBtn = false;
         }
     },
     computed: {
-
+    },
+    watch: {
+        gotLoadedPromise(){
+            if (this.$store.getters.getBracketData[this.matchIndex].score != -1 && this.$store.getters.getBracketData[this.matchIndex + 1].score != -1) {
+                    this.showSaveScoreBtn = false;
+                }
+        },
+        clickedSaveScore(newValue){
+            this.showSaveScoreBtn = false;
+        }
     },
 
     components: { TeamSelector }
 }
 </script>
+
+<style>
+.saveBtn {
+    background-color: purple;
+    color: white;
+    width: 120px;
+    height: 35px;
+    padding: 10px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px blue;
+    font-size: 16px;
+    white-space: nowrap;
+}
+</style>

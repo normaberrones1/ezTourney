@@ -1,23 +1,22 @@
 <template>
-    <div>
+    
     <div class="pageContainer">
+        <div class="form-container">
+            <form @submit.prevent="calculateRounds">
+
+                <div class="form-group">
+                    <label for="numTeams" class="titleCard"><strong>Number of Teams:</strong></label>
+                    <input type="number" id="numTeams" v-model="numTeams" min="2" max="64" required />
+                </div>
+
+                <div class="submitBtn">
+                    <button type="submit" id="createBracketBtn">Build Bracket</button>
+                </div>
+            </form>
         </div>
-        <form @submit.prevent="calculateRounds">
+        
 
-            <div class="form-group">
-                <label for="numTeams" class="titleCard"><strong>Number of Teams:</strong></label>
-                <input type="number" id="numTeams" v-model="numTeams" min="2" max="64" required />
-            </div>
-
-            <div class="submitBtn">
-                <button type="submit" id="createBracketBtn">Build Bracket</button>
-            </div>
-
-        </form>
-
-        <div class="brackets-title">
-
-        </div>
+        
         <div class="grid-container">
             <div class="grid-column">
                 <div v-for="(numItems, round) in bracketsPerRound" :key="'round-' + round" class="flex-column">
@@ -249,8 +248,8 @@ h1 {
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-bottom: 5px;
-    width: 60%;
-    height: 20%;
+    width: 80%;
+    height: 50%;
     display: flex;
     justify-content: space-evenly;
 }
@@ -277,18 +276,10 @@ h1 {
     border: 2px solid beige;
     background-color: royalblue;
     border-radius: 8px;
-    height: 80px;
+    height: 270px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.scoreContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 10px;
-    padding: 0px;
 }
 
 .scoreLabel {

@@ -59,7 +59,9 @@ export function createStore(currentToken, currentUser) {
         state.teamIndex++;
       },
       SET_TEAM_SCORE(state, team){
+        console.log(state.bracketData[team.storeIndex].score)
         state.bracketData[team.storeIndex].score = team.score;
+        console.log(state.bracketData[team.storeIndex].score)
       },
       SET_MATCH_ROUND(state, team){
         state.bracketData[team.storeIndex].round = team.round;
