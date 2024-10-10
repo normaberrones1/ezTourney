@@ -7,10 +7,16 @@
                 <option v-for="team in teams" :key="team.id" :value="team.teamName">{{ team.teamName }} </option>
             </select>
         </div>
-        {{this.$store.state.bracketData[storeIndex].teamName}}
-        <div>
-            <label for="score" class="scoreLabel">Score: </label>
-            <input type="number" id="score" class="scoreInput" v-model="score" @input="onScoreChange" >
+       
+        
+        <div class="teamScore">
+             <div class="teamSelect">
+                {{this.$store.state.bracketData[storeIndex].teamName}}
+            </div>
+            <div class="scoreItems">
+                <label for="score" class="scoreLabel">Score: </label>
+                <input type="number" id="score" class="scoreInput" v-model="score" @input="onScoreChange">
+            </div>
         </div>
         <span v-if="teamBracketData.score != -1"> {{teamBracketData.score}} </span>
     </div>
@@ -74,5 +80,10 @@ export default {
 #teamSelect {
     width: 100%;
 
+}
+
+.scoreItems {
+    display: flex;
+    align-items: center;
 }
 </style>

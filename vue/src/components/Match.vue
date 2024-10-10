@@ -3,6 +3,7 @@
     <TeamSelector v-if="!isFinalRound" v-bind:roundNum="roundNum" v-bind:teams="teams" v-for="number in numOfTeams"
         :key="number"></TeamSelector>
     <button v-if="showSaveScoreBtn" v-on:click="saveScores">Save Scores</button>
+        <button v-if="numOfTeams == 2" v-on:click="saveScores" class="saveBtn">Save Scores</button>
     <TeamSelector v-if="isFinalRound" v-bind:roundNum="roundNum"></TeamSelector>
 </template>
 
@@ -84,3 +85,18 @@ export default {
     components: { TeamSelector }
 }
 </script>
+
+<style>
+.saveBtn {
+    background-color: purple;
+    color: white;
+    width: 120px;
+    height: 35px;
+    padding: 10px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px blue;
+    font-size: 16px;
+    white-space: nowrap;
+}
+</style>
