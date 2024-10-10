@@ -174,12 +174,13 @@ export default {
 .navMy {
 }
 
-#my-tournaments {
+#all-tournaments {
     font-size: 17px;
     color: #790a79;
     text-decoration: none;
     border-radius: 10px;
     font-weight: bold;
+    margin-left: -550px;
 }
 
 

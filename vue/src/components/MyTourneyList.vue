@@ -6,7 +6,7 @@
 
         <div class="tourneyDiv">
             <div class="navMy">
-                <router-link to="/tournaments" id="my-tournaments">View Tournaments</router-link>
+                <router-link to="/tournaments" id="all-tournaments">View Tournaments</router-link>
             </div>
     
             <h1 v-if="isAuthenticated" id="tournaments-title">MY TOURNAMENTS</h1>
@@ -164,13 +164,12 @@ export default  {
 }
 
 #my-tournaments {
-    display: flex;
-    font-size: 1.5em;
-    color: #B130FC;
+    font-size: 17px;
+    color: #790a79;
     text-decoration: none;
-    background-color: rgb(243, 243, 243);
-    padding: 1px;
-    border-radius: 5px;
+    font-weight: bold;
+    margin-left: -550px;
+    
 }
 
 #home-login-tourney {
