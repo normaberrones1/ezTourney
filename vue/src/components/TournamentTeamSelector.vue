@@ -7,7 +7,7 @@
                 <option v-for="team in teams" :key="team.id" :value="team.teamName">{{ team.teamName }} </option>
             </select>
         </div>
-        {{teamBracketData.teamName}}
+        {{this.$store.state.bracketData[storeIndex].teamName}}
         <div>
             <label for="score" class="scoreLabel">Score: </label>
             <input type="number" id="score" class="scoreInput" v-model="score" @input="onScoreChange">
@@ -41,7 +41,6 @@ export default {
             team.storeIndex = this.storeIndex;
             team.score = this.score;
             this.$store.commit("SET_TEAM_SCORE", team);
-
         },
         onTeamChange() {
             // const selectedTeamData = this.teams.find(team => team.id === this.selectedTeam);
@@ -65,6 +64,8 @@ export default {
         this.storeIndex = this.$store.getters.getTeamIndex;
         this.$store.commit("SET_INDEX", this.storeIndex);
         this.$store.commit("ADD_1_TO_TEAM_INDEX");
+        this.selectedTeam = this.$store.state.bracketData[this.storeIndex].teamName;
+        this.score = this.$store.state.bracketData[this.storeIndex].score
     },
 }
 </script>

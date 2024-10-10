@@ -12,7 +12,7 @@
             <button @click="moveToNextRound">Next Round!</button>
         </div>
 
-        <form @submit.prevent="calculateRounds">
+        <form v-on:submit.prevent="calculateRounds">
 
             <!-- <div class="form-group">
                 <label for="numTeams" class="titleCard"><strong>Number of Teams:</strong></label>
@@ -20,7 +20,7 @@
             </div> -->
 
             <div class="submitBtn" v-if="showBracketButton">
-                <button type="submit" id="createBracketBtn">Show Bracket</button>
+                <button id="createBracketBtn">Show Bracket</button>
             </div>
 
         </form>
@@ -93,10 +93,14 @@ export default {
                     }
                     team.storeIndex = item.index;
                     if(teamChoice === 1){
+                        console.log(index);
+                        console.log(tourneyData[index].team1Name);
                         team.selectedTeam = tourneyData[index].team1Name;
                         teamChoice = 2;
                         this.$store.commit('SET_TEAM_NAME', team)
                     }else{
+                        console.log(index);
+                        console.log(tourneyData[index].team2Name);
                         team.selectedTeam = tourneyData[index].team2Name;
                         teamChoice = 1;
                         this.$store.commit('SET_TEAM_NAME', team)
@@ -127,9 +131,49 @@ export default {
             for (let i = 0; i < this.bracketsPerRound.length; i++) {
                 for (let j = 0; j < this.bracketsPerRound[i]; j++) {
                     let boxId = 'round-' + i + '-seat-' + j;
-                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: -1, round: 0, seat: 0, arrayIndex: 0, });
+                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: -1, round: 0, seat: 0, index: 0, });
                 }
             }
+
+            let loadedData = [];
+            BracketService.getBracketData(this.$route.params.id).then((response)=> {
+            
+                response.data.forEach((item) => {
+                    loadedData.push(item);
+                });
+                console.log(loadedData);
+                //more here
+                let storeData = this.$store.getters.getBracketData;
+                let tick = 1;
+                let index = 0;
+
+                console.log(storeData);
+
+                storeData.forEach((bracket) => {
+                    console.log(bracket.index)
+                    let team = {
+                        selectedTeam:'',
+                        storeIndex:'',
+                    }
+                    team.storeIndex = bracket.index;
+                    console.log(team);
+                    if(tick===1){
+                        team.selectedTeam = loadedData[index].team1Name;
+                        console.log(team);
+                        this.$store.commit('SET_TEAM_NAME', team);
+                        tick=2;
+                    }else{
+                        team.selectedTeam = loadedData[index].team2Name;
+                        console.log(team);
+                        this.$store.commit('SET_TEAM_NAME', team);
+                        tick=1;
+                        index++;
+                    }
+                });
+                //maybe more here
+            });
+
+
         },
         ...mapActions(['setAuthToken', 'setUser', 'setBrackets']),
 

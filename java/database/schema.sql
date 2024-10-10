@@ -100,9 +100,9 @@ CREATE TABLE tourney_matches (
     set_winner int,
     team_1_points int NOT NULL,
     team_2_points int NOT NULL,
-    round int,
+    round int NOT NULL,
     seat int,
-    CONSTRAINT PK_tourney_matches PRIMARY KEY (tourney_id, team_1_id, team_2_id),
+    CONSTRAINT PK_tourney_matches PRIMARY KEY (tourney_id, team_1_id, team_2_id, round),
     CONSTRAINT FK_team_1 FOREIGN KEY (team_1_id) REFERENCES teams(team_id),
     CONSTRAINT FK_team_2 FOREIGN KEY (team_2_id) REFERENCES teams(team_id),
     CONSTRAINT FK_tourney FOREIGN KEY (tourney_id) REFERENCES tournament(tourney_id)
