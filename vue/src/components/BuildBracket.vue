@@ -35,7 +35,7 @@
                     <Match :numTeams="numTeams" v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems"
                         v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
                 matchIndex === Math.ceil(numItems / 2) ? 1 : 2" v-bind:matchNumber="matchIndex"
-                        v-bind:roundNum="round"></Match>
+                        v-bind:roundNum="round" v-bind:gotLoadedPromise="promise"></Match>
                 </div>
             </div>
         </div>
@@ -66,6 +66,7 @@ export default {
             selectedTeam: [],
             showBracketButton: true,
             currentRound: 0,
+            promise: false,
         };
     },
     methods: {
@@ -133,52 +134,55 @@ export default {
 
             let loadedData = [];
             BracketService.getBracketData(this.$route.params.id).then((response) => {
+        
 
                 response.data.forEach((item) => {
                     loadedData.push(item);
                 });
-                console.log(loadedData);
+          
                 //more here
                 let storeData = this.$store.getters.getBracketData;
                 let tick = 1;
                 let index = 0;
 
-                console.log(storeData);
+             
 
                 storeData.forEach((bracket) => {
-                    console.log(bracket.index)
+                
                     let team = {
                         selectedTeam: '',
                         storeIndex: '',
-                        score: '',
+                        score: -1,
                     }
                     team.storeIndex = bracket.index;
-                    console.log(team);
                     if (tick === 1) {
                         team.selectedTeam = loadedData[index].team1Name;
                         if (loadedData[index].team1Score) {
                             team.score = loadedData[index].team1Score;
                             this.$store.commit('SET_TEAM_SCORE', team);
                         }
-                        console.log(team);
                         this.$store.commit('SET_TEAM_NAME', team);
                         tick = 2;
                     } else {
-                        if (loadedData[index].team1Name !== loadedData[index].team2Name) {
+                        if (loadedData[index].team1Name != loadedData[index].team2Name) {
                             team.selectedTeam = loadedData[index].team2Name;
-                            if (loadedData[index].team2Score) {
-                                team.score = loadedData[index].team2Score;
-                                this.$store.commit('SET_TEAM_SCORE', team);
-                            }
-                            console.log(team);
-                            this.$store.commit('SET_TEAM_NAME', team);
 
+                            console.log(loadedData[index].team2Score);
+                            if(loadedData[index].team2Score != null){
+                                team.score = loadedData[index].team2Score;
+                                console.log(team);
+                                console.log("saving score")
+                                this.$store.commit('SET_TEAM_SCORE', team);
+                                console.log("score saved")
+                            }
+                            this.$store.commit('SET_TEAM_NAME', team);
                             tick = 1;
                             index++;
                         }
                     }
                 });
                 //maybe more here
+                this.promise = true;
             });
             this.showBracketButton = false;
 

@@ -13,12 +13,12 @@
              <div class="teamSelect">
                 {{this.$store.state.bracketData[storeIndex].teamName}}
             </div>
-            <div class="scoreItems">
+            <div class="scoreItems" v-if="showScoreBtn">
                 <label for="score" class="scoreLabel">Score: </label>
                 <input type="number" id="score" class="scoreInput" v-model="score" @input="onScoreChange">
             </div>
         </div>
-        <span v-if="teamBracketData.score != -1"> {{teamBracketData.score}} </span>
+        <span v-if="!showScoreBtn && this.$store.state.bracketData[storeIndex].score != -1">Score: {{this.$store.state.bracketData[storeIndex].score}} </span>
     </div>
 </template>
 
@@ -38,16 +38,11 @@ export default {
         numOfTeams: Number,
         numTeams: Number,
         roundNum: Number,
+        showScoreBtn: Boolean,
+        clickedScoreBtn: Boolean,
     },
     methods: {
         ...mapActions(['updateTeamScore', 'updateTeamName']),
-
-        onScoreChange() {
-            let team = {storeIndex: "", score: ""};
-            team.storeIndex = this.storeIndex;
-            team.score = this.score;
-            this.$store.commit("SET_TEAM_SCORE", team);
-        },
         onTeamChange() {
             // const selectedTeamData = this.teams.find(team => team.id === this.selectedTeam);
             // if (selectedTeamData) {
@@ -73,6 +68,14 @@ export default {
         this.selectedTeam = this.$store.state.bracketData[this.storeIndex].teamName;
         this.score = this.$store.state.bracketData[this.storeIndex].score
     },
+    watch: {
+        clickedScoreBtn(){
+            let team = {storeIndex: "", score: ""};
+            team.storeIndex = this.storeIndex;
+            team.score = this.score;
+            this.$store.commit("SET_TEAM_SCORE", team);
+        }
+    }
 }
 </script>
 

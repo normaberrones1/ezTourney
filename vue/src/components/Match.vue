@@ -1,9 +1,9 @@
 <template>
     <h2 class="matchTitle"></h2>
     <TeamSelector v-if="!isFinalRound" v-bind:roundNum="roundNum" v-bind:teams="teams" v-for="number in numOfTeams"
-        :key="number"></TeamSelector>
+        :key="number" v-bind:showScoreBtn="showSaveScoreBtn" v-bind:clickedScoreBtn="clickedSaveScore"></TeamSelector>
     <button v-if="showSaveScoreBtn" v-on:click="saveScores" class="saveBtn">Save Scores</button>
-    <TeamSelector v-if="isFinalRound" v-bind:roundNum="roundNum"></TeamSelector>
+    <TeamSelector v-if="isFinalRound" v-bind:roundNum="roundNum" v-bind:showScoreBtn="false"></TeamSelector>
 </template>
 
 <script>
@@ -15,6 +15,7 @@ export default {
         return {
             matchIndex: Number,
             clickedSaveScore: false,
+            showSaveScoreBtn: true,
         }
     },
     props: {
@@ -68,16 +69,20 @@ export default {
             this.$store.commit("SET_MATCH_ROUND", team);
             this.$store.commit("SET_SEAT", team);
         }
+        if(this.numOfTeams == 1){
+            this.showSaveScoreBtn = false;
+        }
     },
     computed: {
-        showSaveScoreBtn(){
-            if (this.numOfTeams == 1) {
-            return false;
-        }
-        if(this.clickedSaveScore){
-            return false
-        }  
-        return true;
+    },
+    watch: {
+        gotLoadedPromise(){
+            if (this.$store.getters.getBracketData[this.matchIndex].score != -1 && this.$store.getters.getBracketData[this.matchIndex + 1].score != -1) {
+                    this.showSaveScoreBtn = false;
+                }
+        },
+        clickedSaveScore(newValue){
+            this.showSaveScoreBtn = false;
         }
     },
 
