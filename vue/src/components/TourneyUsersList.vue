@@ -80,7 +80,6 @@ export default {
     color: #010708;  
 }
 #user-container {
-    color:white;
     text-align: center;
     margin-top: 2em;
     padding: auto;
