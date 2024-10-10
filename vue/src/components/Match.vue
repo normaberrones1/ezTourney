@@ -2,8 +2,7 @@
     <h2 class="matchTitle"></h2>
     <TeamSelector v-if="!isFinalRound" v-bind:roundNum="roundNum" v-bind:teams="teams" v-for="number in numOfTeams"
         :key="number"></TeamSelector>
-    <button v-if="showSaveScoreBtn" v-on:click="saveScores">Save Scores</button>
-        <button v-if="numOfTeams == 2" v-on:click="saveScores" class="saveBtn">Save Scores</button>
+    <button v-if="showSaveScoreBtn" v-on:click="saveScores" class="saveBtn">Save Scores</button>
     <TeamSelector v-if="isFinalRound" v-bind:roundNum="roundNum"></TeamSelector>
 </template>
 
