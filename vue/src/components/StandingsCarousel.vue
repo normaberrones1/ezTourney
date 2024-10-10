@@ -31,7 +31,7 @@ export default {
       this.resetAutoSlide();
     },
     next() {
-      this.currentSlide = (this.currentSlide === this.images.length + 1) % this.images.length;
+      this.currentSlide = (this.currentSlide + 1) % this.images.length;
       this.resetAutoSlide();
     },
     autoSlide() {
@@ -143,15 +143,13 @@ export default {
   
   }
 
-  button:hover {
-    color: #58deff;
-  }
+
 
   @keyframes slide {
     0% {
       opacity: 0;
     }
-    25% {
+    100% {
       opacity: 1;
     }
   }
