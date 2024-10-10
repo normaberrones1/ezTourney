@@ -57,7 +57,7 @@ a:focus {
 }
 
 #nav {
-  background: linear-gradient(90deg, rgb(148, 223, 248) 0%, rgb(250, 237, 255) 50%, rgba(233, 233, 233, 0) 100%);
+  background: linear-gradient(90deg, rgb(148, 223, 248) 0%, rgb(250, 237, 255) 50%, rgba(255, 198, 198, 0) 220%);
   
   color: rgb(81, 0, 212);
   text-align: center;
@@ -77,12 +77,13 @@ a:focus {
   color: #000000;
   font-weight: bold;
   font-size: 19px;
+  margin-left: 20px;
 }
 
 
 .greeting {
   display: flex;
-  color: rgb(249, 248, 250);
+  color: rgb(0, 0, 0);
   font-weight: bold;
   text-align: center;
   float: right;
