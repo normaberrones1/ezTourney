@@ -1,9 +1,10 @@
 <template>
     <h2 class="matchTitle"></h2>
     <TeamSelector v-if="!isFinalRound" v-bind:roundNum="roundNum" v-bind:teams="teams" v-for="number in numOfTeams"
-        :key="number" v-bind:showScoreBtn="showSaveScoreBtn" v-bind:clickedScoreBtn="clickedSaveScore"></TeamSelector>
-    <button v-if="showSaveScoreBtn" v-on:click="saveScores" class="saveBtn">Save Scores</button>
-    <TeamSelector v-if="isFinalRound" v-bind:roundNum="roundNum" v-bind:showScoreBtn="false"></TeamSelector>
+        :key="number" v-bind:showScoreBtn="showSaveScoreBtn" v-bind:numOfTeams="numOfTeams"></TeamSelector>
+    <button v-if="this.$store.state.bracketData[matchIndex].showInput && numOfTeams==2"
+     v-on:click="saveScores" class="saveBtn">Save Scores</button>
+    <TeamSelector v-if="isFinalRound" v-bind:roundNum="roundNum" ></TeamSelector>
 </template>
 
 <script>
@@ -25,7 +26,6 @@ export default {
         isFinalRound: Boolean,
         matchNumber: Number,
         roundNum: Number,
-        gotLoadedPromise: Boolean,
     },
     methods: {
         saveScores() {
@@ -49,7 +49,15 @@ export default {
             scoresDto.team2Name = teams1And2[1].teamName;
             scoresDto.team2Score = teams1And2[1].score;
             console.log(scoresDto);
-            BracketService.saveScore(this.$route.params.id, scoresDto);   
+            BracketService.saveScore(this.$route.params.id, scoresDto);  
+            let team = {
+                storeIndex: '',
+                showInput: false,
+            };
+            team.storeIndex = this.matchIndex;
+            this.$store.commit("SET_SHOW_INPUT", team);
+            team.storeIndex =this.matchIndex+1;
+            this.$store.commit("SET_SHOW_INPUT", team);
         }
     },
     created() {
@@ -69,26 +77,8 @@ export default {
             this.$store.commit("SET_MATCH_ROUND", team);
             this.$store.commit("SET_SEAT", team);
         }
-        if (this.numOfTeams == 1) {
-            this.showSaveScoreBtn = false;
-        }
     },
     computed: {
-        test(){
-            return this.$store.getters.getBracketData[this.matchIndex].score != -1 && this.$store.getters.getBracketData[this.matchIndex + 1].score != -1;
-        }
-    },
-    watch: {
-        gotLoadedPromise() {
-            if (this.gotLoadedPromise) {
-                if (this.$store.getters.getBracketData[this.matchIndex].score != -1 && this.$store.getters.getBracketData[this.matchIndex + 1].score != -1) {
-                    this.showSaveScoreBtn = false;
-                }
-            }
-        },
-        clickedSaveScore(newValue) {
-            this.showSaveScoreBtn = false;
-        }
     },
 
     components: { TeamSelector }

@@ -109,6 +109,7 @@ export default {
         },
 
         calculateRounds() {
+            this.$store.commit("RESET_BRACKET_DATA")
             const rounds = Math.ceil(Math.log2(this.numTeams)); // Calculate number of rounds
             this.bracketsPerRound = [];
             this.selectedTeam = new Array(this.numTeams).fill('');
@@ -128,7 +129,7 @@ export default {
             for (let i = 0; i < this.bracketsPerRound.length; i++) {
                 for (let j = 0; j < this.bracketsPerRound[i]; j++) {
                     let boxId = 'round-' + i + '-seat-' + j;
-                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: -1, round: 0, seat: 0, index: 0, });
+                    this.bracketData.push({ teamName: '', isWon: false, id: boxId, score: -1, round: 0, seat: 0, index: 0,showInput: true});
                 }
             }
 
@@ -151,13 +152,15 @@ export default {
                         selectedTeam: '',
                         storeIndex: '',
                         score: -1,
+                        showInput: false,
                     }
                     team.storeIndex = bracket.index;
                     if (tick === 1) {
                         team.selectedTeam = loadedData[index].team1Name;
-                        if (loadedData[index].team1Score) {
+                        if (loadedData[index].team1Score >= 1 ) {
                             team.score = loadedData[index].team1Score;
                             this.$store.commit('SET_TEAM_SCORE', team);
+                            this.$store.commit("SET_SHOW_INPUT", team);
                         }
                         this.$store.commit('SET_TEAM_NAME', team);
                         if (loadedData[index].team1Name != loadedData[index].team2Name) {
@@ -167,15 +170,15 @@ export default {
                         if (loadedData[index].team1Name != loadedData[index].team2Name) {
                             team.selectedTeam = loadedData[index].team2Name;
 
-                            console.log(loadedData[index].team2Score);
+                            console.log(loadedData[index].team2Score >= 1);
                             if (loadedData[index].team2Score != null) {
                                 team.score = loadedData[index].team2Score;
                                 console.log(team);
-                                console.log("saving score")
                                 this.$store.commit('SET_TEAM_SCORE', team);
-                                console.log("score saved")
+                                this.$store.commit("SET_SHOW_INPUT", team);
                             }
                             this.$store.commit('SET_TEAM_NAME', team);
+
                         }
                         tick = 1;
                     }
@@ -329,7 +332,6 @@ h1 {
 .flex-container {
     display: flex;
     justify-content: center;
-
 }
 
 .flex-column {
@@ -354,9 +356,11 @@ h1 {
     padding: 10px;
     background-color: rgb(208, 99, 212);
     border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 5px;
     width: 80%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .submitBtn {

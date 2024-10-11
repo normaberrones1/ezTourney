@@ -1,7 +1,7 @@
 <template>
     <div class="flex-item">
         <label for="teamSelect"></label>
-        <div class="dropDown" v-if="roundNum === 0">
+        <div class="dropDown" v-if="roundNum === 0 && this.$store.state.bracketData[storeIndex].showInput && numOfTeams != 1">
             <select id="teamSelect" v-model="selectedTeam" @change="onTeamChange()">
                 <option value="">Select a team</option>
                 <option v-for="team in teams" :key="team.id" :value="team.teamName">{{ team.teamName }} </option>
@@ -13,13 +13,15 @@
              <div class="teamSelect">
                 {{this.$store.state.bracketData[storeIndex].teamName}}
             </div>
-            <div class="scoreItems">
+            <div class="scoreItems" v-if="this.$store.state.bracketData[storeIndex].showInput && 
+            numOfTeams != 1">
                 <label for="score" class="scoreLabel">Score: </label>
                 <input type="number" id="score" class="scoreInput" v-model="score" @input="onScoreChange">
             </div>
         </div>
         <div>
-        <span v-if="!showScoreBtn || score!=-1"> Score: {{this.$store.state.bracketData[storeIndex].score}} </span>
+        <span class="scoreDisplay"
+        v-if="!this.$store.state.bracketData[storeIndex].showInput"> Score: {{this.$store.state.bracketData[storeIndex].score}} </span>
         </div>
     </div>
 </template>
@@ -40,8 +42,6 @@ export default {
         numOfTeams: Number,
         numTeams: Number,
         roundNum: Number,
-        showScoreBtn: Boolean,
-        clickedScoreBtn: Boolean,
     },
     methods: {
         ...mapActions(['updateTeamScore', 'updateTeamName']),
@@ -78,25 +78,25 @@ export default {
         this.selectedTeam = this.$store.state.bracketData[this.storeIndex].teamName;
         this.score = this.$store.state.bracketData[this.storeIndex].score
     },
-    watch: {
-        clickedScoreBtn(){
-            let team = {storeIndex: "", score: ""};
-            team.storeIndex = this.storeIndex;
-            team.score = this.score;
-            this.$store.commit("SET_TEAM_SCORE", team);
-        }
-    }
 }
 </script>
 
 <style>
 #teamSelect {
     width: 100%;
-
+    flex-wrap: wrap;
+    font-size: large;
+    text-wrap: wrap;
 }
 
 .scoreItems {
     display: flex;
     align-items: center;
+    font-size: large;
 }
+
+.scoreDisplay{ 
+    font-size: large;
+}
+
 </style>
