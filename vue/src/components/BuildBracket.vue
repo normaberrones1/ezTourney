@@ -2,7 +2,7 @@
     <div>
 
         <div class="bracketBuilderTitle">
-            <h1>Bracket Builder</h1>
+            <h1>Brackets</h1>
         </div>
 
         <div class="nextRoundBtn" v-if="!showBracketButton">
