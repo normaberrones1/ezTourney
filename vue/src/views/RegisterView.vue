@@ -79,13 +79,14 @@ export default {
 
 
 #register {
-  padding: 20px;
-  margin-top: 20%;
   background-color: rgba(255, 255, 255, 0.6);
-  margin-left: 30%;
-  margin-right: 30%;
+  text-align: center;
   border-radius: 10px;
-  margin-top: 0%;
+  position: absolute;
+  left: 62%;
+  padding: 5%;
+  margin-top: 95px;
+  margin-right: 70px;
 }
 
 .form-input-group {
@@ -108,29 +109,33 @@ label {
   margin-right: 0.5rem;
 }
 
+label, input {
+  font-weight: bold;
+  color: black;
+}
+
 #create-title {
   font-size: 30px;
-  color: #B130FC;
+  color: #650f8d;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
 #create-account {
   
-  font-size: 17px;
-  color: #B130FC;
+  font-size: 20px;
+  color: #be34e0;
   font-weight: bold;
   cursor: pointer;
 }
 
 #signup-image {
-  margin-top: 20px;
+  margin-top: 30px;
   display: block;
   margin-right: auto;
   align-content: flex-start;
-  width: 18%;
-  margin-left: 50%;
-  margin-right: 50%;
+  width: 59%;
+  margin-left: 75px;
 }
 
 #username {
