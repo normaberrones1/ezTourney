@@ -135,6 +135,7 @@ label {
   color: #ffffff;
   margin-bottom: 20px;
   background: linear-gradient(90deg, rgb(60, 185, 223) 0%, rgb(184, 61, 221) 50%, rgba(233, 233, 233, 0) 100%);
+  
 }
 
 </style>

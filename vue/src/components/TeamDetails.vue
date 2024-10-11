@@ -1,5 +1,8 @@
 <template>
-    <div>
+
+    <img id="team-details-img" src="/public/IMG_3690.PNG" alt="team-details-img">
+    
+    <div id="main-div">
     <div class="Leader">
         <h1>{{ team.teamName }}</h1>
     </div>
@@ -123,6 +126,28 @@ export default {
 
 <style>
 
+#main-div {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    z-index: 1;
+    position: relative;
+    transform: translate(90%, 25%);
+    
+}
+
+#team-details-img {
+    margin-top: 40%;
+    width: 60%;
+    height: 80%;
+    position: absolute;
+    z-index: -1;
+    margin-right: 30%;
+    
+    
+}
+
 #button-container {
     display: flex;
     justify-content: center;
@@ -177,18 +202,22 @@ export default {
 
 #match-title {
     text-align: center;
-    color: #c0c0c0;
+    color: #000000;
     font-weight: bold;
     font-size: 30px;
     margin-top: 20px;
+    margin-bottom: 2px;
+    margin-bottom: 5px;
+
 }
 
 #tourney-title {
     text-align: center;
-    color: #c0c0c0;
+    color: #000000;
     font-weight: bold;
     font-size: 30px;
     margin-top: 20px;
+    margin-bottom: 5px;
 
 }
 
@@ -214,12 +243,12 @@ export default {
 }
 
 #win {
-    color: #39ff14;
+    color: #14e4ff;
     font-weight: bold;
 }
 
 #loss {
-    color: #ff0033;
+    color: #a51f6d;
     font-weight: bold;
     
 }
@@ -231,7 +260,7 @@ export default {
     flex-direction: column;
     margin-top: 20px;
     background-color: rgba(255, 255, 255, 0.6);
-
+    
     border-radius: 10px;
 }
 

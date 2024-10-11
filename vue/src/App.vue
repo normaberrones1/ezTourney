@@ -6,16 +6,15 @@
       <span v-if="!this.$store.state.token != ''">&nbsp;|&nbsp;</span>
       <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
       
-      <router-link v-bind:to="{ name: 'myTournament' }">Tournaments</router-link>
-      <span v-if="!this.$store.state.token != ''"></span>        
-      <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
 
 
       <router-link v-bind:to="{ name: 'teams' }">Teams</router-link>
       <span v-if="!this.$store.state.token != ''">&nbsp;|&nbsp;</span>
       <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
 
-
+     <router-link v-bind:to="{ name: 'myTournament' }">Tournaments</router-link>
+      <span v-if="!this.$store.state.token != ''"></span>        
+      <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
 
 
       <!-- <router-link v-bind:to="{ name: 'tournamentBracketBuilder' }">Brackets</router-link>
@@ -77,7 +76,7 @@ a:focus {
   color: #000000;
   font-weight: bold;
   font-size: 19px;
-  margin-left: 20px;
+  
 }
 
 
