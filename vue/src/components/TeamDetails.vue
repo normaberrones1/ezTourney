@@ -129,22 +129,26 @@ export default {
 #main-div {
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
-    padding: 20px;
+    padding: 1%;
     text-align: center;
     z-index: 1;
-    position: relative;
-    transform: translate(90%, 25%);
+    position: fixed;
+    top: 50%;
+    left: 61.5%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 300px;
     
 }
 
 #team-details-img {
-    margin-top: 40%;
-    width: 60%;
-    height: 80%;
-    position: absolute;
+    margin-top: 15%;
+    width: 30%;
+    height: 70%;
+    position: fixed;
     z-index: -1;
-    margin-right: 30%;
-    
+    left: 25%;
+    top: -15%;
     
 }
 
