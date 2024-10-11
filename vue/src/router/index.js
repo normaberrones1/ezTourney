@@ -17,6 +17,7 @@ import MyTourneyList from '../components/MyTourneyList.vue';
 //easier for demo purposes to do this
 import EditTeam from '../components/EditTeam.vue';
 import TournamentBracketView from '../views/TournamentBracketView.vue';
+import CurrentTourneyList from '../components/CurrentTourneyList.vue';
 
 
 
@@ -66,14 +67,21 @@ const routes = [
   },
   {
     path: "/tournaments",
-    name: "tournament",
-    component: TournamentView,
+    name: "myTournament",
+    component: MyTourneyList,
   },
   {
-    path: "/my-tournaments",
+    path: "/all-tournaments",
     name: "MyTourneyList",
-    component: MyTourneyList, 
+    component: CurrentTourneyList, 
+    
+  },
 
+  {
+    path: "/my-tournaments",
+    name: "CurrentTourneyList",
+    component: MyTourneyList, 
+    
   },
   {
     path: "/tournaments/:id",

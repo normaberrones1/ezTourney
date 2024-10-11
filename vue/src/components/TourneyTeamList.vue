@@ -77,11 +77,9 @@ export default {
     color: #010708;  
 }
 #team-container {
-    color:white;
     text-align: center;
     margin-top: 2em;
     padding: auto;
-    border: 1px solid rgb(124, 124, 124);
     background-color: rgba(255, 255, 255, 0.5);
 }
 #team-table {
@@ -90,14 +88,8 @@ export default {
     border: 1px solid rgb(124, 124, 124);
 }
 
-#team-list th {
-    background-color: #94dcee93;
-    color: black;
-    border-radius: 10px;
-}
-
 #team-table th {
-    background-color: rgb(67, 123, 244);
+    background-color: rgb(255, 255, 255);
     font-weight: bold;
     font-size: 1.5em;
     border: 1px solid rgb(124, 124, 124);
@@ -108,6 +100,7 @@ export default {
     border: 1px solid rgb(124, 124, 124);
 }
 .acceptBtn {
+    all: unset;
     background-color:rgba(255, 255, 255, 0.6);
     color: #b130fc;
     cursor: pointer;

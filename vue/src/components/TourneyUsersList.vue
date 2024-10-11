@@ -80,7 +80,6 @@ export default {
     color: #010708;  
 }
 #user-container {
-    color:white;
     text-align: center;
     margin-top: 2em;
     padding: auto;
@@ -109,7 +108,8 @@ export default {
     border: 1px solid rgb(124, 124, 124);
 }
 .acceptBtn {
-    background-color:rgba(255, 255, 255, 0.6);
+    all: unset;
+    background-color: rgba(255, 255, 255, 0.6);
     color: #b130fc;
     cursor: pointer;
     width: 150px;

@@ -1,7 +1,9 @@
 <template>
+
+<img id="signup-image" src="/public/IMG_3790.png" alt="signup-image">
   <div id="register" class="text-center">
     <form v-on:submit.prevent="register">
-      <h1>Create an ezTourney Account</h1>
+      <h1 id="create-title">Create an ezTourney Account</h1>
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
@@ -74,13 +76,17 @@ export default {
 
 <style scoped>
 
+
+
 #register {
-  margin-top: 20%;
   background-color: rgba(255, 255, 255, 0.6);
-  margin-left: 30%;
-  margin-right: 30%;
+  text-align: center;
   border-radius: 10px;
-  margin-top: 5%;
+  position: absolute;
+  left: 62%;
+  padding: 5%;
+  margin-top: 95px;
+  margin-right: 70px;
 }
 
 .form-input-group {
@@ -103,12 +109,33 @@ label {
   margin-right: 0.5rem;
 }
 
+label, input {
+  font-weight: bold;
+  color: black;
+}
+
+#create-title {
+  font-size: 30px;
+  color: #650f8d;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 
 #create-account {
-  font-size: 17px;
-  color: #B130FC;
+  
+  font-size: 20px;
+  color: #be34e0;
   font-weight: bold;
   cursor: pointer;
+}
+
+#signup-image {
+  margin-top: 30px;
+  display: block;
+  margin-right: auto;
+  align-content: flex-start;
+  width: 59%;
+  margin-left: 75px;
 }
 
 #username {

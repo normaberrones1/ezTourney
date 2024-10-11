@@ -1,4 +1,5 @@
 <template>
+  <div class="just-styling">
   <div class="home">
     <!-- remember to make this page only visible if authenticated -->
     <div v-if="isAuthenticated">
@@ -27,11 +28,13 @@
       <img src="/public/IMG_3573.jpg" alt="trophy">
   </div>
 
+
+
 </div>
     <div v-else>
       <router-link to="/login" id="home-login">Log in to unlock full experience!</router-link>
     </div>
-
+</div>
   </div>
 </template>
 
@@ -58,6 +61,19 @@ export default {
   #home {
     text-align: center;
     color: #000000;
+  }
+
+  .just-styling {
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: 115vh;
+    width: 100vw;
+    display: flex;
+    
+
   }
 
   .home {
@@ -96,14 +112,15 @@ export default {
 
 
   .trophy-image {
-    position: absolute;
+    margin-top: 50px;
+    position: fixed;
     display: flex;
     flex-wrap: wrap;
     margin-top: 20px;
     width: 90px;
     height: 90px;
     margin-left: 50px;
-    margin-top: -830px;
+    margin-top: -1005px;
     justify-content: flex-end;
     
     
@@ -122,6 +139,7 @@ export default {
     background-color: rgba(255, 255, 255, 0.6);
     padding: 10px;
     border: 15px double #790a79;
+    box-shadow: 0 0 10px 5px #790a79;
     border-radius: 10px;
     color: #000000;
     margin-left: 27%;
@@ -129,10 +147,14 @@ export default {
 
   #welcome-title {
     margin-top: 2%;
+    margin-bottom: 5%;
     font-size: 35px;
     color: #000000;
     border-radius: 10px;
+    
   }
+
+
 
 
 

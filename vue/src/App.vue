@@ -5,14 +5,14 @@
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>
       <span v-if="!this.$store.state.token != ''">&nbsp;|&nbsp;</span>
       <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
+      
 
 
       <router-link v-bind:to="{ name: 'teams' }">Teams</router-link>
       <span v-if="!this.$store.state.token != ''">&nbsp;|&nbsp;</span>
       <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
 
-
-      <router-link v-bind:to="{ name: 'tournament' }">Tournaments</router-link>
+     <router-link v-bind:to="{ name: 'myTournament' }">Tournaments</router-link>
       <span v-if="!this.$store.state.token != ''"></span>        
       <span v-if="this.$store.state.token != ''">&nbsp;|&nbsp;</span>
 
@@ -33,7 +33,7 @@
       </div>
 
       <div>
-        <span class="greeting" v-if="this.$store.state.token != ''">Welcome, {{ this.$store.state.user.username }}!</span>
+        <span class="greeting" v-if="this.$store.state.token != ''">Hello there, {{ this.$store.state.user.username }}!</span>
 
       </div>
     </div>
@@ -44,8 +44,20 @@
 </template>
 
 <style>
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:active,
+a:focus {
+  color: inherit;
+}
+
 #nav {
-  background-color: #58deff;
+  background: linear-gradient(90deg, rgb(148, 223, 248) 0%, rgb(250, 237, 255) 50%, rgba(255, 198, 198, 0) 220%);
+  
   color: rgb(81, 0, 212);
   text-align: center;
   padding: 10px;
@@ -61,15 +73,19 @@
 .nav-links {
   display: flex;
   align-items: center;
-  color: rgb(81, 0, 212);
+  color: #000000;
+  font-weight: bold;
+  font-size: 19px;
+  
 }
 
 
 .greeting {
   display: flex;
-  color: rgb(81, 0, 212);
+  color: rgb(0, 0, 0);
+  font-weight: bold;
   text-align: center;
-  float:right;
+  float: right;
 }
 body {
     background-image: url('/public/teams-background.jpg');
@@ -81,6 +97,7 @@ body {
     background-size: cover;
 
 }
+
 
 #capstone-app {
   display: flex;
