@@ -148,6 +148,8 @@ export default {
 
 <style scoped>
 
+
+
 .tourneyJoinReq {
     margin-top: 30px;
 }
