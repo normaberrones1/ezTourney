@@ -16,7 +16,7 @@
             <div class="scoreItems" v-if="this.$store.state.bracketData[storeIndex].showInput && 
             numOfTeams != 1">
                 <label for="score" class="scoreLabel">Score: </label>
-                <input type="number" id="score" class="scoreInput" v-model="score" @input="onScoreChange">
+                <input type="number" id="score" class="scoreInput" v-model="score" @input="onScoreChange" >
             </div>
         </div>
         <div>
@@ -93,6 +93,10 @@ export default {
     display: flex;
     align-items: center;
     font-size: large;
+}
+
+.scoreInput{
+    min-width: 50%;
 }
 
 .scoreDisplay{ 
