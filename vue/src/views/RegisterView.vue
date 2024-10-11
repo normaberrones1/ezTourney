@@ -75,6 +75,7 @@ export default {
 <style scoped>
 
 #register {
+  padding: 20px;
   margin-top: 20%;
   background-color: rgba(255, 255, 255, 0.6);
   margin-left: 30%;
@@ -105,6 +106,7 @@ label {
 
 
 #create-account {
+  
   font-size: 17px;
   color: #B130FC;
   font-weight: bold;
