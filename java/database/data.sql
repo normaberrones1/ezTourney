@@ -175,7 +175,7 @@ VALUES ('Tournament Past due', '2024-7-12', '2024-7-15', 'Columbus OH', 200,
 
 INSERT INTO tournament (tourney_name, start_date, end_date, location, entry_fee,
 prize_desc, tourney_desc, game_id, round, is_private, is_singles_event)
-VALUES ('National Live Remote - 22', '2024-6-1', '20224-10-12', 'Remote', 16500,
+VALUES ('National Live Remote - 22', '2024-6-1', '2024-10-12', 'Remote', 16500,
 'Java, Html, VueJs Certifications', 'This will be the most intense tournament you have ever encountered. Your future will start once your claim your title',
 2, 1, false, false);
 

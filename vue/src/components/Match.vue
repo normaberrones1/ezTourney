@@ -29,6 +29,7 @@ export default {
     },
     methods: {
         saveScores() {
+            this.clickedSaveScore = true;
             let brackets = this.$store.getters.getBracketData;
             let scoresDto = {
                 team1Name: '',
@@ -48,8 +49,7 @@ export default {
             scoresDto.team2Name = teams1And2[1].teamName;
             scoresDto.team2Score = teams1And2[1].score;
             console.log(scoresDto);
-            BracketService.saveScore(this.$route.params.id, scoresDto);
-            this.clickedSaveScore = true;
+            BracketService.saveScore(this.$route.params.id, scoresDto);   
         }
     },
     created() {
@@ -69,19 +69,24 @@ export default {
             this.$store.commit("SET_MATCH_ROUND", team);
             this.$store.commit("SET_SEAT", team);
         }
-        if(this.numOfTeams == 1){
+        if (this.numOfTeams == 1) {
             this.showSaveScoreBtn = false;
         }
     },
     computed: {
+        test(){
+            return this.$store.getters.getBracketData[this.matchIndex].score != -1 && this.$store.getters.getBracketData[this.matchIndex + 1].score != -1;
+        }
     },
     watch: {
-        gotLoadedPromise(){
-            if (this.$store.getters.getBracketData[this.matchIndex].score != -1 && this.$store.getters.getBracketData[this.matchIndex + 1].score != -1) {
+        gotLoadedPromise() {
+            if (this.gotLoadedPromise) {
+                if (this.$store.getters.getBracketData[this.matchIndex].score != -1 && this.$store.getters.getBracketData[this.matchIndex + 1].score != -1) {
                     this.showSaveScoreBtn = false;
                 }
+            }
         },
-        clickedSaveScore(newValue){
+        clickedSaveScore(newValue) {
             this.showSaveScoreBtn = false;
         }
     },

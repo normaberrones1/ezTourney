@@ -34,8 +34,8 @@
                     class="match" :id="'round-' + round + '-match-' + matchIndex">
                     <Match :numTeams="numTeams" v-bind:teams="teams" v-bind:isFinalRound="matchIndex == numItems"
                         v-bind:numOfTeams="numItems % 2 === 0 ? 2 :
-                matchIndex === Math.ceil(numItems / 2) ? 1 : 2" v-bind:matchNumber="matchIndex"
-                        v-bind:roundNum="round" v-bind:gotLoadedPromise="promise"></Match>
+            matchIndex === Math.ceil(numItems / 2) ? 1 : 2" v-bind:matchNumber="matchIndex" v-bind:roundNum="round"
+                        v-bind:gotLoadedPromise="promise"></Match>
                 </div>
             </div>
         </div>
@@ -134,21 +134,19 @@ export default {
 
             let loadedData = [];
             BracketService.getBracketData(this.$route.params.id).then((response) => {
-        
 
                 response.data.forEach((item) => {
                     loadedData.push(item);
                 });
-          
+
                 //more here
                 let storeData = this.$store.getters.getBracketData;
                 let tick = 1;
                 let index = 0;
 
-             
 
                 storeData.forEach((bracket) => {
-                
+
                     let team = {
                         selectedTeam: '',
                         storeIndex: '',
@@ -162,13 +160,15 @@ export default {
                             this.$store.commit('SET_TEAM_SCORE', team);
                         }
                         this.$store.commit('SET_TEAM_NAME', team);
-                        tick = 2;
-                    } else {
+                        if (loadedData[index].team1Name != loadedData[index].team2Name) {
+                            tick = 2;
+                        }
+                    } else if (tick == 2) {
                         if (loadedData[index].team1Name != loadedData[index].team2Name) {
                             team.selectedTeam = loadedData[index].team2Name;
 
                             console.log(loadedData[index].team2Score);
-                            if(loadedData[index].team2Score != null){
+                            if (loadedData[index].team2Score != null) {
                                 team.score = loadedData[index].team2Score;
                                 console.log(team);
                                 console.log("saving score")
@@ -176,9 +176,11 @@ export default {
                                 console.log("score saved")
                             }
                             this.$store.commit('SET_TEAM_NAME', team);
-                            tick = 1;
-                            index++;
                         }
+                        tick = 1;
+                    }
+                    if(tick == 1){
+                        index++;
                     }
                 });
                 //maybe more here
