@@ -5,14 +5,15 @@
         <div v-for="(image, index) in images" :key="index" class="slides" :class="{active: currentSlide === index}">
           <img :src="image" :alt="`slide${index}`">
 
-</div>
+        </div>
 
-  </div>
+      </div>
   <div class="carousel-controls">
     <button @click="previous"> &lt; </button>
     <button @click="next"> &gt; </button>
   </div>
-  </div>
+
+    </div>
 
 
 </template>

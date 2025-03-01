@@ -114,6 +114,7 @@ public class Tournament {
     public void setRound(int round) {
         this.round = round;
     }
+
     public String getGameName() {
         return gameName;
     }
